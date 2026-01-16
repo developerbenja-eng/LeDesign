@@ -8,7 +8,7 @@
 // CHILEAN CODES (Re-exported from @ledesign/chilean-codes)
 // NCh433, NCh432, NCh431, NCh1537, NCh3171
 // ============================================================
-export * from '@ledesign/chilean-codes';
+// export * from '@ledesign/chilean-codes'; // Commented to avoid type conflicts - import directly if needed
 
 // ============================================================
 // GEOLOCATION (Automatic zone determination from coordinates)
@@ -100,6 +100,12 @@ export * from './design';
 export * from './factories';
 
 // ============================================================
+// TYPES (Structural types)
+// ============================================================
+export * from './types';
+
+
+// ============================================================
 // INTEGRATION (Unified Chilean codes integration)
 // ============================================================
-export * from './chilean-codes-integration';
+// export * from './chilean-codes-integration'; // Duplicate of line 11

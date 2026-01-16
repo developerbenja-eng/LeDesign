@@ -3,8 +3,8 @@
 // Processes member results into diagram data for 3D visualization
 // ============================================================
 
-import { MemberResult } from './types/results';
-import { Beam, Column, Brace } from './types/elements';
+import { MemberResult } from '../types/results';
+import { Beam, Column, Brace } from '../types/elements';
 
 export type DiagramType = 'moment' | 'shear' | 'axial';
 

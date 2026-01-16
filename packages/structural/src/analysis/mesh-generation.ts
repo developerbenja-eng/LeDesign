@@ -3,7 +3,7 @@
 // Generate quad4/tri3 meshes from wall and slab boundary definitions
 // ============================================================
 
-import { StructuralNode, Wall, Slab, ShellElement, Opening, CreateNodeInput, CreateShellElementInput } from './types';
+import { StructuralNode, Wall, Slab, ShellElement, Opening, CreateNodeInput, CreateShellElementInput } from '../types';
 import { generateNodeId, generateShellElementId } from '@/lib/structural/factories';
 
 // ============================================================

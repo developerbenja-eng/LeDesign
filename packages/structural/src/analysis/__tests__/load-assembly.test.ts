@@ -9,8 +9,8 @@ import {
   accumulateNodalForces,
   type NodalForce,
 } from '../load-assembly';
-import type { AreaLoad, NodalLoad, LoadDirection } from './types/loads';
-import type { StructuralNode } from './types/elements';
+import type { AreaLoad, NodalLoad, LoadDirection } from '../types/loads';
+import type { StructuralNode } from '../types/elements';
 
 describe('Load Assembly', () => {
   describe('Area Load Distribution', () => {

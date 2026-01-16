@@ -10,7 +10,7 @@ import {
   DesignResult,
   DesignMessage,
   DesignStatus,
-} from './types';
+} from '../types';
 import { generateDesignResultId } from '../factories';
 
 // ============================================================
@@ -694,7 +694,7 @@ export function createMasonryDesignResult(
 // ============================================================
 
 import { getDb } from '@ledesign/db';
-import { wallRowToWall, WallRow } from './types';
+import { wallRowToWall, WallRow } from '../types';
 
 interface WallForces {
   axial: number;      // Axial compression (kN)

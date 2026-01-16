@@ -35,7 +35,7 @@ import {
   MemberResultRow,
   nodeRowToNode,
   NodeRow,
-} from './types';
+} from '../types';
 import { generateDesignResultId } from '../factories';
 
 // LRFD Resistance factors

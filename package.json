@@ -4,6 +4,7 @@
   "private": true,
   "description": "Unified engineering design platform for structural, hydraulic, pavement, and road design",
   "scripts": {
+    "setup": "node scripts/setup-env.js",
     "build": "turbo build",
     "dev": "turbo dev",
     "lint": "turbo lint",

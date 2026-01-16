@@ -32,11 +32,11 @@ import {
   SectionRow,
   loadCombinationRowToLoadCombination,
   LoadCombinationRow,
-} from './types';
+} from '../types';
 import { generateNodeResultId, generateMemberResultId } from '../factories';
 import { buildShellStiffnessMatrix, recoverShellStresses } from './shell-element';
 import { buildLoadVector } from './load-assembly';
-import type { PointLoad, AreaLoad, MemberLoad } from './types/loads';
+import type { PointLoad, AreaLoad, MemberLoad } from '../types/loads';
 
 // Matrix operations for stiffness method
 type Matrix = number[][];

@@ -24,7 +24,7 @@ import {
   MaterialRow,
   sectionRowToSection,
   SectionRow,
-} from './types';
+} from '../types';
 import { generateModalResultId, generateModeShapeId } from '../factories';
 
 type Matrix = number[][];

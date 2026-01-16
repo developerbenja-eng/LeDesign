@@ -20,12 +20,12 @@ export * from './water-network';
 // ============================================================
 // SEWER (Sanitary and storm sewer systems)
 // ============================================================
-export * from './sewer';
+// export * from './sewer'; // Commented due to duplicate exports with water-network
 
 // ============================================================
 // STORMWATER (Stormwater management and SUDS/LID)
 // ============================================================
-export * from './stormwater';
+// export * from './stormwater'; // Commented due to duplicate exports
 
 // ============================================================
 // OPEN CHANNEL (Channel hydraulics and design)

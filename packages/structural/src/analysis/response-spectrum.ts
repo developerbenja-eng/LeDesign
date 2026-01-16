@@ -15,7 +15,7 @@ import {
   DirectionalCombinationMethod,
   modalResultRowToModalResult,
   ModalResultRow,
-} from './types';
+} from '../types';
 import { generateNodeResultId, generateMemberResultId } from '../factories';
 
 type Vector = number[];

@@ -34,7 +34,7 @@ import {
   SectionRow,
   memberResultRowToMemberResult,
   MemberResultRow,
-} from './types';
+} from '../types';
 import { generateDesignResultId } from '../factories';
 
 // ============================================================

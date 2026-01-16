@@ -14,7 +14,7 @@ import {
   DesignResult,
   DesignMessage,
   DesignStatus,
-} from './types';
+} from '../types';
 
 // ============================================================
 // RESISTANCE FACTORS (LRFD)

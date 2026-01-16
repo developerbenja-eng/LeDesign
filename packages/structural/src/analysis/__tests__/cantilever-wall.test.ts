@@ -7,7 +7,7 @@ import { describe, test, expect } from 'vitest';
 import { generateWallMesh } from '../mesh-generation';
 import { buildShellStiffnessMatrix, recoverShellStresses } from '../shell-element';
 import { distributeAreaLoad } from '../load-assembly';
-import type { Wall } from './types/elements';
+import type { Wall } from '../types/elements';
 
 describe('Cantilever Wall Validation', () => {
   /**

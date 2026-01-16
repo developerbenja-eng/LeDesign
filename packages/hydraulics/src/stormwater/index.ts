@@ -27,8 +27,7 @@ export {
   // Functions
   getSuitableSUDS,
   getRunoffCoefficientsByCategory,
-  getSoilByGroup,
-  getDesignStandardByType,
+  getDesignStandard,
 } from './regional-data';
 
 // Rational Method Calculator
@@ -62,7 +61,6 @@ export {
   type ContributingAreaInput,
   type ContributingAreaResult,
   type FlowPath,
-  type SlopeAnalysis,
   type DischargeCheckInput,
   type DischargeCheckResult,
 
@@ -77,7 +75,6 @@ export {
   estimateFlowPathLength,
   analyzeContributingArea,
   calculateDischargeFromArea,
-  formatContributingAreaResult,
 } from './contributing-area';
 
 // Infiltration Trench Designer

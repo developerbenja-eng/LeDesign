@@ -11,7 +11,7 @@ import {
   DesignResult,
   DesignMessage,
   DesignStatus,
-} from './types';
+} from '../types';
 import { generateDesignResultId } from '../factories';
 
 // ============================================================

@@ -10,7 +10,7 @@ import {
   createNodeEntities,
   createShellElementEntities,
 } from '../mesh-generation';
-import { Wall, Slab } from './types';
+import { Wall, Slab } from '../types';
 
 describe('Mesh Generation', () => {
   describe('Wall Mesh Generation', () => {

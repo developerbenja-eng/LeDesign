@@ -7,9 +7,9 @@ import type {
   MemberLoad,
   PointLoad,
   AreaLoad,
-} from './types/loads';
-import type { LoadDirection } from './types/core';
-import type { StructuralNode } from './types/elements';
+} from '../types/loads';
+import type { LoadDirection } from '../types/core';
+import type { StructuralNode } from '../types/elements';
 
 // ============================================================
 // TYPES

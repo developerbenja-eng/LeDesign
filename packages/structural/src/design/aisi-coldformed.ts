@@ -11,7 +11,7 @@
  * - Appendix 2: Second-Order Analysis
  */
 
-import { DesignResult, DesignMessage, DesignStatus } from './types';
+import { DesignResult, DesignMessage, DesignStatus } from '../types';
 import { generateDesignResultId } from '../factories';
 
 // ============================================================
