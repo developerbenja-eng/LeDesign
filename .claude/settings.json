@@ -1,0 +1,5 @@
+{
+  "description": "LeDesign - Home Design Platform",
+  "mainFile": "apps/web/src/app/page.tsx",
+  "projectType": "nextjs-turborepo"
+}
