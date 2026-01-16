@@ -281,6 +281,9 @@ export default function HomePage() {
               />
             </Link>
             <nav className="hidden md:flex items-center gap-6 lg:gap-8">
+              <Link href="/early-access" className="text-green-400 hover:text-green-300 transition-colors text-sm lg:text-base font-semibold">
+                🚀 Early Access
+              </Link>
               <Link href="#features" className="text-slate-300 hover:text-white transition-colors text-sm lg:text-base">
                 Características
               </Link>
@@ -387,6 +390,90 @@ export default function HomePage() {
                 </div>
               );
             })}
+          </div>
+        </div>
+      </section>
+
+      {/* Early Access Banner */}
+      <section className="py-12 sm:py-16">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="max-w-5xl mx-auto">
+            <div className="glass-card rounded-2xl sm:rounded-3xl p-8 sm:p-12 border-2 border-green-500/30 bg-gradient-to-br from-green-500/10 via-transparent to-cyan-500/10 relative overflow-hidden">
+              {/* Background decoration */}
+              <div className="absolute top-0 right-0 w-64 h-64 bg-green-500/10 rounded-full blur-3xl" />
+              <div className="absolute bottom-0 left-0 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl" />
+
+              <div className="relative z-10">
+                <div className="flex items-center gap-3 mb-4 justify-center sm:justify-start">
+                  <div className="icon-wrapper w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-green-500/20 text-green-400">
+                    <Rocket size={20} strokeWidth={2} className="sm:w-6 sm:h-6" />
+                  </div>
+                  <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-green-500/20 border border-green-500/30">
+                    <Sparkles size={14} className="text-green-400" />
+                    <span className="text-xs sm:text-sm font-semibold text-green-400">
+                      FOUNDER'S EDITION
+                    </span>
+                  </span>
+                </div>
+
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 text-center sm:text-left">
+                  Acceso de Por Vida • Descuentos hasta 80%
+                </h2>
+
+                <p className="text-base sm:text-lg text-slate-300 mb-6 max-w-3xl text-center sm:text-left">
+                  Sé de los primeros 50 founders en obtener acceso lifetime con un pago único de{' '}
+                  <strong className="text-green-400">$299-$2,499</strong> (vs. $1,500/año normal).
+                  Tu inversión acelera la validación oficial de NCh433, NCh691 y otras normativas chilenas.
+                </p>
+
+                <div className="grid sm:grid-cols-3 gap-4 mb-8">
+                  <div className="glass-card rounded-lg p-4 text-center border border-green-500/20">
+                    <div className="text-3xl font-bold text-green-400 mb-1">98%</div>
+                    <div className="text-xs text-slate-400">Ahorro lifetime</div>
+                  </div>
+                  <div className="glass-card rounded-lg p-4 text-center border border-cyan-500/20">
+                    <div className="text-3xl font-bold text-cyan-400 mb-1">35</div>
+                    <div className="text-xs text-slate-400">Cupos restantes</div>
+                  </div>
+                  <div className="glass-card rounded-lg p-4 text-center border border-purple-500/20">
+                    <div className="text-3xl font-bold text-purple-400 mb-1">Feb 28</div>
+                    <div className="text-xs text-slate-400">Cierre de cupos</div>
+                  </div>
+                </div>
+
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center sm:justify-start">
+                  <Link
+                    href="/early-access"
+                    className="inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold text-base sm:text-lg bg-gradient-to-r from-green-600 to-cyan-600 text-white hover:from-green-500 hover:to-cyan-500 transition-all shadow-lg shadow-green-500/20"
+                  >
+                    Ver Planes Founder
+                    <ArrowRight size={18} className="sm:w-5 sm:h-5" />
+                  </Link>
+                  <Link
+                    href="/early-access#demo"
+                    className="inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold text-base sm:text-lg glass-card text-white hover:bg-white/10 transition-all"
+                  >
+                    <Sparkles size={18} className="sm:w-5 sm:h-5" />
+                    Ver Demo
+                  </Link>
+                </div>
+
+                <div className="mt-6 flex flex-wrap items-center justify-center sm:justify-start gap-4 text-xs sm:text-sm text-slate-400">
+                  <div className="flex items-center gap-2">
+                    <Check size={16} className="text-green-400" />
+                    <span>Garantía 60 días</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Check size={16} className="text-green-400" />
+                    <span>Acceso inmediato</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Check size={16} className="text-green-400" />
+                    <span>Todas las actualizaciones gratis</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
