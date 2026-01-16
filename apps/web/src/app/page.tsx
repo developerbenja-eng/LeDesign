@@ -484,20 +484,263 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Core Value Proposition - Integrations */}
+      {/* Opening Hook - The Fragmentation Problem */}
       <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-b from-slate-900/50 to-transparent">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-10 sm:mb-12">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 text-white px-4 leading-tight">
+                <span className="text-red-400">El problema no es que falten herramientas.</span>
+                <br />
+                <span className="text-slate-300">El problema es que hay demasiadas.</span>
+              </h2>
+            </div>
+
+            {/* The Fragmentation */}
+            <div className="glass-card rounded-2xl p-8 sm:p-10 border-2 border-red-500/30 mb-8">
+              <h3 className="text-2xl sm:text-3xl font-bold text-white mb-6 text-center">
+                El Stack Tradicional: 4-5 Programas Que No Hablan Entre Sí
+              </h3>
+
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                <div className="glass-card rounded-lg p-4 border border-slate-700">
+                  <div className="text-sm text-slate-400 mb-1">Hidráulica</div>
+                  <div className="font-semibold text-white">HEC-RAS</div>
+                  <div className="text-xs text-slate-500">+ EPANET</div>
+                </div>
+                <div className="glass-card rounded-lg p-4 border border-slate-700">
+                  <div className="text-sm text-slate-400 mb-1">Diseño Vial</div>
+                  <div className="font-semibold text-white">Civil 3D</div>
+                  <div className="text-xs text-slate-500">Autodesk</div>
+                </div>
+                <div className="glass-card rounded-lg p-4 border border-slate-700">
+                  <div className="text-sm text-slate-400 mb-1">Estructural</div>
+                  <div className="font-semibold text-white">RAM Elements</div>
+                  <div className="text-xs text-slate-500">+ ETABS</div>
+                </div>
+                <div className="glass-card rounded-lg p-4 border border-slate-700">
+                  <div className="text-sm text-slate-400 mb-1">Memorias</div>
+                  <div className="font-semibold text-white">Word + Excel</div>
+                  <div className="text-xs text-slate-500">Manual</div>
+                </div>
+              </div>
+
+              <div className="space-y-3 text-slate-300">
+                <div className="flex items-start gap-3">
+                  <X size={20} className="text-red-400 mt-0.5 flex-shrink-0" />
+                  <span>Duplicas los mismos datos entre 4-5 programas diferentes</span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <X size={20} className="text-red-400 mt-0.5 flex-shrink-0" />
+                  <span>Excel con macros que nadie entiende pasando entre proyectos</span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <X size={20} className="text-red-400 mt-0.5 flex-shrink-0" />
+                  <span>Memorias de cálculo desconectadas de los diseños reales</span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <X size={20} className="text-red-400 mt-0.5 flex-shrink-0" />
+                  <span>Detalles copiados y pegados de proyectos anteriores</span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <X size={20} className="text-red-400 mt-0.5 flex-shrink-0" />
+                  <span>Horas perdidas migrando datos entre formatos propietarios</span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <X size={20} className="text-red-400 mt-0.5 flex-shrink-0" />
+                  <span>Errores humanos al copiar valores manualmente</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Why This Happens */}
+            <div className="glass-card rounded-2xl p-6 sm:p-8 border border-slate-700">
+              <h3 className="text-xl sm:text-2xl font-bold text-white mb-4">
+                ¿Por Qué Pasa Esto?
+              </h3>
+              <p className="text-slate-300 mb-4">
+                Las grandes empresas (Autodesk, Bentley, USACE) dominan con formatos propietarios que evolucionan lento
+                porque su infraestructura es masiva. Fueron diseñados para mercados globales, no para Chile.
+              </p>
+              <p className="text-slate-300">
+                <strong className="text-white">El resultado:</strong> Cada empresa termina con sus propios estándares (o sin estándares),
+                perdiendo tiempo en cada proyecto copiando datos, buscando detalles, y escribiendo documentos que deberían generarse solos.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* The Chilean Context */}
+      <section className="py-12 sm:py-16 md:py-20">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-10 sm:mb-12">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-white px-4">
+                En Chile Es{' '}
+                <span className="bg-gradient-to-r from-red-400 via-blue-400 to-red-400 bg-clip-text text-transparent">
+                  Peor
+                </span>
+              </h2>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-6 mb-8">
+              {/* Chilean Norms */}
+              <div className="glass-card rounded-2xl p-6 sm:p-8 border-2 border-blue-500/30">
+                <div className="flex items-center gap-3 mb-4">
+                  <Flag size={24} className="text-red-400" />
+                  <h3 className="text-xl font-bold text-white">Normas Chilenas</h3>
+                </div>
+                <ul className="space-y-3 text-slate-300">
+                  <li className="flex items-start gap-2">
+                    <Check size={18} className="text-blue-400 mt-0.5 flex-shrink-0" />
+                    <span>NCh433 (diseño sísmico)</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check size={18} className="text-blue-400 mt-0.5 flex-shrink-0" />
+                    <span>NCh691 (diseño de aguas lluvias)</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check size={18} className="text-blue-400 mt-0.5 flex-shrink-0" />
+                    <span>Manuales de carreteras MOP</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check size={18} className="text-blue-400 mt-0.5 flex-shrink-0" />
+                    <span>Sistemas de revisión DOM, SERVIU, MOP</span>
+                  </li>
+                </ul>
+              </div>
+
+              {/* The Reality */}
+              <div className="glass-card rounded-2xl p-6 sm:p-8 border-2 border-red-500/30">
+                <h3 className="text-xl font-bold text-white mb-4">La Realidad</h3>
+                <ul className="space-y-3 text-slate-300">
+                  <li className="flex items-start gap-2">
+                    <X size={18} className="text-red-400 mt-0.5 flex-shrink-0" />
+                    <span>Civil 3D es poderoso, pero ¿cómo lo adaptas a detalles tipo MOP?</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <X size={18} className="text-red-400 mt-0.5 flex-shrink-0" />
+                    <span>¿Dónde están los datos de DGA integrados con HEC-RAS?</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <X size={18} className="text-red-400 mt-0.5 flex-shrink-0" />
+                    <span>¿Quién conecta estaciones fluviométricas con modelos hidráulicos?</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <X size={18} className="text-red-400 mt-0.5 flex-shrink-0" />
+                    <span>¿Cómo generas EETTs con el formato que pide la DOM?</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="glass-card rounded-2xl p-8 sm:p-10 bg-gradient-to-br from-blue-500/10 to-transparent border-2 border-blue-500/30 text-center">
+              <p className="text-xl sm:text-2xl md:text-3xl text-white font-semibold leading-relaxed">
+                "Cuando trabajé en Chile como ingeniero, lo que faltaba no eran ingenieros capacitados.
+                <br />
+                <span className="text-cyan-400">Faltaba la plataforma que conectara todo.</span>"
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* The Modern Opportunity */}
+      <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-b from-slate-900/50 to-transparent">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-10 sm:mb-12">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-white px-4">
+                La Ventaja De{' '}
+                <span className="bg-gradient-to-r from-green-400 to-cyan-400 bg-clip-text text-transparent">
+                  La IA Moderna
+                </span>
+              </h2>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-8 mb-8">
+              {/* Before */}
+              <div className="glass-card rounded-2xl p-6 sm:p-8">
+                <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                  <Clock size={24} className="text-red-400" />
+                  Antes
+                </h3>
+                <p className="text-slate-300 mb-4">
+                  Solo las grandes empresas podían construir infraestructura de software enterprise-level.
+                  Autodesk, Bentley, Trimble invirtieron décadas y billones de dólares.
+                </p>
+                <div className="text-sm text-slate-400 space-y-2">
+                  <div>→ Infraestructura masiva, difícil de cambiar</div>
+                  <div>→ Diseñado para todos los mercados = optimizado para ninguno</div>
+                  <div>→ Ciclos de desarrollo lentos</div>
+                </div>
+              </div>
+
+              {/* Now */}
+              <div className="glass-card rounded-2xl p-6 sm:p-8 border-2 border-green-500/30">
+                <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                  <Sparkles size={24} className="text-green-400" />
+                  Ahora
+                </h3>
+                <p className="text-slate-300 mb-4">
+                  Empresas pequeñas pueden crear soluciones enterprise-level usando IA moderna (Gemini, GPT-4)
+                  y infraestructura cloud escalable.
+                </p>
+                <div className="text-sm text-green-400 space-y-2 font-semibold">
+                  <div>✓ Infraestructura moderna, ágil</div>
+                  <div>✓ Diseñado 100% para Chile</div>
+                  <div>✓ Feedback → Features en días, no años</div>
+                </div>
+              </div>
+            </div>
+
+            <div className="glass-card rounded-2xl p-8 sm:p-10 border-2 border-cyan-500/30">
+              <h3 className="text-2xl sm:text-3xl font-bold text-white mb-6 text-center">
+                Nuestra Ventaja Competitiva
+              </h3>
+              <div className="grid sm:grid-cols-3 gap-6">
+                <div className="text-center">
+                  <div className="icon-wrapper w-14 h-14 rounded-lg bg-blue-500/10 text-blue-400 mb-3 mx-auto">
+                    <Flag size={28} />
+                  </div>
+                  <h4 className="font-semibold text-white mb-2">Conocemos Chile</h4>
+                  <p className="text-sm text-slate-400">No intentamos servir todos los mercados. Construimos para ingenieros chilenos.</p>
+                </div>
+                <div className="text-center">
+                  <div className="icon-wrapper w-14 h-14 rounded-lg bg-green-500/10 text-green-400 mb-3 mx-auto">
+                    <Users size={28} />
+                  </div>
+                  <h4 className="font-semibold text-white mb-2">Vivimos el Problema</h4>
+                  <p className="text-sm text-slate-400">Lo construimos porque lo necesitábamos cuando trabajábamos en Chile.</p>
+                </div>
+                <div className="text-center">
+                  <div className="icon-wrapper w-14 h-14 rounded-lg bg-purple-500/10 text-purple-400 mb-3 mx-auto">
+                    <Zap size={28} />
+                  </div>
+                  <h4 className="font-semibold text-white mb-2">Movimiento Rápido</h4>
+                  <p className="text-sm text-slate-400">Adaptamos a feedback real en días. Sin burocracia corporativa.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Core Value Proposition - Integrations */}
+      <section className="py-12 sm:py-16 md:py-20">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-10 sm:mb-12">
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 text-white px-4">
-                El Verdadero Valor:{' '}
+                La Solución:{' '}
                 <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-                  Todo en Un Solo Lugar
+                  Todo Lo Que Aprendiste En La Universidad, En Un Solo Lugar
                 </span>
               </h2>
               <p className="text-base sm:text-lg md:text-xl text-slate-300 max-w-3xl mx-auto px-4">
-                No más visitar 10 sitios diferentes. No más copiar datos manualmente.
-                No más escribir memorias de cálculo por 8 horas.
+                El módulo tipo HEC-RAS + el tipo EPANET + el tipo Civil 3D + el tipo RAM Elements.
+                Pero unificados, programáticos, y diseñados para Chile.
               </p>
             </div>
 
@@ -707,6 +950,165 @@ export default function HomePage() {
                   </Link>
                 );
               })}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Vision Forward - Mobile and Field Work */}
+      <section className="py-12 sm:py-16 md:py-20">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-10 sm:mb-12">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-white px-4">
+                El Futuro:{' '}
+                <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                  Desde el Campo al Escritorio
+                </span>
+              </h2>
+              <p className="text-base sm:text-lg md:text-xl text-slate-300 max-w-3xl mx-auto px-4">
+                Lo que hubiéramos querido tener cuando trabajábamos como ingenieros en Chile.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-6 mb-8">
+              {/* Field Engineers */}
+              <div className="glass-card rounded-2xl p-6 sm:p-8 border-2 border-green-500/30">
+                <div className="icon-wrapper w-14 h-14 rounded-lg bg-green-500/10 text-green-400 mb-4">
+                  <Users size={28} />
+                </div>
+                <h3 className="text-xl font-bold text-white mb-3">Para Ingenieros en Terreno</h3>
+                <ul className="space-y-3 text-sm text-slate-300">
+                  <li className="flex items-start gap-2">
+                    <Check size={16} className="text-green-400 mt-0.5 flex-shrink-0" />
+                    <span>Inicia proyectos desde tu teléfono</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check size={16} className="text-green-400 mt-0.5 flex-shrink-0" />
+                    <span>Selecciona área de estudio con un mapa</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check size={16} className="text-green-400 mt-0.5 flex-shrink-0" />
+                    <span>Acceso inmediato a DEM e imágenes satelitales</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check size={16} className="text-green-400 mt-0.5 flex-shrink-0" />
+                    <span>Cálculos rápidos con voz (próximamente)</span>
+                  </li>
+                </ul>
+              </div>
+
+              {/* For Reviewers */}
+              <div className="glass-card rounded-2xl p-6 sm:p-8 border-2 border-blue-500/30">
+                <div className="icon-wrapper w-14 h-14 rounded-lg bg-blue-500/10 text-blue-400 mb-4">
+                  <Shield size={28} />
+                </div>
+                <h3 className="text-xl font-bold text-white mb-3">Para Revisores</h3>
+                <ul className="space-y-3 text-sm text-slate-300">
+                  <li className="flex items-start gap-2">
+                    <Check size={16} className="text-blue-400 mt-0.5 flex-shrink-0" />
+                    <span>Conecta estaciones DGA a HEC-RAS con un click</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check size={16} className="text-blue-400 mt-0.5 flex-shrink-0" />
+                    <span>Estimaciones de inundación con datos satelitales</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check size={16} className="text-blue-400 mt-0.5 flex-shrink-0" />
+                    <span>Clasificación de suelo automática por ubicación</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check size={16} className="text-blue-400 mt-0.5 flex-shrink-0" />
+                    <span>NCh433, NCh691, manuales MOP precargados</span>
+                  </li>
+                </ul>
+              </div>
+
+              {/* For Companies */}
+              <div className="glass-card rounded-2xl p-6 sm:p-8 border-2 border-purple-500/30">
+                <div className="icon-wrapper w-14 h-14 rounded-lg bg-purple-500/10 text-purple-400 mb-4">
+                  <Building2 size={28} />
+                </div>
+                <h3 className="text-xl font-bold text-white mb-3">Para Empresas</h3>
+                <ul className="space-y-3 text-sm text-slate-300">
+                  <li className="flex items-start gap-2">
+                    <Check size={16} className="text-purple-400 mt-0.5 flex-shrink-0" />
+                    <span>Un estándar para todos los proyectos</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check size={16} className="text-purple-400 mt-0.5 flex-shrink-0" />
+                    <span>Detalles estructurales/viales/hidráulicos unificados</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check size={16} className="text-purple-400 mt-0.5 flex-shrink-0" />
+                    <span>Proyectos reproducibles, auditables, versionados</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check size={16} className="text-purple-400 mt-0.5 flex-shrink-0" />
+                    <span>De 40+ horas a 2 horas por proyecto</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Before/After Workflow */}
+            <div className="glass-card rounded-2xl p-8 sm:p-10 border-2 border-cyan-500/30">
+              <h3 className="text-2xl sm:text-3xl font-bold text-white mb-8 text-center">
+                El Workflow Tradicional vs. LeDesign
+              </h3>
+
+              <div className="grid md:grid-cols-2 gap-8">
+                {/* Before */}
+                <div>
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="icon-wrapper w-10 h-10 rounded-lg bg-red-500/10 text-red-400">
+                      <X size={20} />
+                    </div>
+                    <h4 className="text-lg font-bold text-white">Tradicional</h4>
+                  </div>
+                  <div className="space-y-3 text-sm text-slate-400">
+                    <div>1. Buscar datos en 5+ sitios web diferentes</div>
+                    <div>2. Descargar shapefiles, CSVs, PDFs manualmente</div>
+                    <div>3. Importar a Civil 3D, configurar proyección</div>
+                    <div>4. Copiar datos a HEC-RAS, EPANET, RAM Elements</div>
+                    <div>5. Copiar resultados a Excel para memorias</div>
+                    <div>6. Escribir memorias en Word (8 horas)</div>
+                    <div>7. Buscar detalles en proyectos anteriores</div>
+                    <div>8. Copiar/pegar y adaptar manualmente</div>
+                    <div className="pt-3 border-t border-slate-700 font-bold text-red-400">
+                      Total: 40+ horas por proyecto
+                    </div>
+                  </div>
+                </div>
+
+                {/* After */}
+                <div>
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="icon-wrapper w-10 h-10 rounded-lg bg-green-500/10 text-green-400">
+                      <Check size={20} />
+                    </div>
+                    <h4 className="text-lg font-bold text-white">Con LeDesign</h4>
+                  </div>
+                  <div className="space-y-3 text-sm text-green-400 font-semibold">
+                    <div>1. Click en mapa → datos cargados automáticamente</div>
+                    <div>2. Diseña en plataforma unificada (todo en un lugar)</div>
+                    <div>3. Memoria generada automática (30 segundos)</div>
+                    <div>4. EETT generadas desde diseño (2 minutos)</div>
+                    <div>5. Detalles estándar aplicados automáticamente</div>
+                    <div>6. Export a PDF, DWG, IFC con un click</div>
+                    <div>7. Control de versiones como Git (automático)</div>
+                    <div>8. Colaboración en tiempo real</div>
+                    <div className="pt-3 border-t border-green-700 font-bold text-green-400">
+                      Total: 2 horas por proyecto
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-8 p-6 bg-gradient-to-r from-cyan-500/10 to-purple-500/10 rounded-lg border border-cyan-500/20 text-center">
+                <div className="text-4xl font-bold text-cyan-400 mb-2">95%</div>
+                <div className="text-slate-300">Tiempo ahorrado. 38 horas recuperadas por proyecto.</div>
+              </div>
             </div>
           </div>
         </div>

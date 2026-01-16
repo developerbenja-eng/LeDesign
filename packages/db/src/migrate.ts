@@ -138,6 +138,155 @@ export async function runMigrations() {
     )
   `);
 
+  // Create survey datasets table
+  await db.execute(`
+    CREATE TABLE IF NOT EXISTS survey_datasets (
+      id TEXT PRIMARY KEY,
+      project_id TEXT NOT NULL REFERENCES projects(id) ON DELETE CASCADE,
+      name TEXT NOT NULL,
+      description TEXT,
+      source_filename TEXT,
+      source_format TEXT,
+      point_count INTEGER NOT NULL DEFAULT 0,
+      bounds_json TEXT,
+      statistics_json TEXT,
+      crs TEXT NOT NULL DEFAULT 'EPSG:32719',
+      points_json TEXT NOT NULL DEFAULT '[]',
+      status TEXT NOT NULL DEFAULT 'ready',
+      created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+    )
+  `);
+
+  // Create generated surfaces table
+  await db.execute(`
+    CREATE TABLE IF NOT EXISTS generated_surfaces (
+      id TEXT PRIMARY KEY,
+      project_id TEXT NOT NULL REFERENCES projects(id) ON DELETE CASCADE,
+      dataset_id TEXT REFERENCES survey_datasets(id) ON DELETE SET NULL,
+      name TEXT NOT NULL,
+      description TEXT,
+      method TEXT NOT NULL DEFAULT 'delaunay',
+      config_json TEXT,
+      surface_json TEXT,
+      metrics_json TEXT,
+      breakline_sources TEXT,
+      status TEXT NOT NULL DEFAULT 'generating',
+      error_message TEXT,
+      compute_time_ms INTEGER,
+      created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+    )
+  `);
+
+  // Create discipline design tables
+  await db.execute(`
+    CREATE TABLE IF NOT EXISTS water_network_designs (
+      id TEXT PRIMARY KEY,
+      project_id TEXT NOT NULL REFERENCES projects(id) ON DELETE CASCADE,
+      name TEXT NOT NULL,
+      description TEXT,
+      nodes_json TEXT NOT NULL DEFAULT '[]',
+      pipes_json TEXT NOT NULL DEFAULT '[]',
+      pumps_json TEXT NOT NULL DEFAULT '[]',
+      tanks_json TEXT NOT NULL DEFAULT '[]',
+      demand_multiplier REAL NOT NULL DEFAULT 1.0,
+      headloss_formula TEXT NOT NULL DEFAULT 'hazen-williams',
+      analysis_results_json TEXT,
+      last_analysis_at TEXT,
+      status TEXT NOT NULL DEFAULT 'draft',
+      is_active INTEGER NOT NULL DEFAULT 1,
+      created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+    )
+  `);
+
+  await db.execute(`
+    CREATE TABLE IF NOT EXISTS sewer_designs (
+      id TEXT PRIMARY KEY,
+      project_id TEXT NOT NULL REFERENCES projects(id) ON DELETE CASCADE,
+      name TEXT NOT NULL,
+      description TEXT,
+      system_type TEXT NOT NULL DEFAULT 'sanitary',
+      manholes_json TEXT NOT NULL DEFAULT '[]',
+      pipes_json TEXT NOT NULL DEFAULT '[]',
+      connections_json TEXT NOT NULL DEFAULT '[]',
+      design_criteria_json TEXT,
+      analysis_results_json TEXT,
+      last_analysis_at TEXT,
+      status TEXT NOT NULL DEFAULT 'draft',
+      is_active INTEGER NOT NULL DEFAULT 1,
+      created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+    )
+  `);
+
+  await db.execute(`
+    CREATE TABLE IF NOT EXISTS stormwater_designs (
+      id TEXT PRIMARY KEY,
+      project_id TEXT NOT NULL REFERENCES projects(id) ON DELETE CASCADE,
+      name TEXT NOT NULL,
+      description TEXT,
+      catchments_json TEXT NOT NULL DEFAULT '[]',
+      outlets_json TEXT NOT NULL DEFAULT '[]',
+      conduits_json TEXT NOT NULL DEFAULT '[]',
+      storages_json TEXT NOT NULL DEFAULT '[]',
+      design_storm_json TEXT,
+      analysis_method TEXT NOT NULL DEFAULT 'rational',
+      analysis_results_json TEXT,
+      last_analysis_at TEXT,
+      status TEXT NOT NULL DEFAULT 'draft',
+      is_active INTEGER NOT NULL DEFAULT 1,
+      created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+    )
+  `);
+
+  await db.execute(`
+    CREATE TABLE IF NOT EXISTS channel_designs (
+      id TEXT PRIMARY KEY,
+      project_id TEXT NOT NULL REFERENCES projects(id) ON DELETE CASCADE,
+      name TEXT NOT NULL,
+      description TEXT,
+      sections_json TEXT NOT NULL DEFAULT '[]',
+      reaches_json TEXT NOT NULL DEFAULT '[]',
+      structures_json TEXT NOT NULL DEFAULT '[]',
+      design_flow REAL,
+      design_freeboard REAL NOT NULL DEFAULT 0.3,
+      analysis_results_json TEXT,
+      last_analysis_at TEXT,
+      status TEXT NOT NULL DEFAULT 'draft',
+      is_active INTEGER NOT NULL DEFAULT 1,
+      created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+    )
+  `);
+
+  await db.execute(`
+    CREATE TABLE IF NOT EXISTS cubicaciones (
+      id TEXT PRIMARY KEY,
+      project_id TEXT NOT NULL REFERENCES projects(id) ON DELETE CASCADE,
+      name TEXT NOT NULL,
+      version INTEGER NOT NULL DEFAULT 1,
+      status TEXT NOT NULL DEFAULT 'draft',
+      items_json TEXT NOT NULL DEFAULT '[]',
+      subtotals_json TEXT NOT NULL DEFAULT '[]',
+      grand_total REAL NOT NULL DEFAULT 0,
+      price_date TEXT,
+      price_source TEXT,
+      currency TEXT NOT NULL DEFAULT 'CLP',
+      uf_value REAL,
+      auto_generation_enabled INTEGER NOT NULL DEFAULT 1,
+      last_auto_generated TEXT,
+      generator_config_json TEXT,
+      approved_by TEXT,
+      approval_date TEXT,
+      created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      created_by TEXT
+    )
+  `);
+
   console.log('✅ Database migrations completed successfully');
 }
 
@@ -151,6 +300,13 @@ export async function resetDatabase() {
   console.warn('⚠️  Resetting database - all data will be lost!');
 
   const tables = [
+    'cubicaciones',
+    'channel_designs',
+    'stormwater_designs',
+    'sewer_designs',
+    'water_network_designs',
+    'generated_surfaces',
+    'survey_datasets',
     'terrain_surfaces',
     'road_alignments',
     'pavement_sections',

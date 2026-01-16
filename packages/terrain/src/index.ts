@@ -126,3 +126,13 @@ export * from './geo';
 // CAD TYPES (Shared type definitions)
 // ============================================================
 export * from './cad-types';
+
+// ============================================================
+// VOLUME CALCULATION (Cut/fill analysis, earthwork quantities)
+// ============================================================
+export * from './volume-calculation';
+
+// ============================================================
+// DEM SERVICE (Digital elevation model fetching and caching)
+// ============================================================
+export * from './dem-service';

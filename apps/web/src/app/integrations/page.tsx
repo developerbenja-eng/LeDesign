@@ -20,6 +20,8 @@ import {
   Mountain,
   FileCheck,
   Calendar,
+  Building2,
+  X,
 } from 'lucide-react';
 
 export default function IntegrationsPage() {
@@ -197,6 +199,108 @@ export default function IntegrationsPage() {
               <div className="glass-card rounded-xl p-4 text-center">
                 <div className="text-3xl font-bold text-purple-400 mb-1">1</div>
                 <div className="text-sm text-slate-400">Plataforma unificada</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Unified Solution */}
+      <section className="py-12 sm:py-16">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-10">
+              <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-white">
+                Todos los Módulos Que Aprendiste,{' '}
+                <span className="bg-gradient-to-r from-green-400 to-cyan-400 bg-clip-text text-transparent">
+                  Pero Unificados
+                </span>
+              </h2>
+              <p className="text-lg text-slate-300 max-w-3xl mx-auto">
+                LeDesign reúne el poder de HEC-RAS, EPANET, Civil 3D, y RAM Elements en una sola plataforma programática.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+              <div className="glass-card rounded-xl p-6 border border-cyan-500/30">
+                <div className="text-sm text-slate-400 mb-2">Hidráulica</div>
+                <div className="font-bold text-white text-lg mb-1">Tipo HEC-RAS</div>
+                <div className="text-xs text-slate-500">+ EPANET</div>
+                <div className="mt-3 text-xs text-cyan-400">
+                  → Módulo de diseño hidráulico
+                </div>
+              </div>
+
+              <div className="glass-card rounded-xl p-6 border border-blue-500/30">
+                <div className="text-sm text-slate-400 mb-2">Diseño Vial</div>
+                <div className="font-bold text-white text-lg mb-1">Tipo Civil 3D</div>
+                <div className="text-xs text-slate-500">Autodesk</div>
+                <div className="mt-3 text-xs text-blue-400">
+                  → Módulo de terreno y vial
+                </div>
+              </div>
+
+              <div className="glass-card rounded-xl p-6 border border-purple-500/30">
+                <div className="text-sm text-slate-400 mb-2">Estructural</div>
+                <div className="font-bold text-white text-lg mb-1">Tipo RAM Elements</div>
+                <div className="text-xs text-slate-500">+ ETABS</div>
+                <div className="mt-3 text-xs text-purple-400">
+                  → Módulo estructural FEA
+                </div>
+              </div>
+
+              <div className="glass-card rounded-xl p-6 border border-green-500/30">
+                <div className="text-sm text-slate-400 mb-2">Documentación</div>
+                <div className="font-bold text-white text-lg mb-1">Automática</div>
+                <div className="text-xs text-slate-500">Word + Excel</div>
+                <div className="mt-3 text-xs text-green-400">
+                  → Memorias y EETTs en segundos
+                </div>
+              </div>
+            </div>
+
+            <div className="glass-card rounded-2xl p-8 border-2 border-cyan-500/30">
+              <h3 className="text-xl font-bold text-white mb-6 text-center">
+                La Diferencia: Un Solo Formato de Datos, Programático y Versionado
+              </h3>
+
+              <div className="grid md:grid-cols-3 gap-6">
+                <div className="text-center">
+                  <div className="icon-wrapper w-14 h-14 rounded-lg bg-blue-500/10 text-blue-400 mb-3 mx-auto">
+                    <Database size={28} />
+                  </div>
+                  <h4 className="font-semibold text-white mb-2">Un Solo Formato</h4>
+                  <p className="text-sm text-slate-400">
+                    No más duplicar datos entre programas. Todo sincronizado automáticamente.
+                  </p>
+                </div>
+
+                <div className="text-center">
+                  <div className="icon-wrapper w-14 h-14 rounded-lg bg-purple-500/10 text-purple-400 mb-3 mx-auto">
+                    <GitBranch size={28} />
+                  </div>
+                  <h4 className="font-semibold text-white mb-2">Versionado Como Git</h4>
+                  <p className="text-sm text-slate-400">
+                    Cada cambio registrado. Vuelve a cualquier versión anterior del diseño.
+                  </p>
+                </div>
+
+                <div className="text-center">
+                  <div className="icon-wrapper w-14 h-14 rounded-lg bg-green-500/10 text-green-400 mb-3 mx-auto">
+                    <FileCheck size={28} />
+                  </div>
+                  <h4 className="font-semibold text-white mb-2">Docs Programáticas</h4>
+                  <p className="text-sm text-slate-400">
+                    Memorias conectadas al diseño. Cambias un valor → memoria se actualiza sola.
+                  </p>
+                </div>
+              </div>
+
+              <div className="mt-8 p-6 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 rounded-xl border border-cyan-500/20 text-center">
+                <p className="text-lg text-slate-300">
+                  <strong className="text-cyan-400">Diseñado para Chile:</strong>{' '}
+                  NCh433, NCh691, Manuales MOP, DGA, IDE Chile — todo integrado desde el día 1.
+                </p>
               </div>
             </div>
           </div>
@@ -449,28 +553,5 @@ export default function IntegrationsPage() {
         </div>
       </footer>
     </div>
-  );
-}
-
-function X({ size, className }: { size: number; className?: string }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
-      <path d="M18 6 6 18" />
-      <path d="m6 6 12 12" />
-    </svg>
-  );
-}
-
-function Building2({ size, className }: { size: number; className?: string }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
-      <path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z" />
-      <path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2" />
-      <path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2" />
-      <path d="M10 6h4" />
-      <path d="M10 10h4" />
-      <path d="M10 14h4" />
-      <path d="M10 18h4" />
-    </svg>
   );
 }
