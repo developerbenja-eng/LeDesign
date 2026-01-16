@@ -97,10 +97,24 @@ if (!terrainConfig.googleGeminiApiKey) {
    npm run setup
    ```
 
+   This retrieves:
+   - Google Gemini API key from Google Cloud
+   - Vercel deployment token
+   - All project configuration
+
 4. **Install and run**
    ```bash
    npm install
    npm run dev
+   ```
+
+5. **Deploy to Vercel** (optional)
+   ```bash
+   # Link to Vercel project (first time only)
+   npm run vercel:setup
+
+   # Deploy preview
+   npm run deploy:preview
    ```
 
 ## 🔒 Security Best Practices
@@ -117,7 +131,7 @@ if (!terrainConfig.googleGeminiApiKey) {
 - Hardcode keys in source files
 - Use production keys for development
 
-## 🛠️ Available API Keys
+## 🛠️ Available API Keys & Tokens
 
 Your project uses:
 
@@ -125,6 +139,12 @@ Your project uses:
    - Purpose: AI-powered satellite feature detection and terrain analysis
    - Key ID: `2721dcc2-f040-4c07-ac19-4212ed055854`
    - Retrieve with: `npm run setup`
+
+2. **Vercel Deployment Token**
+   - Purpose: Deploy to Vercel hosting
+   - Organization: benjas-projects-3ad07b52 (Benja's projects)
+   - Project: ledesign
+   - Auto-configured with: `npm run setup`
 
 ## 📝 Verification
 
@@ -134,8 +154,11 @@ To verify your environment is set up correctly:
 # Check if .env exists
 ls -la .env
 
-# Test configuration
+# Test Google Gemini API configuration
 node -e "require('dotenv').config(); console.log('API Key:', process.env.GOOGLE_GEMINI_API_KEY?.substring(0,10) + '...')"
+
+# Test Vercel configuration
+npm run vercel:status
 
 # Or use the built-in config check
 node -e "const { terrainConfig } = require('./packages/terrain/dist/index.js'); console.log(terrainConfig.isConfigured() ? '✅ Configured' : '❌ Not configured')"

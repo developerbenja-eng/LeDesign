@@ -2,6 +2,28 @@
 
 Unified engineering design platform for Chilean engineering professionals.
 
+## 🚀 Quick Start
+
+```bash
+# Clone the repository
+git clone https://github.com/developerbenja-eng/LeDesign.git
+cd LeDesign
+
+# Set up environment (retrieves API keys from Google Cloud)
+npm run setup
+
+# Install dependencies
+npm install
+
+# Start development
+npm run dev
+```
+
+## 📚 Documentation
+
+- **[Setup Guide](./README_SETUP.md)** - Complete setup instructions for local development
+- **[Claude Code Web Guide](./CLAUDE_CODE_WEB.md)** - How to use this project in Claude Code web
+
 ## Overview
 
 LeDesign consolidates multiple engineering disciplines into one integrated platform:

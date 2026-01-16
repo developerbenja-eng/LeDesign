@@ -30,7 +30,7 @@ export * from './water-network';
 // ============================================================
 // OPEN CHANNEL (Channel hydraulics and design)
 // ============================================================
-export * from './open-channel';
+// export * from './open-channel'; // Commented due to duplicate exports with water-network
 
 // ============================================================
 // HYDROLOGY (Rainfall, runoff, flood frequency)

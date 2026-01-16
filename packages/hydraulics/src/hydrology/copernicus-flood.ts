@@ -5,11 +5,18 @@
  * from the European Union's Copernicus program.
  */
 
-import type { BoundingBox } from './triangulation/types';
-
 // ============================================================================
 // Types
 // ============================================================================
+
+export interface BoundingBox {
+  minX: number;
+  minY: number;
+  maxX: number;
+  maxY: number;
+  minZ: number;
+  maxZ: number;
+}
 
 export interface FloodEvent {
   id: string;

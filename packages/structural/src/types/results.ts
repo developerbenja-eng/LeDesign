@@ -147,8 +147,10 @@ export interface DesignResult {
   status: DesignStatus;
   demand_capacity_ratio: number;
   governing_check: string;
+  controlling_check?: string; // Alias for governing_check
   capacity: number;
   demand: number;
+  checks?: Record<string, unknown>; // Individual check results
   messages: DesignMessage[];
   created_at: string;
 }
@@ -177,4 +179,80 @@ export interface StoryDrift {
   drift_ratio: number;
   allowable_drift_ratio: number;
   is_adequate: boolean;
+}
+
+// ============================================================
+// DATABASE ROW TYPES & CONVERTERS
+// ============================================================
+
+export interface MemberResultRow {
+  id: string;
+  run_id: string;
+  combination_id: string;
+  member_id: string;
+  member_type: string;
+  station: number;
+  axial: number;
+  shear_major: number;
+  shear_minor: number;
+  torsion: number;
+  moment_major: number;
+  moment_minor: number;
+  deflection_major: number | null;
+  deflection_minor: number | null;
+}
+
+export function memberResultRowToMemberResult(row: MemberResultRow): MemberResult {
+  return {
+    id: row.id,
+    run_id: row.run_id,
+    combination_id: row.combination_id,
+    member_id: row.member_id,
+    member_type: row.member_type as 'beam' | 'column' | 'brace',
+    station: row.station,
+    axial: row.axial,
+    shear_major: row.shear_major,
+    shear_minor: row.shear_minor,
+    torsion: row.torsion,
+    moment_major: row.moment_major,
+    moment_minor: row.moment_minor,
+    deflection_major: row.deflection_major,
+    deflection_minor: row.deflection_minor,
+  };
+}
+
+export interface ModalResultRow {
+  id: string;
+  run_id: string;
+  mode_number: number;
+  frequency: number;
+  period: number;
+  participation_x: number;
+  participation_y: number;
+  participation_z: number;
+  mass_ratio_x: number;
+  mass_ratio_y: number;
+  mass_ratio_z: number;
+  cumulative_mass_x: number;
+  cumulative_mass_y: number;
+  cumulative_mass_z: number;
+}
+
+export function modalResultRowToModalResult(row: ModalResultRow): ModalResult {
+  return {
+    id: row.id,
+    run_id: row.run_id,
+    mode_number: row.mode_number,
+    frequency: row.frequency,
+    period: row.period,
+    participation_x: row.participation_x,
+    participation_y: row.participation_y,
+    participation_z: row.participation_z,
+    mass_ratio_x: row.mass_ratio_x,
+    mass_ratio_y: row.mass_ratio_y,
+    mass_ratio_z: row.mass_ratio_z,
+    cumulative_mass_x: row.cumulative_mass_x,
+    cumulative_mass_y: row.cumulative_mass_y,
+    cumulative_mass_z: row.cumulative_mass_z,
+  };
 }

@@ -10,7 +10,11 @@
     "lint": "turbo lint",
     "test": "turbo test",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "clean": "turbo clean && rm -rf node_modules"
+    "clean": "turbo clean && rm -rf node_modules",
+    "vercel:setup": "bash scripts/vercel-setup.sh",
+    "vercel:status": "bash scripts/vercel-status.sh",
+    "deploy:preview": "bash scripts/vercel-deploy.sh preview",
+    "deploy:prod": "bash scripts/vercel-deploy.sh production"
   },
   "devDependencies": {
     "@turbo/gen": "^2.3.4",

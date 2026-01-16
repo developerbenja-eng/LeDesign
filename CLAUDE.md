@@ -27,6 +27,9 @@ npm run setup
 This retrieves API keys from Google Cloud CLI and creates the `.env` file automatically. The `.env` file is gitignored and contains:
 - `GOOGLE_GEMINI_API_KEY` - For AI-powered terrain analysis
 - `GCP_PROJECT_ID` - Google Cloud project (echo-home-system)
+- `VERCEL_TOKEN` - For deployment to Vercel
+- `VERCEL_ORG_ID` - Vercel organization (benjas-projects-3ad07b52)
+- `VERCEL_PROJECT_ID` - Project identifier (ledesign)
 - `NODE_ENV` - Environment setting
 
 ### Verification
@@ -270,6 +273,57 @@ npm run build
 - **FEA**: Use sparse matrix solvers for large models
 - **Build**: Use Turborepo caching (already configured)
 
+## Vercel Deployment
+
+### Setup Vercel Project
+
+First time setup (links local project to Vercel):
+
+```bash
+npm run vercel:setup
+```
+
+This creates a `.vercel` directory (gitignored) with project configuration.
+
+### Deployment Commands
+
+```bash
+# Deploy preview (for testing)
+npm run deploy:preview
+
+# Deploy to production
+npm run deploy:prod
+
+# Check deployment status
+npm run vercel:status
+```
+
+### Deployment Workflow
+
+1. **Make changes** to the codebase
+2. **Test locally**: `npm run dev` and `npm run test`
+3. **Build**: `npm run build` (done automatically during deploy)
+4. **Preview deploy**: `npm run deploy:preview`
+5. **Verify** the preview URL works correctly
+6. **Production deploy**: `npm run deploy:prod`
+
+### Vercel Configuration
+
+The project uses these Vercel settings:
+
+- **Organization**: benjas-projects-3ad07b52 (Benja's projects)
+- **Project**: ledesign
+- **Token**: Auto-configured from `.env` file
+- **Framework**: Auto-detected (Next.js when ready)
+
+### Important Notes
+
+- Vercel token is retrieved automatically by `npm run setup`
+- `.vercel` directory is gitignored (local only)
+- Preview deployments create unique URLs for testing
+- Production deployments update the main URL
+- Always test with preview before deploying to production
+
 ## Security Notes
 
 - `.env` file is gitignored - never commit it
@@ -287,6 +341,7 @@ npm run build
 ## Quick Reference Commands
 
 ```bash
+# Setup & Development
 npm run setup          # Set up environment from Google Cloud
 npm install            # Install dependencies
 npm run dev            # Start development (watch mode)
@@ -295,19 +350,29 @@ npm run test           # Run all tests
 npm run lint           # Lint code
 npm run format         # Format with Prettier
 npm run clean          # Clean build artifacts
+
+# Vercel Deployment
+npm run vercel:setup   # Link project to Vercel (first time)
+npm run vercel:status  # Check deployment status
+npm run deploy:preview # Deploy preview (testing)
+npm run deploy:prod    # Deploy to production
 ```
 
 ## When Working with This Project
 
 1. **First time**: Run `npm run setup` to get API keys
-2. **Making changes**: Work in relevant package directory
-3. **Testing**: Run tests before committing
-4. **AI features**: Use `terrainConfig` for API access
-5. **Standards**: Reference Chilean codes (NCh) when applicable
-6. **Commit**: Ensure .env is not staged
+2. **Link to Vercel**: Run `npm run vercel:setup` (one time)
+3. **Making changes**: Work in relevant package directory
+4. **Testing**: Run tests before committing
+5. **AI features**: Use `terrainConfig` for API access
+6. **Standards**: Reference Chilean codes (NCh) when applicable
+7. **Preview deploy**: Test with `npm run deploy:preview` before production
+8. **Commit**: Ensure .env and .vercel are not staged
 
 ---
 
 **Repository**: https://github.com/developerbenja-eng/LeDesign
 **Account**: developer.benja@gmail.com (developerbenja-eng)
 **GCP Project**: echo-home-system
+**Vercel Org**: benjas-projects-3ad07b52 (Benja's projects)
+**Vercel Project**: ledesign

@@ -46,6 +46,9 @@ export interface Restraints {
 }
 
 export interface EndReleases {
+  fx: boolean;
+  fy: boolean;
+  fz: boolean;
   mx: boolean;
   my: boolean;
   mz: boolean;

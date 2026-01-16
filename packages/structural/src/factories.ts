@@ -216,12 +216,18 @@ export const PINNED_RESTRAINTS: Restraints = {
 };
 
 export const DEFAULT_END_RELEASES: EndReleases = {
+  fx: false,
+  fy: false,
+  fz: false,
   mx: false,
   my: false,
   mz: false,
 };
 
 export const PINNED_END_RELEASES: EndReleases = {
+  fx: false,
+  fy: false,
+  fz: false,
   mx: true,
   my: true,
   mz: true,

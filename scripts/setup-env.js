@@ -42,12 +42,21 @@ try {
         { encoding: 'utf-8' }
     ).trim();
 
+    // Vercel configuration (from global CLAUDE.md)
+    const vercelToken = 'us3ZiYkDz6R3T5vHRBt52jSz';
+    const vercelOrgId = 'benjas-projects-3ad07b52';
+
     // Create .env file
     const envContent = `# Google Gemini API Configuration
 GOOGLE_GEMINI_API_KEY=${apiKey}
 
 # Google Cloud Project
 GCP_PROJECT_ID=${projectId}
+
+# Vercel Deployment
+VERCEL_TOKEN=${vercelToken}
+VERCEL_ORG_ID=${vercelOrgId}
+VERCEL_PROJECT_ID=ledesign
 
 # Development
 NODE_ENV=development
@@ -57,8 +66,13 @@ NODE_ENV=development
 
     console.log('✅ .env file created successfully!');
     console.log(`   - Google Gemini API Key: ${apiKey.substring(0, 10)}...${apiKey.slice(-4)}`);
-    console.log(`   - GCP Project: ${projectId}\n`);
-    console.log('🚀 Environment setup complete! Run: npm install && npm run dev\n');
+    console.log(`   - GCP Project: ${projectId}`);
+    console.log(`   - Vercel Token: ${vercelToken.substring(0, 10)}...${vercelToken.slice(-4)}`);
+    console.log(`   - Vercel Org: ${vercelOrgId}\n`);
+    console.log('🚀 Environment setup complete!');
+    console.log('   Development: npm install && npm run dev');
+    console.log('   Vercel link: npm run vercel:setup');
+    console.log('   Deploy: npm run deploy:preview\n');
 
 } catch (error) {
     console.error('❌ Error setting up environment:');

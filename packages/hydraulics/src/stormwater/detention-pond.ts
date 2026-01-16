@@ -261,7 +261,7 @@ export function designPond(input: PondDesignInput): PondDesignResult {
   // 10. Validation and warnings
   const isViable = validatePondDesign(
     geometry,
-    inlet,
+    inflow,
     outlet,
     drainTime,
     warnings,

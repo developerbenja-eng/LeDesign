@@ -301,11 +301,13 @@ export function calculateSequentDepth(
   }
 
   // Use specialized formula for trapezoidal
-  if (section.shape === 'trapezoidal' && section.sideSlope !== undefined) {
+  if (section.shape === 'trapezoidal') {
+    // Use average side slope for symmetric analysis
+    const avgSideSlope = (section.leftSideSlope + section.rightSideSlope) / 2;
     return calculateSequentDepthTrapezoidal(
       upstreamDepth,
       section.bottomWidth,
-      section.sideSlope,
+      avgSideSlope,
       discharge,
       tolerance,
       maxIterations
