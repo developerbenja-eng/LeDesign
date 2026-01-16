@@ -13,6 +13,8 @@ import {
   Rocket,
   Code2,
   FileCheck,
+  DollarSign,
+  ChevronRight,
 } from 'lucide-react';
 
 export default function EarlyAccessPage() {
