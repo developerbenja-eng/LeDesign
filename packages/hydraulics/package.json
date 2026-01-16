@@ -35,6 +35,36 @@
       "types": "./dist/hydrology/index.d.ts",
       "import": "./dist/hydrology/index.mjs",
       "require": "./dist/hydrology/index.js"
+    },
+    "./data-sources": {
+      "types": "./dist/data-sources/index.d.ts",
+      "import": "./dist/data-sources/index.mjs",
+      "require": "./dist/data-sources/index.js"
+    },
+    "./data-sources/conaf": {
+      "types": "./dist/data-sources/conaf.d.ts",
+      "import": "./dist/data-sources/conaf.mjs",
+      "require": "./dist/data-sources/conaf.js"
+    },
+    "./data-sources/sernageomin": {
+      "types": "./dist/data-sources/sernageomin.d.ts",
+      "import": "./dist/data-sources/sernageomin.mjs",
+      "require": "./dist/data-sources/sernageomin.js"
+    },
+    "./data-sources/minvu": {
+      "types": "./dist/data-sources/minvu.d.ts",
+      "import": "./dist/data-sources/minvu.mjs",
+      "require": "./dist/data-sources/minvu.js"
+    },
+    "./data-sources/shoa": {
+      "types": "./dist/data-sources/shoa.d.ts",
+      "import": "./dist/data-sources/shoa.mjs",
+      "require": "./dist/data-sources/shoa.js"
+    },
+    "./data-sources/soil": {
+      "types": "./dist/data-sources/soil.d.ts",
+      "import": "./dist/data-sources/soil.mjs",
+      "require": "./dist/data-sources/soil.js"
     }
   },
   "scripts": {

@@ -16,20 +16,40 @@
       "import": "./dist/geotiff-terrain.mjs",
       "require": "./dist/geotiff-terrain.js"
     },
+    "./geotiff-terrain": {
+      "types": "./dist/geotiff-terrain.d.ts",
+      "import": "./dist/geotiff-terrain.mjs",
+      "require": "./dist/geotiff-terrain.js"
+    },
+    "./dem-service": {
+      "types": "./dist/dem-service.d.ts",
+      "import": "./dist/dem-service.mjs",
+      "require": "./dist/dem-service.js"
+    },
+    "./terrain-service": {
+      "types": "./dist/terrain-service.d.ts",
+      "import": "./dist/terrain-service.mjs",
+      "require": "./dist/terrain-service.js"
+    },
     "./dwg": {
       "types": "./dist/dwg/index.d.ts",
       "import": "./dist/dwg/index.mjs",
       "require": "./dist/dwg/index.js"
     },
-    "./surface-ai": {
-      "types": "./dist/surface-ai/index.d.ts",
-      "import": "./dist/surface-ai/index.mjs",
-      "require": "./dist/surface-ai/index.js"
-    },
     "./geo": {
       "types": "./dist/geo/index.d.ts",
       "import": "./dist/geo/index.mjs",
       "require": "./dist/geo/index.js"
+    },
+    "./triangulation": {
+      "types": "./dist/triangulation/index.d.ts",
+      "import": "./dist/triangulation/index.mjs",
+      "require": "./dist/triangulation/index.js"
+    },
+    "./volume-calculation": {
+      "types": "./dist/volume-calculation.d.ts",
+      "import": "./dist/volume-calculation.mjs",
+      "require": "./dist/volume-calculation.js"
     }
   },
   "scripts": {
@@ -49,6 +69,7 @@
     "three": "^0.182.0"
   },
   "devDependencies": {
+    "@types/delaunator": "^5.0.3",
     "@types/geojson": "^7946.0.16",
     "@types/node": "^22.10.5",
     "@types/papaparse": "^5.5.2",

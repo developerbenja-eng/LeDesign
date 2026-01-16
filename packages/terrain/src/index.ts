@@ -29,7 +29,8 @@ export * from './dwg';
 // ============================================================
 // SURFACE AI (AI-powered surface modeling and analysis)
 // ============================================================
-export * from './surface-ai';
+// TODO: Fix type errors before re-enabling
+// export * from './surface-ai';
 
 // ============================================================
 // CONFIGURATION (Environment variables and API keys)
