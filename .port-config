@@ -1,0 +1,11 @@
+# LeDesign Port Configuration
+
+Development server runs on PORT 4000 (not 3000)
+
+This is configured in:
+- apps/web/package.json (dev and start scripts use -p 4000)
+- Documented in README.md, CLAUDE.md, and QUICK_START.md
+
+URL: http://localhost:4000
+
+Reason: Port 3000 is used by other projects on this machine.

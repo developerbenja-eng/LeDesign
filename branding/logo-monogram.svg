@@ -1,0 +1,35 @@
+<svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="120" height="120" rx="24" fill="#0052CC"/>
+
+  <!-- "L" - formed by terrain layers -->
+  <g id="letter-L">
+    <!-- Vertical part of L -->
+    <rect x="25" y="25" width="8" height="60" fill="#ffffff"/>
+
+    <!-- Horizontal part of L with terrain detail -->
+    <path d="M25 85 L65 85 L65 77 L33 77 L33 25 L25 25 Z" fill="#ffffff"/>
+
+    <!-- Terrain texture on L -->
+    <path d="M28 35 L30 33 L30 75" stroke="#4C9AFF" stroke-width="1" opacity="0.5"/>
+  </g>
+
+  <!-- "D" - with contour lines -->
+  <g id="letter-D">
+    <path d="M75 25 L75 85 L85 85 C93 85 95 80 95 70 L95 40 C95 30 93 25 85 25 Z" fill="#ffffff"/>
+
+    <!-- Contour detail in D -->
+    <ellipse cx="85" cy="55" rx="8" ry="20" fill="none" stroke="#4C9AFF" stroke-width="1" opacity="0.6"/>
+    <ellipse cx="85" cy="55" rx="5" ry="13" fill="none" stroke="#4C9AFF" stroke-width="1" opacity="0.4"/>
+  </g>
+
+  <!-- Subtle grid overlay -->
+  <g opacity="0.1">
+    <line x1="0" y1="40" x2="120" y2="40" stroke="#ffffff" stroke-width="0.5"/>
+    <line x1="0" y1="60" x2="120" y2="60" stroke="#ffffff" stroke-width="0.5"/>
+    <line x1="0" y1="80" x2="120" y2="80" stroke="#ffffff" stroke-width="0.5"/>
+    <line x1="40" y1="0" x2="40" y2="120" stroke="#ffffff" stroke-width="0.5"/>
+    <line x1="60" y1="0" x2="60" y2="120" stroke="#ffffff" stroke-width="0.5"/>
+    <line x1="80" y1="0" x2="80" y2="120" stroke="#ffffff" stroke-width="0.5"/>
+  </g>
+</svg>

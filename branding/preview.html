@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LeDesign Logo Preview</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #f5f5f5;
+      padding: 40px 20px;
+      color: #1a1a1a;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 48px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: #0052CC;
+    }
+
+    .subtitle {
+      font-size: 18px;
+      color: #666;
+      margin-bottom: 60px;
+      letter-spacing: 0.5px;
+    }
+
+    .logo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 40px;
+      margin-bottom: 60px;
+    }
+
+    .logo-card {
+      background: white;
+      border-radius: 16px;
+      padding: 40px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .logo-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    }
+
+    .logo-card.dark {
+      background: #0A0A0A;
+    }
+
+    .logo-card h2 {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #0052CC;
+    }
+
+    .logo-card.dark h2 {
+      color: #4C9AFF;
+    }
+
+    .logo-card p {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+
+    .logo-card.dark p {
+      color: #999;
+    }
+
+    .logo-display {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 160px;
+      border: 1px solid #E5E5E5;
+      border-radius: 8px;
+      padding: 20px;
+      background: #fafafa;
+    }
+
+    .logo-card.dark .logo-display {
+      background: #1a1a1a;
+      border-color: #333;
+    }
+
+    .logo-display img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .color-palette {
+      background: white;
+      border-radius: 16px;
+      padding: 40px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      margin-bottom: 40px;
+    }
+
+    .color-palette h2 {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 24px;
+      color: #0052CC;
+    }
+
+    .color-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .color-swatch {
+      text-align: center;
+    }
+
+    .color-box {
+      height: 120px;
+      border-radius: 8px;
+      margin-bottom: 12px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .color-name {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .color-hex {
+      font-size: 13px;
+      color: #666;
+      font-family: 'Monaco', 'Courier New', monospace;
+    }
+
+    .download-section {
+      background: white;
+      border-radius: 16px;
+      padding: 40px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      margin-top: 40px;
+    }
+
+    .download-section h2 {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: #0052CC;
+    }
+
+    .download-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .download-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 20px;
+      background: #f5f5f5;
+      border-radius: 8px;
+      text-decoration: none;
+      color: #1a1a1a;
+      transition: background 0.2s;
+    }
+
+    .download-link:hover {
+      background: #e5e5e5;
+    }
+
+    .download-icon {
+      width: 24px;
+      height: 24px;
+      fill: #0052CC;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>LeDesign Logos</h1>
+    <p class="subtitle">Engineering Platform Brand Assets</p>
+
+    <!-- Logo Grid -->
+    <div class="logo-grid">
+      <!-- Full Logo -->
+      <div class="logo-card">
+        <h2>Full Logo</h2>
+        <p>Main logo for light backgrounds, website headers, and marketing materials.</p>
+        <div class="logo-display">
+          <img src="logo-full.svg" alt="LeDesign Full Logo" style="max-width: 280px;">
+        </div>
+      </div>
+
+      <!-- Full Logo Dark -->
+      <div class="logo-card dark">
+        <h2>Full Logo - Dark</h2>
+        <p>Optimized for dark backgrounds and dark mode interfaces.</p>
+        <div class="logo-display">
+          <img src="logo-full-dark.svg" alt="LeDesign Full Logo Dark" style="max-width: 280px;">
+        </div>
+      </div>
+
+      <!-- Icon Only -->
+      <div class="logo-card">
+        <h2>Icon Only</h2>
+        <p>Square format for favicons, app icons, and compact spaces.</p>
+        <div class="logo-display">
+          <img src="logo-icon.svg" alt="LeDesign Icon" style="max-width: 100px;">
+        </div>
+      </div>
+
+      <!-- Monogram -->
+      <div class="logo-card">
+        <h2>Monogram</h2>
+        <p>"LD" letters with terrain texture on brand blue background.</p>
+        <div class="logo-display">
+          <img src="logo-monogram.svg" alt="LeDesign Monogram" style="max-width: 120px;">
+        </div>
+      </div>
+
+      <!-- Geometric -->
+      <div class="logo-card">
+        <h2>Geometric</h2>
+        <p>Alternative abstract design combining topography and structural grid.</p>
+        <div class="logo-display">
+          <img src="logo-geometric.svg" alt="LeDesign Geometric" style="max-width: 100px;">
+        </div>
+      </div>
+    </div>
+
+    <!-- Color Palette -->
+    <div class="color-palette">
+      <h2>Brand Colors</h2>
+      <div class="color-grid">
+        <div class="color-swatch">
+          <div class="color-box" style="background: #0052CC;"></div>
+          <div class="color-name">Blue Dark</div>
+          <div class="color-hex">#0052CC</div>
+        </div>
+        <div class="color-swatch">
+          <div class="color-box" style="background: #0066FF;"></div>
+          <div class="color-name">Blue Medium</div>
+          <div class="color-hex">#0066FF</div>
+        </div>
+        <div class="color-swatch">
+          <div class="color-box" style="background: #4C9AFF;"></div>
+          <div class="color-name">Blue Light</div>
+          <div class="color-hex">#4C9AFF</div>
+        </div>
+        <div class="color-swatch">
+          <div class="color-box" style="background: #1A1A1A;"></div>
+          <div class="color-name">Black</div>
+          <div class="color-hex">#1A1A1A</div>
+        </div>
+        <div class="color-swatch">
+          <div class="color-box" style="background: #E5E5E5; border: 1px solid #ccc;"></div>
+          <div class="color-name">Gray Light</div>
+          <div class="color-hex">#E5E5E5</div>
+        </div>
+        <div class="color-swatch">
+          <div class="color-box" style="background: #FFFFFF; border: 1px solid #ccc;"></div>
+          <div class="color-name">White</div>
+          <div class="color-hex">#FFFFFF</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Download Section -->
+    <div class="download-section">
+      <h2>Download Assets</h2>
+      <p style="margin-bottom: 20px; color: #666;">All files are in SVG format (vector, infinitely scalable). Right-click to download.</p>
+      <div class="download-grid">
+        <a href="logo-full.svg" download class="download-link">
+          <svg class="download-icon" viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+          <span>logo-full.svg</span>
+        </a>
+        <a href="logo-full-dark.svg" download class="download-link">
+          <svg class="download-icon" viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+          <span>logo-full-dark.svg</span>
+        </a>
+        <a href="logo-icon.svg" download class="download-link">
+          <svg class="download-icon" viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+          <span>logo-icon.svg</span>
+        </a>
+        <a href="logo-monogram.svg" download class="download-link">
+          <svg class="download-icon" viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+          <span>logo-monogram.svg</span>
+        </a>
+        <a href="logo-geometric.svg" download class="download-link">
+          <svg class="download-icon" viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+          <span>logo-geometric.svg</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

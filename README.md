@@ -1,6 +1,8 @@
-# LeDesign
+# LeDesign - Ingeniería Chilena
 
-Unified engineering design platform for Chilean engineering professionals.
+Plataforma unificada de diseño ingenieril para profesionales de la ingeniería chilena.
+
+![LeDesign Logo](branding/logo-full.svg)
 
 ## 🚀 Quick Start
 
@@ -60,8 +62,9 @@ LeDesign/
 # Install dependencies
 npm install
 
-# Start development server
+# Start development server (runs on port 4000)
 npm run dev
+# → http://localhost:4000
 
 # Build all packages
 npm run build
@@ -73,13 +76,19 @@ npm run test
 npm run lint
 ```
 
+**Note**: LeDesign runs on **port 4000** by default (not 3000) to avoid conflicts with other projects.
+
 ## Technology Stack
 
-- **Framework**: Next.js 16+ with Turbopack
+- **Framework**: Next.js 16.1+
+- **React**: 19.0+
 - **Database**: Turso (libSQL)
 - **3D Rendering**: React Three Fiber
-- **Authentication**: JWT
+- **Authentication**: NextAuth.js v5 (beta)
 - **Monorepo**: Turborepo
+- **Styling**: Tailwind CSS 3.4 + Glassmorphism Design System
+- **Icons**: Lucide React
+- **TypeScript**: 5.7.3
 - **Deployment**: Vercel
 
 ## Chilean Engineering Codes

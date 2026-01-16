@@ -30,6 +30,11 @@
       "types": "./dist/sight-distance/index.d.ts",
       "import": "./dist/sight-distance/index.mjs",
       "require": "./dist/sight-distance/index.js"
+    },
+    "./urban": {
+      "types": "./dist/urban/index.d.ts",
+      "import": "./dist/urban/index.mjs",
+      "require": "./dist/urban/index.js"
     }
   },
   "scripts": {

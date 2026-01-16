@@ -9,5 +9,8 @@ export * from './client';
 // Schema types
 export * from './schema';
 
+// Migration utilities
+export * from './migrate';
+
 // Version
 export const DB_VERSION = '1.0.0';

@@ -2019,16 +2019,40 @@ export function checkCFSMember(input: CFSDesignInput): CFSDesignResult {
 export function createCFSDesignResult(
   elementId: string,
   analysisRunId: string,
-  result: CFSDesignResult
+  result: CFSDesignResult,
+  projectId: string = 'project_id_placeholder', // TODO: Pass from caller
+  combinationId: string = 'combo_id_placeholder' // TODO: Pass from caller
 ): DesignResult {
+  // Determine capacity and demand based on governing check
+  let capacity = 0;
+  let demand = 0;
+  if (result.governingCheck.includes('Flexure')) {
+    capacity = result.flexure.phi_Mn;
+    demand = result.flexure.Mn;
+  } else if (result.governingCheck.includes('Shear')) {
+    capacity = result.shear.phi_Vn;
+    demand = result.shear.Vn;
+  } else if (result.compression) {
+    capacity = result.compression.phi_Pn;
+    demand = result.compression.Pn;
+  } else if (result.tension) {
+    capacity = result.tension.phi_Tn;
+    demand = result.tension.Tn;
+  }
+
   return {
     id: generateDesignResultId(),
+    project_id: projectId,
     run_id: analysisRunId,
+    combination_id: combinationId,
     member_id: elementId,
     member_type: 'beam', // CFS members - typically beams/columns
     design_code: 'AISI S100-16',
     demand_capacity_ratio: result.dcRatio,
+    governing_check: result.governingCheck,
     controlling_check: result.governingCheck,
+    capacity: capacity,
+    demand: demand,
     status: result.status,
     checks: {
       compression: result.compression

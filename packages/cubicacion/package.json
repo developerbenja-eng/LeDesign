@@ -1,0 +1,53 @@
+{
+  "name": "@ledesign/cubicacion",
+  "version": "1.0.0",
+  "description": "Cost estimation and quantity takeoff module for infrastructure projects",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./generator": {
+      "types": "./dist/generator.d.ts",
+      "import": "./dist/generator.mjs",
+      "require": "./dist/generator.js"
+    },
+    "./serviu": {
+      "types": "./dist/serviu-itemizado.d.ts",
+      "import": "./dist/serviu-itemizado.mjs",
+      "require": "./dist/serviu-itemizado.js"
+    },
+    "./types": {
+      "types": "./dist/types.d.ts",
+      "import": "./dist/types.mjs",
+      "require": "./dist/types.js"
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "lint": "eslint src/",
+    "test": "vitest",
+    "clean": "rm -rf dist"
+  },
+  "keywords": [
+    "cost-estimation",
+    "quantity-takeoff",
+    "cubicacion",
+    "serviu",
+    "infrastructure",
+    "chile",
+    "construction"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^22.10.5",
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.3",
+    "vitest": "^2.1.8"
+  }
+}

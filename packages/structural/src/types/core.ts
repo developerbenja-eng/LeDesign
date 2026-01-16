@@ -70,11 +70,27 @@ export interface SpringStiffness {
 }
 
 export interface NodalMass {
-  mx?: number;
-  my?: number;
-  mz?: number;
+  mass?: number;      // Uniform mass in all directions
+  massX?: number;     // Mass in X direction
+  massY?: number;     // Mass in Y direction
+  massZ?: number;     // Mass in Z direction
+  mx?: number;        // Alias for massX
+  my?: number;        // Alias for massY
+  mz?: number;        // Alias for massZ
+  inertiaX?: number;  // Rotational inertia about X
+  inertiaY?: number;  // Rotational inertia about Y
+  inertiaZ?: number;  // Rotational inertia about Z
 }
 
-export type LoadDirection = 'X' | 'Y' | 'Z' | 'gravity' | 'local-x' | 'local-y' | 'local-z';
+export interface PrescribedDisplacements {
+  dx?: number;
+  dy?: number;
+  dz?: number;
+  rx?: number;
+  ry?: number;
+  rz?: number;
+}
 
-export type SupportType = 'free' | 'pinned' | 'fixed' | 'roller' | 'spring';
+export type LoadDirection = 'X' | 'Y' | 'Z' | '-X' | '-Y' | '-Z' | 'gravity' | 'local-x' | 'local-y' | 'local-z';
+
+export type SupportType = 'free' | 'pinned' | 'fixed' | 'roller' | 'roller_x' | 'roller_y' | 'roller_z' | 'spring' | 'custom';

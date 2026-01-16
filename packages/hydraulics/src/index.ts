@@ -36,3 +36,8 @@ export * from './water-network';
 // HYDROLOGY (Rainfall, runoff, flood frequency)
 // ============================================================
 export * from './hydrology';
+
+// ============================================================
+// DATA SOURCES (External APIs for weather and hydrology data)
+// ============================================================
+export * from './data-sources';

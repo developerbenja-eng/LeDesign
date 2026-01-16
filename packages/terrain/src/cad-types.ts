@@ -87,3 +87,49 @@ export type AnyCADEntity =
   | ArcEntity
   | TextEntity
   | DimensionEntity;
+
+/**
+ * TIN Surface representation
+ */
+export interface TINSurface {
+  id: string;
+  name: string;
+  points: Map<string, Point3D>;
+  faces: [number, number, number][]; // Triangle indices
+  bounds: {
+    min: Point3D;
+    max: Point3D;
+  };
+}
+
+/**
+ * Geographic Coordinate (Latitude/Longitude)
+ */
+export interface LatLng {
+  lat: number;
+  lng: number;
+}
+
+/**
+ * Geographic Control Point
+ * Links CAD coordinates to geographic coordinates
+ */
+export interface GeoControlPoint {
+  id: string;
+  cadPoint: Point2D;
+  geoPoint: LatLng;
+  name?: string;
+}
+
+/**
+ * Geographic Transformation Parameters
+ * Defines transformation between CAD and geographic coordinate systems
+ */
+export interface GeoTransform {
+  controlPoints: GeoControlPoint[];
+  scale: number;
+  rotation: number;
+  origin: LatLng;
+  cadOrigin: Point2D;
+  isValid: boolean;
+}

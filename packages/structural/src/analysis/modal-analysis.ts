@@ -850,9 +850,19 @@ export async function runModalAnalysis(
         mass_participation_rx: 0, // TODO: Calculate rotational participation
         mass_participation_ry: 0,
         mass_participation_rz: 0,
+        // Backwards compatibility aliases
+        participation_x: participationFactors[i].x,
+        participation_y: participationFactors[i].y,
+        participation_z: participationFactors[i].z,
+        mass_ratio_x: participationFactors[i].x,
+        mass_ratio_y: participationFactors[i].y,
+        mass_ratio_z: participationFactors[i].z,
         cumulative_x: cumX,
         cumulative_y: cumY,
         cumulative_z: cumZ,
+        cumulative_mass_x: cumX,
+        cumulative_mass_y: cumY,
+        cumulative_mass_z: cumZ,
         modal_mass: modalMass,
         created_at: new Date().toISOString(),
       };

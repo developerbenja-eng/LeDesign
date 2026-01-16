@@ -40,3 +40,6 @@ yarn-error.log*
 # Local
 .vscode
 .idea
+
+# Large data files
+apps/web/public/data/

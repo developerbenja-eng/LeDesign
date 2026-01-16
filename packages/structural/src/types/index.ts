@@ -20,3 +20,6 @@ export * from './loads';
 
 // Results
 export * from './results';
+
+// Design
+export * from './design';

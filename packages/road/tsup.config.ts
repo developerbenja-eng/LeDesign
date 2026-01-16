@@ -7,6 +7,7 @@ export default defineConfig({
     'vertical/index': 'src/vertical/index.ts',
     'cross-section/index': 'src/cross-section/index.ts',
     'sight-distance/index': 'src/sight-distance/index.ts',
+    'urban/index': 'src/urban/index.ts',
   },
   format: ['cjs', 'esm'],
   dts: true,

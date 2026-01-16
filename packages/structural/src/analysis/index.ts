@@ -16,6 +16,7 @@ export {
   combineDirectionalResponses,
   generateNCh433Spectrum,
 } from './response-spectrum';
+export { buildForceDiagrams, getGlobalRange, calculateOffsetVector } from './force-diagrams';
 
 // Analysis type constants
 export const ANALYSIS_TYPES = {

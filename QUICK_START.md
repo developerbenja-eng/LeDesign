@@ -17,8 +17,9 @@ npm run setup
 # 3. Install dependencies
 npm install
 
-# 4. Start development
+# 4. Start development (opens on port 4000)
 npm run dev
+# → http://localhost:4000
 ```
 
 That's it! The `npm run setup` command automatically retrieves:
@@ -45,7 +46,7 @@ That's it! The `npm run setup` command automatically retrieves:
 ## 🛠️ Development Commands
 
 ```bash
-npm run dev            # Start development server
+npm run dev            # Start development server (port 4000)
 npm run build          # Build all packages
 npm run test           # Run tests
 npm run lint           # Lint code

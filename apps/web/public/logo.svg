@@ -1,0 +1,30 @@
+<svg width="300" height="80" viewBox="0 0 300 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Icon: Geometric terrain layers -->
+  <g id="icon">
+    <!-- Base layer - darkest -->
+    <path d="M20 60 L35 45 L50 52 L65 38 L65 70 L20 70 Z" fill="#0052CC"/>
+
+    <!-- Middle layer -->
+    <path d="M20 50 L35 35 L50 42 L65 28 L65 38 L50 52 L35 45 L20 60 Z" fill="#0066FF" opacity="0.8"/>
+
+    <!-- Top layer - lightest -->
+    <path d="M20 40 L35 25 L50 32 L65 18 L65 28 L50 42 L35 35 L20 50 Z" fill="#4C9AFF" opacity="0.6"/>
+
+    <!-- Grid lines (subtle engineering reference) -->
+    <line x1="20" y1="70" x2="65" y2="70" stroke="#ffffff" stroke-width="0.5" opacity="0.3"/>
+    <line x1="20" y1="60" x2="65" y2="60" stroke="#ffffff" stroke-width="0.5" opacity="0.3"/>
+    <line x1="20" y1="50" x2="65" y2="50" stroke="#ffffff" stroke-width="0.5" opacity="0.3"/>
+  </g>
+
+  <!-- Wordmark -->
+  <g id="wordmark">
+    <!-- "Le" in lighter weight -->
+    <text x="85" y="52" font-family="Inter, -apple-system, system-ui, sans-serif" font-size="36" font-weight="300" fill="#1a1a1a">Le</text>
+
+    <!-- "Design" in bold -->
+    <text x="125" y="52" font-family="Inter, -apple-system, system-ui, sans-serif" font-size="36" font-weight="700" fill="#0052CC">Design</text>
+
+    <!-- Tagline -->
+    <text x="85" y="68" font-family="Inter, -apple-system, system-ui, sans-serif" font-size="11" font-weight="400" fill="#666666" letter-spacing="1.5">INGENIERÍA CHILENA</text>
+  </g>
+</svg>

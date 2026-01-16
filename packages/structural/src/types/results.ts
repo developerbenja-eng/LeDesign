@@ -109,15 +109,36 @@ export interface ModalResult {
   mode_number: number;
   frequency: number; // Hz
   period: number; // seconds
+  circular_frequency: number; // rad/s (2 * PI * frequency)
+
+  // Mass participation factors
+  mass_participation_x: number;
+  mass_participation_y: number;
+  mass_participation_z: number;
+  mass_participation_rx: number;
+  mass_participation_ry: number;
+  mass_participation_rz: number;
+
+  // Aliases for backwards compatibility
   participation_x: number;
   participation_y: number;
   participation_z: number;
   mass_ratio_x: number;
   mass_ratio_y: number;
   mass_ratio_z: number;
+
+  // Cumulative mass participation
+  cumulative_x: number;
+  cumulative_y: number;
+  cumulative_z: number;
   cumulative_mass_x: number;
   cumulative_mass_y: number;
   cumulative_mass_z: number;
+
+  // Modal mass
+  modal_mass: number;
+
+  created_at: string;
 }
 
 export interface ModeShape {
@@ -135,6 +156,8 @@ export interface ModeShape {
 // ============================================================
 // DESIGN RESULTS
 // ============================================================
+
+export type DesignChecks = Record<string, unknown>;
 
 export interface DesignResult {
   id: string;
@@ -221,21 +244,58 @@ export function memberResultRowToMemberResult(row: MemberResultRow): MemberResul
   };
 }
 
+export interface NodeResultRow {
+  id: string;
+  run_id: string;
+  combination_id: string;
+  node_id: string;
+  dx: number;
+  dy: number;
+  dz: number;
+  rx: number;
+  ry: number;
+  rz: number;
+  reaction_fx: number | null;
+  reaction_fy: number | null;
+  reaction_fz: number | null;
+  reaction_mx: number | null;
+  reaction_my: number | null;
+  reaction_mz: number | null;
+}
+
+export function nodeResultRowToNodeResult(row: NodeResultRow): NodeResult {
+  return {
+    ...row,
+  };
+}
+
 export interface ModalResultRow {
   id: string;
   run_id: string;
   mode_number: number;
   frequency: number;
   period: number;
+  circular_frequency: number;
+  mass_participation_x: number;
+  mass_participation_y: number;
+  mass_participation_z: number;
+  mass_participation_rx: number;
+  mass_participation_ry: number;
+  mass_participation_rz: number;
   participation_x: number;
   participation_y: number;
   participation_z: number;
   mass_ratio_x: number;
   mass_ratio_y: number;
   mass_ratio_z: number;
+  cumulative_x: number;
+  cumulative_y: number;
+  cumulative_z: number;
   cumulative_mass_x: number;
   cumulative_mass_y: number;
   cumulative_mass_z: number;
+  modal_mass: number;
+  created_at: string;
 }
 
 export function modalResultRowToModalResult(row: ModalResultRow): ModalResult {
@@ -245,14 +305,80 @@ export function modalResultRowToModalResult(row: ModalResultRow): ModalResult {
     mode_number: row.mode_number,
     frequency: row.frequency,
     period: row.period,
+    circular_frequency: row.circular_frequency,
+    mass_participation_x: row.mass_participation_x,
+    mass_participation_y: row.mass_participation_y,
+    mass_participation_z: row.mass_participation_z,
+    mass_participation_rx: row.mass_participation_rx,
+    mass_participation_ry: row.mass_participation_ry,
+    mass_participation_rz: row.mass_participation_rz,
     participation_x: row.participation_x,
     participation_y: row.participation_y,
     participation_z: row.participation_z,
     mass_ratio_x: row.mass_ratio_x,
     mass_ratio_y: row.mass_ratio_y,
     mass_ratio_z: row.mass_ratio_z,
+    cumulative_x: row.cumulative_x,
+    cumulative_y: row.cumulative_y,
+    cumulative_z: row.cumulative_z,
     cumulative_mass_x: row.cumulative_mass_x,
     cumulative_mass_y: row.cumulative_mass_y,
     cumulative_mass_z: row.cumulative_mass_z,
+    modal_mass: row.modal_mass,
+    created_at: row.created_at,
+  };
+}
+
+export interface AnalysisRunRow {
+  id: string;
+  project_id: string;
+  name: string | null;
+  analysis_type: string;
+  status: string;
+  started_at: string | null;
+  completed_at: string | null;
+  combination_ids: string; // JSON
+  settings: string; // JSON
+  messages: string; // JSON
+  summary: string; // JSON
+  created_at: string;
+}
+
+export function analysisRunRowToAnalysisRun(row: AnalysisRunRow): AnalysisRun {
+  return {
+    ...row,
+    combination_ids: row.combination_ids ? JSON.parse(row.combination_ids) : [],
+    settings: row.settings ? JSON.parse(row.settings) : {},
+    messages: row.messages ? JSON.parse(row.messages) : [],
+    summary: row.summary ? JSON.parse(row.summary) : {},
+  };
+}
+
+export interface DesignResultRow {
+  id: string;
+  project_id: string;
+  run_id: string;
+  combination_id: string;
+  member_id: string;
+  member_type: string;
+  design_code: string;
+  status: string;
+  demand_capacity_ratio: number;
+  governing_check: string;
+  controlling_check: string | null;
+  capacity: number;
+  demand: number;
+  checks: string | null; // JSON
+  messages: string; // JSON
+  created_at: string;
+}
+
+export function designResultRowToDesignResult(row: DesignResultRow): DesignResult {
+  return {
+    ...row,
+    status: row.status as DesignStatus,
+    controlling_check: row.controlling_check ?? undefined,
+    checks: row.checks ? JSON.parse(row.checks) : undefined,
+    messages: row.messages ? JSON.parse(row.messages) : [],
   };
 }

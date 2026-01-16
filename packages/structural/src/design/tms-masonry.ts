@@ -648,16 +648,37 @@ export function checkMasonryWall(input: MasonryDesignInput): MasonryDesignResult
 export function createMasonryDesignResult(
   elementId: string,
   analysisRunId: string,
-  result: MasonryDesignResult
+  result: MasonryDesignResult,
+  projectId: string = 'project_id_placeholder', // TODO: Pass from caller
+  combinationId: string = 'combo_id_placeholder' // TODO: Pass from caller
 ): DesignResult {
+  // Determine capacity and demand based on governing check
+  let capacity = 0;
+  let demand = 0;
+  if (result.governingCheck.includes('Axial')) {
+    capacity = result.axial.phi_Pn;
+    demand = result.axial.Pn; // This should be the actual demand, not capacity
+  } else if (result.governingCheck.includes('Shear')) {
+    capacity = result.shear.phi_Vn;
+    demand = result.shear.Vn; // This should be the actual demand
+  } else if (result.flexure) {
+    capacity = result.flexure.phi_Mn;
+    demand = result.flexure.Mn; // This should be the actual demand
+  }
+
   return {
     id: generateDesignResultId(),
+    project_id: projectId,
     run_id: analysisRunId,
+    combination_id: combinationId,
     member_id: elementId,
     member_type: 'column', // Masonry is typically used for walls/columns
     design_code: 'TMS 402-16',
     demand_capacity_ratio: result.dcRatio,
+    governing_check: result.governingCheck,
     controlling_check: result.governingCheck,
+    capacity: capacity,
+    demand: demand,
     status: result.status,
     checks: {
       axial: {
@@ -779,18 +800,23 @@ export async function runTMSWallDesignChecks(
       // No shell results for this wall
       const result: DesignResult = {
         id: generateDesignResultId(),
+        project_id: projectId,
         run_id: analysisRunId,
+        combination_id: 'combo_id_placeholder',
         member_id: wall.id,
         member_type: 'wall',
         design_code: 'TMS 402-16',
         demand_capacity_ratio: 0,
-        controlling_combination_id: null,
-        controlling_check: null,
+        governing_check: 'N/A',
+        controlling_check: 'N/A',
+        capacity: 0,
+        demand: 0,
         status: 'warning',
         checks: {},
         messages: [
           {
             type: 'warning',
+            code: 'TMS-NO-RESULTS',
             message: 'No shell element results found for this wall',
           },
         ],
@@ -895,15 +921,33 @@ export async function runTMSWallDesignChecks(
       };
     }
 
+    // Determine capacity and demand based on governing check
+    let capacity = 0;
+    let demand = 0;
+    if (designResult.governingCheck.includes('Axial')) {
+      capacity = designResult.axial.phi_Pn;
+      demand = forces.axial; // Actual demand from analysis
+    } else if (designResult.governingCheck.includes('Shear')) {
+      capacity = designResult.shear.phi_Vn;
+      demand = forces.shear;
+    } else if (designResult.flexure) {
+      capacity = designResult.flexure.phi_Mn;
+      demand = forces.moment;
+    }
+
     const result: DesignResult = {
       id: generateDesignResultId(),
+      project_id: projectId,
       run_id: analysisRunId,
+      combination_id: 'combo_id_placeholder',
       member_id: wall.id,
       member_type: 'wall',
       design_code: 'TMS 402-16',
       demand_capacity_ratio: designResult.dcRatio,
-      controlling_combination_id: null,
+      governing_check: designResult.governingCheck,
       controlling_check: designResult.governingCheck,
+      capacity: capacity,
+      demand: demand,
       status: designResult.status,
       checks,
       messages: designResult.messages,
@@ -913,27 +957,31 @@ export async function runTMSWallDesignChecks(
     results.push(result);
 
     // Store in database
-    await db.execute(
-      `INSERT INTO design_results (
-        id, run_id, member_id, member_type, design_code,
-        demand_capacity_ratio, controlling_combination_id, controlling_check,
+    await db.execute({
+      sql: `INSERT INTO design_results (
+        id, project_id, run_id, combination_id, member_id, member_type, design_code,
+        demand_capacity_ratio, governing_check, controlling_check, capacity, demand,
         status, checks, messages, created_at
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-      [
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      args: [
         result.id,
+        result.project_id,
         result.run_id,
+        result.combination_id,
         result.member_id,
         result.member_type,
         result.design_code,
         result.demand_capacity_ratio,
-        result.controlling_combination_id ?? null,
-        result.controlling_check ?? null,
+        result.governing_check ?? 'N/A',
+        result.controlling_check ?? 'N/A',
+        result.capacity ?? 0,
+        result.demand ?? 0,
         result.status,
         JSON.stringify(result.checks),
         JSON.stringify(result.messages),
         result.created_at,
-      ]
-    );
+      ],
+    });
   }
 
   return results;

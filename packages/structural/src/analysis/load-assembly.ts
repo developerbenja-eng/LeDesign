@@ -8,8 +8,8 @@ import type {
   PointLoad,
   AreaLoad,
 } from '../types/loads';
-import type { LoadDirection } from '../types/core';
-import type { StructuralNode } from '../types/elements';
+import type { LoadDirection } from '@/types/structural/core';
+import type { StructuralNode } from '@/types/structural/elements';
 
 // ============================================================
 // TYPES

@@ -84,8 +84,10 @@ export {
   calculateMaxReinforcementRatio,
   calculateMinShearReinforcement,
   calculateMaxStirrupSpacing,
-  // Design runner
+  // Design runners
   runACIDesignChecks,
+  runACIWallDesignChecks,
+  runACISlabDesignChecks,
 } from './aci-concrete';
 
 // ============================================================
@@ -143,8 +145,9 @@ export {
   checkCombinedAxialFlexure as checkMasonryCombinedAxialFlexure,
   // Minimum reinforcement
   getMinimumReinforcement as getMasonryMinimumReinforcement,
-  // Design runner
+  // Design runners
   checkMasonryWall,
+  runTMSWallDesignChecks,
   createMasonryDesignResult,
 } from './tms-masonry';
 

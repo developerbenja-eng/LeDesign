@@ -2,7 +2,7 @@
   "name": "ledesign",
   "version": "1.0.0",
   "private": true,
-  "description": "Unified engineering design platform for structural, hydraulic, pavement, and road design",
+  "description": "LeDesign - Plataforma de Ingeniería Chilena para diseño estructural, hidráulico, pavimentos y vial",
   "scripts": {
     "setup": "node scripts/setup-env.js",
     "build": "turbo build",

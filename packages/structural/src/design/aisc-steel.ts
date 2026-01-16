@@ -633,18 +633,24 @@ export async function runAISCDesignChecks(
     if (!checkResult.passed) {
       messages.push({
         type: 'warning',
+        code: 'AISC_DC_RATIO',
         message: `Governing check: ${checkResult.governingCase} with D/C ratio of ${checkResult.dcRatio.toFixed(3)}`,
       });
     }
 
     const designResult: DesignResult = {
       id: generateDesignResultId(),
+      project_id: '', // TODO: Pass projectId from caller
       run_id: analysisRunId,
+      combination_id: '', // TODO: Pass combination ID from caller
       member_id: elementId,
       member_type: elementType,
       design_code: 'AISC 360-22',
       demand_capacity_ratio: checkResult.dcRatio,
+      governing_check: checkResult.governingCase,
       controlling_check: checkResult.governingCase,
+      capacity: 0, // TODO: Extract from checkResult
+      demand: 0, // TODO: Extract from checkResult
       status,
       checks,
       messages,

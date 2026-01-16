@@ -82,7 +82,447 @@ LeDesign/
 - **Package Manager**: npm 10.9.2+
 - **Node**: >= 20.0.0
 
+## Design Standards
+
+**CRITICAL**: LeDesign uses a modern glassmorphism design system. Always follow these standards to maintain visual consistency.
+
+### Framework Versions
+
+- **Next.js**: 16.1+ (always use latest stable)
+- **React**: 19.0+ (always use latest stable)
+- **ESLint**: 9.0+ (required for Next.js 16+)
+
+**When upgrading**: Update Next.js, React, ESLint, and related types together. Never use outdated versions.
+
+### Design System
+
+LeDesign implements a **glassmorphism design system** with:
+
+- **Semi-transparent backgrounds** with backdrop blur
+- **Depth and elevation** using layered shadows
+- **Smooth micro-interactions** on hover/active states
+- **Professional iconography** via Lucide React
+- **Modern color palette** with semantic meaning
+
+### CSS Architecture
+
+All design tokens are defined in `apps/web/src/app/globals.css`:
+
+```css
+/* CSS Variables */
+--glass-bg: rgba(30, 41, 59, 0.7);
+--glass-bg-hover: rgba(30, 41, 59, 0.85);
+--glass-border: rgba(148, 163, 184, 0.1);
+--glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+--depth-1 through --depth-5: Elevation shadows
+```
+
+### Component Classes
+
+**ALWAYS use these glassmorphism classes** instead of basic Tailwind classes:
+
+```css
+.glass-card       /* Cards with glassmorphism + hover effects */
+.glass-panel      /* Panels with lighter glassmorphism */
+.glass-header     /* Headers with sticky glassmorphism */
+.interactive-card /* Cards with micro-interactions */
+.btn-glass        /* Glassmorphic buttons */
+.icon-wrapper     /* Icon containers with hover effects */
+.depth-1 to .depth-5  /* Elevation shadows */
+```
+
+### Icon Usage
+
+**ALWAYS use Lucide React icons**, NEVER emoji icons.
+
+```tsx
+// ✅ CORRECT
+import { Building2, Route, Car, Droplet, Mountain } from 'lucide-react';
+
+<Building2 size={28} strokeWidth={2} className="text-blue-400" />
+
+// ❌ WRONG - Don't use emojis
+<div>🏗️</div>
+```
+
+**Icon Guidelines**:
+
+- Size: 24-32px for module cards, 32-40px for features
+- Stroke width: 2 for consistency
+- Colors: Use Tailwind color classes with semantic meaning
+- Wrapper: Use `.icon-wrapper` class for hover effects
+
+### Animation Standards
+
+All animations are defined in `globals.css`:
+
+```css
+.animate-fade-in    /* Fade in effect */
+.animate-slide-up   /* Slide up from bottom */
+.animate-scale-in   /* Scale in from 95% */
+```
+
+**Usage**:
+
+```tsx
+<div className="animate-slide-up" style={{ animationDelay: '0.2s' }}>
+  {/* Content */}
+</div>
+```
+
+### Design Patterns
+
+**Module Cards**:
+
+```tsx
+<Link
+  href="/module"
+  className="glass-card interactive-card rounded-xl p-6 group"
+>
+  <div className="icon-wrapper w-14 h-14 rounded-lg bg-slate-800/50 text-blue-400">
+    <IconComponent size={28} strokeWidth={2} />
+  </div>
+  <h3 className="text-xl font-semibold group-hover:text-ledesign-blue-light">
+    Module Name
+  </h3>
+  <p className="text-sm text-slate-400">Description</p>
+</Link>
+```
+
+**Feature Panels**:
+
+```tsx
+<div className="glass-panel rounded-xl p-8 text-center">
+  <div className="icon-wrapper w-16 h-16 mx-auto rounded-full bg-blue-500/10 text-blue-400">
+    <Zap size={32} strokeWidth={2} />
+  </div>
+  <h3 className="text-lg font-semibold">Feature Title</h3>
+  <p className="text-sm text-slate-400">Feature description</p>
+</div>
+```
+
+### Typography
+
+- **Headings**: Use gradient text for hero sections
+
+  ```tsx
+  <h2 className="text-5xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
+    Hero Title
+  </h2>
+  ```
+
+- **Body**: `text-slate-300` for primary, `text-slate-400` for secondary
+- **Font**: Inter (already configured in `globals.css`)
+
+### Color Palette
+
+Use semantic color coding for modules:
+
+- **Structural**: `text-blue-400`
+- **Pavement**: `text-purple-400`
+- **Road**: `text-green-400`
+- **Hydraulic**: `text-cyan-400`
+- **Terrain**: `text-amber-400`
+
+### DO's and DON'Ts
+
+**DO**:
+
+- ✅ Use glassmorphism classes (`.glass-card`, `.glass-panel`)
+- ✅ Use Lucide React icons with proper sizing
+- ✅ Add micro-interactions (`.interactive-card`, `.icon-wrapper`)
+- ✅ Use animation classes with staggered delays
+- ✅ Apply semantic color coding
+- ✅ Use gradient text for hero sections
+- ✅ Maintain Next.js 16+ and React 19+
+
+**DON'T**:
+
+- ❌ Use basic `bg-slate-800` or `border-slate-700` for cards
+- ❌ Use emoji icons (🏗️ 🛣️ etc.)
+- ❌ Skip hover effects on interactive elements
+- ❌ Use flat design without depth/shadows
+- ❌ Downgrade to older Next.js or React versions
+- ❌ Create custom icon components when Lucide has alternatives
+
+### Upgrading Design
+
+If you find components using old design patterns:
+
+1. Replace basic backgrounds with `.glass-card` or `.glass-panel`
+2. Replace emoji icons with Lucide React icons
+3. Add `.interactive-card` for hover effects
+4. Add `.icon-wrapper` for icon containers
+5. Apply semantic color coding
+6. Add entrance animations
+
+### Testing Design
+
+Before committing UI changes:
+
+```bash
+npm run build  # Ensure build succeeds
+npm run dev    # Visual inspection at http://localhost:4000
+```
+
+Visit all module pages to verify design consistency.
+
+## Marketing & Messaging
+
+### Value Proposition
+
+LeDesign's core value proposition is built on three pillars:
+
+1. **Speed**: "Diseña Más Rápido" - 40% time savings through automation
+2. **Compliance**: "Cumple la Normativa" - Guaranteed NCh standards compliance
+3. **Integration**: First platform integrating all 5 engineering disciplines in one place
+
+**Unique Selling Points**:
+- Only platform with AI-powered terrain analysis (Google Gemini)
+- Complete NCh433, NCh432, NCh691 implementation
+- 100% cloud-based - no installation required
+- Collaboration features for engineering teams
+- Professional-grade tools at accessible pricing
+
+### Target Audience
+
+**Primary Segments**:
+
+1. **Individual Engineers** (Plan Gratis/Profesional)
+   - Civil engineers doing structural, hydraulic, or road design
+   - Need occasional access or starting their practice
+   - Price-sensitive, value trial periods
+
+2. **Professional Engineers** (Plan Profesional)
+   - Established engineers with steady project flow
+   - Need all 5 modules + advanced features
+   - Value time savings and compliance guarantees
+   - Willing to pay $49/month for complete toolset
+
+3. **Engineering Firms** (Plan Empresarial)
+   - Consultoras with 5+ engineers
+   - Need collaboration, custom integrations
+   - Decision-makers: Engineering Managers, CTOs
+   - Budget for custom solutions
+
+**Geographic Focus**: Chile (Chilean standards compliance is core differentiator)
+
+### Pricing Strategy
+
+**Three-Tier Model**:
+
+```
+Gratis         → $0/mes   → Acquisition (convert to Profesional)
+Profesional    → $49/mes  → Primary revenue driver
+Empresarial    → Custom   → High-value contracts
+```
+
+**Pricing Psychology**:
+- Gratis plan removes friction (no credit card)
+- Profesional priced at value (not cost)
+- Empresarial "Contactar" creates premium perception
+
+**Key Metrics**:
+- Freemium → Pro conversion target: 5-10%
+- Average revenue per user (ARPU): $49
+- Pro plan highlighted as "Más Popular"
+
+### Messaging Guidelines
+
+**Headline Formulas**:
+
+✅ **DO Use**:
+- Action-oriented: "Diseña Más Rápido. Cumple la Normativa."
+- Benefit-driven: "Ahorra 40% de Tiempo en Diseño"
+- Social proof: "Más de 2,500 Ingenieros Activos"
+- Specificity: "Primera plataforma integral con 5 módulos"
+
+❌ **DON'T Use**:
+- Generic claims: "La mejor plataforma de ingeniería"
+- Technical jargon without context: "Análisis FEA avanzado"
+- Vague promises: "Mejora tu productividad"
+
+**Feature Descriptions**:
+
+Always follow: **Feature → Benefit → Outcome**
+
+Example:
+- Feature: "Análisis sísmico NCh433 automatizado"
+- Benefit: "Ahorra horas de cálculos manuales"
+- Outcome: "Diseña más estructuras en menos tiempo"
+
+**Tone & Voice**:
+- **Professional but approachable** - Engineers respect competence
+- **Spanish-first** - Chilean engineering market
+- **Benefit-oriented** - Focus on outcomes, not features
+- **Confident** - Guaranteed compliance, proven time savings
+
+### Social Proof Strategy
+
+**Stats to Highlight** (update as real metrics grow):
+- "10,000+ Proyectos Completados"
+- "2,500+ Ingenieros Activos"
+- "99.9% Tiempo de Actividad"
+- "40% Ahorro de Tiempo"
+
+**Testimonial Format**:
+
+```tsx
+{
+  name: string;          // "Carlos Muñoz"
+  role: string;          // "Ingeniero Civil Estructural"
+  company: string;       // "Constructora del Sur"
+  content: string;       // Specific benefit + emotional impact
+  rating: 5;             // Always 5 stars (only show best)
+}
+```
+
+**Testimonial Guidelines**:
+- Focus on specific results ("ahorra horas de cálculos")
+- Mention module by name ("módulo NCh433")
+- Include company size/type for credibility
+- Keep under 40 words for scanability
+
+### Conversion Optimization
+
+**Primary CTA**: "Comenzar Gratis"
+- Always visible in header
+- Repeated every 2-3 sections
+- Gradient button (blue → purple)
+- Action-oriented language
+
+**Secondary CTAs**:
+- "Ver Demo" - For researchers/browsers
+- "Hablar con Ventas" - For enterprise leads
+- "Contactar Ventas" - For Empresarial tier
+
+**CTA Placement**:
+1. Hero section (primary + secondary)
+2. After benefits section
+3. Pricing cards
+4. Final conversion section
+5. Sticky header (on scroll)
+
+**Friction Reducers**:
+- "Sin tarjeta de crédito" below CTA
+- "Prueba de 14 días" for Pro plan
+- "Soporte en español" for confidence
+- "Cancela cuando quieras" for commitment anxiety
+
+### Landing Page Structure
+
+**Required Sections** (in order):
+
+1. **Hero** - Value prop + primary CTA
+2. **Stats** - Social proof numbers
+3. **Benefits** - Why choose LeDesign (4 cards)
+4. **Modules** - 5 engineering disciplines
+5. **Pricing** - 3 tiers with features
+6. **Testimonials** - 3 customer stories
+7. **FAQ** - Overcome objections
+8. **Final CTA** - Last chance to convert
+
+**Section Spacing**:
+- `py-20` for main sections
+- `py-16` for stats/smaller sections
+- `mb-16` between section header and content
+
+### SEO & Content
+
+**Primary Keywords**:
+- "diseño estructural chile"
+- "software ingeniería civil chile"
+- "análisis sísmico nch433"
+- "diseño pavimentos aashto"
+- "plataforma ingeniería chilena"
+
+**Meta Descriptions** (150-160 chars):
+
+```typescript
+title: 'LeDesign - Ingeniería Chilena'
+description: 'Plataforma integral de diseño ingenieril para ingeniería estructural, pavimentos, hidráulica y vial. Implementa normas chilenas NCh.'
+```
+
+**Content Principles**:
+- Chilean standards always mentioned (NCh433, NCh691)
+- Benefit-first feature descriptions
+- Concrete numbers (40% savings, not "faster")
+- Industry-specific language (ingenieros civiles, consultoras)
+
+### Email & Nurture
+
+**Welcome Email Sequence** (for Gratis signups):
+
+1. **Day 0**: Welcome + Quick start guide
+2. **Day 3**: Module showcase (pick one to explore)
+3. **Day 7**: Pro features teaser
+4. **Day 10**: Limited-time Pro trial offer
+5. **Day 14**: Case study + upgrade CTA
+
+**Upgrade Triggers**:
+- Project limit reached (5 projects in Gratis)
+- Export format needed (DWG, Excel)
+- Team collaboration requested
+- AI features usage
+
+### Competitive Positioning
+
+**Key Differentiators vs. Competitors**:
+
+1. **Integrated Platform** - Not 5 separate software
+2. **Chilean Standards** - Built-in NCh compliance
+3. **Cloud-Native** - No installation, works anywhere
+4. **AI-Powered** - Google Gemini terrain analysis
+5. **Accessible Pricing** - $49/month vs. $200+ legacy software
+
+**When Comparing**:
+- Focus on LeDesign benefits (not competitor weaknesses)
+- Highlight integration advantage
+- Emphasize modern tech stack (cloud, AI)
+
+### A/B Testing Priorities
+
+**Test These Elements**:
+
+1. **Hero Headline**:
+   - Version A: "Diseña Más Rápido. Cumple la Normativa."
+   - Version B: "40% Menos Tiempo. 100% Cumplimiento NCh."
+
+2. **Pricing Display**:
+   - Version A: Monthly pricing ($49/mes)
+   - Version B: Annual pricing ($490/año - Ahorra $98)
+
+3. **CTA Copy**:
+   - Version A: "Comenzar Gratis"
+   - Version B: "Probar Gratis 14 Días"
+
+4. **Social Proof**:
+   - Version A: Stats grid
+   - Version B: Logos + testimonials
+
+### Localization Notes
+
+**Spanish (Chile) Specifics**:
+- Use "ingeniero/a" (not "engineer")
+- "Normativa chilena" (not "estándares chilenos")
+- "Plataforma" (not "aplicación web")
+- Vosotros forms NOT used in Chile (use ustedes)
+
+**Currency**: Always CLP ($) in Chilean market
+
+**Support Language**: Spanish-first, English available
+
 ## Working with the Codebase
+
+### Development Server
+
+**IMPORTANT**: LeDesign runs on **port 4000** (not 3000) to avoid conflicts with other projects.
+
+```bash
+# Start development server
+npm run dev
+# → Opens at http://localhost:4000
+```
 
 ### Building Packages
 

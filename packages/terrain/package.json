@@ -25,6 +25,11 @@
       "types": "./dist/surface-ai/index.d.ts",
       "import": "./dist/surface-ai/index.mjs",
       "require": "./dist/surface-ai/index.js"
+    },
+    "./geo": {
+      "types": "./dist/geo/index.d.ts",
+      "import": "./dist/geo/index.mjs",
+      "require": "./dist/geo/index.js"
     }
   },
   "scripts": {
@@ -37,12 +42,16 @@
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
     "@mlightcad/libredwg-web": "^0.6.3",
+    "delaunator": "^5.0.1",
     "geotiff": "^2.1.4-beta.1",
+    "ml-matrix": "^6.12.1",
+    "papaparse": "^5.5.3",
     "three": "^0.182.0"
   },
   "devDependencies": {
     "@types/geojson": "^7946.0.16",
     "@types/node": "^22.10.5",
+    "@types/papaparse": "^5.5.2",
     "@types/three": "^0.182.0",
     "tsup": "^8.3.5",
     "typescript": "^5.7.3",

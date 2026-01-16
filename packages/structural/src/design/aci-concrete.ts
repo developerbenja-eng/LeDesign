@@ -786,14 +786,23 @@ export async function runACIDesignChecks(
       status = 'pass';
     }
 
+    const controllingCheck = flexureDC >= shearDC ? 'Flexure' : 'Shear';
+    const capacity = flexureDC >= shearDC ? flexure.phi_Mn : shear.phi_Vn;
+    const demand = flexureDC >= shearDC ? Mu : Vu;
+
     const designResult: DesignResult = {
       id: generateDesignResultId(),
+      project_id: projectId,
       run_id: analysisRunId,
+      combination_id: 'combo_id_placeholder', // TODO: Extract from member_results
       member_id: beam.id,
       member_type: 'beam',
       design_code: 'ACI 318-19',
       demand_capacity_ratio: maxDC,
-      controlling_check: flexureDC >= shearDC ? 'Flexure' : 'Shear',
+      governing_check: controllingCheck,
+      controlling_check: controllingCheck,
+      capacity: capacity,
+      demand: demand,
       status,
       checks: {
         flexure: {
@@ -979,6 +988,7 @@ function checkConcreteWall(input: WallDesignInput): WallDesignResult {
   if (Ast < As_min) {
     messages.push({
       type: 'warning',
+      code: 'ACI-11.6',
       message: `Vertical reinforcement (${Ast.toFixed(0)} mm²) below minimum (${As_min.toFixed(0)} mm²)`,
     });
   }
@@ -991,6 +1001,7 @@ function checkConcreteWall(input: WallDesignInput): WallDesignResult {
   if (!shearPassed) {
     messages.push({
       type: 'error',
+      code: 'ACI-11.5.4',
       message: `Wall shear D/C = ${shearDC.toFixed(3)} > 1.0 FAIL`,
     });
   }
@@ -1003,6 +1014,7 @@ function checkConcreteWall(input: WallDesignInput): WallDesignResult {
   if (!axialPassed) {
     messages.push({
       type: 'error',
+      code: 'ACI-11.5',
       message: `Wall axial D/C = ${axialDC.toFixed(3)} > 1.0 FAIL`,
     });
   }
@@ -1157,15 +1169,29 @@ export async function runACIWallDesignChecks(
       status = 'fail';
     }
 
+    // Determine capacity and demand based on governing check
+    const isShearGoverning = wallResult.governingCheck === 'In-Plane Shear';
+    const capacity = isShearGoverning
+      ? wallResult.inPlaneShear.phi_Vn
+      : wallResult.axialCompression.phi_Pn;
+    const demand = isShearGoverning
+      ? wallResult.inPlaneShear.Vu
+      : wallResult.axialCompression.Pu;
+
     // Create DesignResult
     const designResult: DesignResult = {
       id: generateDesignResultId(),
+      project_id: projectId,
       run_id: analysisRunId,
+      combination_id: 'combo_id_placeholder', // TODO: Extract from shell_results
       member_id: wallId,
       member_type: 'wall',
       design_code: 'ACI 318-19',
       demand_capacity_ratio: wallResult.maxDCRatio,
+      governing_check: wallResult.governingCheck,
       controlling_check: wallResult.governingCheck,
+      capacity: capacity,
+      demand: demand,
       status,
       checks: {
         shear_major_capacity: wallResult.inPlaneShear.phi_Vn,
@@ -1315,6 +1341,7 @@ function checkConcreteSlab(input: SlabDesignInput): SlabDesignResult {
   if (As < As_min) {
     messages.push({
       type: 'warning',
+      code: 'ACI-7.6',
       message: `Slab reinforcement (${As.toFixed(0)} mm²) below minimum (${As_min.toFixed(0)} mm²)`,
     });
   }
@@ -1430,14 +1457,28 @@ export async function runACISlabDesignChecks(
 
     const status: DesignStatus = slabResult.passed ? 'pass' : slabResult.maxDCRatio <= 1.1 ? 'warning' : 'fail';
 
+    // Determine capacity and demand based on governing check
+    const isFlexureGoverning = slabResult.governingCheck.includes('Flexure');
+    const capacity = isFlexureGoverning
+      ? Math.max(slabResult.flexure.positive.phi_Mn, slabResult.flexure.negative.phi_Mn)
+      : slabResult.shear.phi_Vn;
+    const demand = isFlexureGoverning
+      ? Math.max(slabResult.flexure.positive.Mu, slabResult.flexure.negative.Mu)
+      : slabResult.shear.Vu;
+
     const designResult: DesignResult = {
       id: generateDesignResultId(),
+      project_id: projectId,
       run_id: analysisRunId,
+      combination_id: 'combo_id_placeholder', // TODO: Extract from shell_results
       member_id: slabId,
       member_type: 'slab',
       design_code: 'ACI 318-19',
       demand_capacity_ratio: slabResult.maxDCRatio,
+      governing_check: slabResult.governingCheck,
       controlling_check: slabResult.governingCheck,
+      capacity: capacity,
+      demand: demand,
       status,
       checks: {
         flexure_major_capacity: slabResult.flexure.positive.phi_Mn,

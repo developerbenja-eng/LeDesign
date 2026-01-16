@@ -11,6 +11,33 @@ export interface ValidationError {
   value?: unknown;
 }
 
+export interface ValidationWarning {
+  field: string;
+  message: string;
+  recommendation?: string;
+}
+
+/**
+ * Custom error class for engineering validation failures
+ */
+export class EngineeringValidationError extends Error {
+  public validationErrors: string[];
+
+  constructor(
+    message: string | ValidationError,
+    validationErrors: string[] = []
+  ) {
+    if (typeof message === 'string') {
+      super(message);
+      this.validationErrors = validationErrors;
+    } else {
+      super(message.message);
+      this.validationErrors = [message.message];
+    }
+    this.name = 'EngineeringValidationError';
+  }
+}
+
 /**
  * Validate that a value is a finite number
  */

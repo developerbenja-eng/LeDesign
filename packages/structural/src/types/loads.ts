@@ -44,13 +44,15 @@ export interface CreateLoadCaseInput {
 // LOAD COMBINATIONS
 // ============================================================
 
+export type LoadCombinationFactors = Record<string, number>; // { [load_case_id]: factor }
+
 export interface LoadCombination {
   id: string;
   project_id: string;
   name: string;
   combination_type: string;
   design_type: string;
-  factors: Record<string, number>; // { [load_case_id]: factor }
+  factors: LoadCombinationFactors;
   is_envelope: boolean;
   created_at: string;
   updated_at: string;
@@ -193,6 +195,10 @@ export interface SpectrumPoint {
   acceleration: number;
 }
 
+export type ModalCombinationMethod = 'SRSS' | 'CQC' | 'ABS' | 'TenPercent';
+
+export type DirectionalCombinationMethod = 'SRSS' | 'ABS' | '100_30_30' | '100_40_40';
+
 export interface ResponseSpectrum {
   id: string;
   project_id: string | null;
@@ -203,6 +209,7 @@ export interface ResponseSpectrum {
   spectrum_points: SpectrumPoint[];
   damping_ratio: number;
   created_at: string;
+  updated_at?: string;
 }
 
 export interface CreateResponseSpectrumInput {
@@ -241,4 +248,32 @@ export interface CreateTimeHistoryInput {
   data_points: number[];
   scale_factor?: number;
   source?: string;
+}
+
+// ============================================================
+// DATABASE ROW TYPES & CONVERTERS
+// ============================================================
+
+export interface LoadCaseRow {
+  id: string;
+  project_id: string;
+  name: string;
+  load_type: string;
+  self_weight_multiplier: number;
+  direction: string | null; // JSON or null
+  eccentricity: number;
+  spectrum_id: string | null;
+  scale_factor: number;
+  time_history_id: string | null;
+  modal_combination: string;
+  directional_combination: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export function loadCaseRowToLoadCase(row: LoadCaseRow): LoadCase {
+  return {
+    ...row,
+    direction: row.direction ? (row.direction as LoadDirection) : null,
+  };
 }

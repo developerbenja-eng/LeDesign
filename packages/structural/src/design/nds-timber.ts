@@ -696,14 +696,23 @@ export async function runNDSDesignChecks(
       status = 'pass';
     }
 
+    const controllingCheck = bending.dcRatio >= shear.dcRatio ? 'Bending' : 'Shear';
+    const capacity = bending.dcRatio >= shear.dcRatio ? bending.Mn : shear.Vn;
+    const demand = bending.dcRatio >= shear.dcRatio ? Mu : Vu;
+
     const designResult: DesignResult = {
       id: generateDesignResultId(),
+      project_id: projectId,
       run_id: analysisRunId,
+      combination_id: 'combo_id_placeholder', // TODO: Extract from member_results
       member_id: beam.id,
       member_type: 'beam',
       design_code: 'NDS 2018',
       demand_capacity_ratio: maxDC,
-      controlling_check: bending.dcRatio >= shear.dcRatio ? 'Bending' : 'Shear',
+      governing_check: controllingCheck,
+      controlling_check: controllingCheck,
+      capacity: capacity,
+      demand: demand,
       status,
       checks: {
         bending: {

@@ -34,8 +34,8 @@ export function calculateTerrainCharacteristics(
   const density = points.length / areaHectares;
 
   // Calculate elevation range and variance
-  const elevationRange = statistics.zMax - statistics.zMin;
-  const normalizedStdDev = statistics.zStdDev / elevationRange || 0;
+  const elevationRange = statistics.elevationMax - statistics.elevationMin;
+  const normalizedStdDev = statistics.elevationStdDev / elevationRange || 0;
 
   // Estimate slope from local variations
   const slopeStats = estimateSlopeStatistics(points);
@@ -374,9 +374,9 @@ function calculateLocalCharacteristics(
 ): TerrainCharacteristics {
   const { statistics, bounds, pointCount, density } = input;
 
-  const elevationRange = statistics.zMax - statistics.zMin;
+  const elevationRange = statistics.elevationMax - statistics.elevationMin;
   const normalizedStdDev = elevationRange > 0
-    ? statistics.zStdDev / elevationRange
+    ? statistics.elevationStdDev / elevationRange
     : 0;
 
   // Estimate slope from elevation histogram
@@ -447,9 +447,9 @@ SURVEY STATISTICS:
 - Point count: ${input.pointCount}
 - Area: ${((input.bounds.maxX - input.bounds.minX) * (input.bounds.maxY - input.bounds.minY) / 10000).toFixed(2)} hectares
 - Point density: ${input.density.toFixed(1)} points/hectare
-- Elevation range: ${input.statistics.zMin.toFixed(2)}m to ${input.statistics.zMax.toFixed(2)}m
-- Elevation mean: ${input.statistics.zMean.toFixed(2)}m
-- Elevation std dev: ${input.statistics.zStdDev.toFixed(2)}m
+- Elevation range: ${input.statistics.elevationMin.toFixed(2)}m to ${input.statistics.elevationMax.toFixed(2)}m
+- Elevation mean: ${input.statistics.elevationMean.toFixed(2)}m
+- Elevation std dev: ${input.statistics.elevationStdDev.toFixed(2)}m
 
 LOCAL ANALYSIS:
 - Preliminary classification: ${localCharacteristics.classification}

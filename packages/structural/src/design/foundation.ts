@@ -790,16 +790,43 @@ export function checkSpreadFooting(input: SpreadFootingInput): FoundationDesignR
 export function createFoundationDesignResult(
   elementId: string,
   analysisRunId: string,
-  result: FoundationDesignResult
+  result: FoundationDesignResult,
+  projectId: string = 'project_id_placeholder', // TODO: Pass from caller
+  combinationId: string = 'combo_id_placeholder' // TODO: Pass from caller
 ): DesignResult {
+  // Determine capacity and demand based on governing check
+  let capacity = 0;
+  let demand = 0;
+  if (result.governingCheck.includes('Bearing')) {
+    capacity = result.bearing.qall;
+    demand = result.bearing.qmax;
+  } else if (result.governingCheck.includes('Sliding')) {
+    capacity = result.sliding.resistance;
+    demand = result.sliding.H_total;
+  } else if (result.governingCheck.includes('Overturning')) {
+    capacity = result.overturning.M_resisting;
+    demand = result.overturning.M_overturning;
+  } else if (result.governingCheck.includes('One-Way Shear')) {
+    capacity = result.oneWayShear.phi_Vc;
+    demand = result.oneWayShear.Vu;
+  } else if (result.governingCheck.includes('Two-Way Shear')) {
+    capacity = result.twoWayShear.phi_Vc;
+    demand = result.twoWayShear.Vu;
+  }
+
   return {
     id: generateDesignResultId(),
+    project_id: projectId,
     run_id: analysisRunId,
+    combination_id: combinationId,
     member_id: elementId,
     member_type: 'beam', // Foundations can be associated with any supported element
     design_code: 'ACI 318-19 / Terzaghi',
     demand_capacity_ratio: result.dcRatio,
+    governing_check: result.governingCheck,
     controlling_check: result.governingCheck,
+    capacity: capacity,
+    demand: demand,
     status: result.status,
     checks: {
       bearing: {

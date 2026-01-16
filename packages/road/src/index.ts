@@ -23,3 +23,8 @@ export * from './cross-section';
 // SIGHT DISTANCE (Stopping, passing sight distance)
 // ============================================================
 export * from './sight-distance';
+
+// ============================================================
+// URBAN ROAD DESIGN (Intersections, crosswalks, ramps, traffic calming)
+// ============================================================
+export * from './urban';

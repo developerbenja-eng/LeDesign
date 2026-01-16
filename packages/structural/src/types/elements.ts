@@ -3,7 +3,7 @@
 // ============================================================
 // Structural element types (nodes, beams, columns, walls, slabs, etc.)
 
-import type { Restraints, EndReleases, EndOffset, SpringStiffness, NodalMass, SupportType } from './core';
+import type { Restraints, EndReleases, EndOffset, SpringStiffness, NodalMass, SupportType, PrescribedDisplacements } from './core';
 
 // ============================================================
 // NODES
@@ -20,7 +20,7 @@ export interface StructuralNode {
   support_type: SupportType;
   restraints: Restraints;
   spring_stiffness: SpringStiffness;
-  prescribed_displacements: Record<string, unknown>;
+  prescribed_displacements: PrescribedDisplacements;
   mass: NodalMass;
   created_at: string;
   updated_at: string;
@@ -36,7 +36,7 @@ export interface CreateNodeInput {
   support_type?: SupportType;
   restraints?: Partial<Restraints>;
   spring_stiffness?: Partial<SpringStiffness>;
-  prescribed_displacements?: Record<string, unknown>;
+  prescribed_displacements?: Partial<PrescribedDisplacements>;
   mass?: Partial<NodalMass>;
 }
 
@@ -61,6 +61,7 @@ export interface NodeRow {
 export function nodeRowToNode(row: NodeRow): StructuralNode {
   return {
     ...row,
+    support_type: row.support_type as SupportType,
     restraints: JSON.parse(row.restraints),
     spring_stiffness: row.spring_stiffness ? JSON.parse(row.spring_stiffness) : {},
     prescribed_displacements: row.prescribed_displacements ? JSON.parse(row.prescribed_displacements) : {},
@@ -418,6 +419,36 @@ export interface CreateSlabInput {
   mesh_size?: number;
   is_diaphragm?: boolean;
   diaphragm_type?: string;
+}
+
+export interface SlabRow {
+  id: string;
+  project_id: string;
+  story_id: string | null;
+  name: string | null;
+  slab_type: string;
+  material_type: string;
+  material_id: string | null;
+  boundary_nodes: string; // JSON
+  thickness: number;
+  openings: string | null; // JSON
+  span_direction: number;
+  mesh_size: number | null;
+  is_meshed: number; // SQLite boolean
+  is_diaphragm: number; // SQLite boolean
+  diaphragm_type: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export function slabRowToSlab(row: SlabRow): Slab {
+  return {
+    ...row,
+    boundary_nodes: JSON.parse(row.boundary_nodes),
+    openings: row.openings ? JSON.parse(row.openings) : [],
+    is_meshed: Boolean(row.is_meshed),
+    is_diaphragm: Boolean(row.is_diaphragm),
+  };
 }
 
 // ============================================================

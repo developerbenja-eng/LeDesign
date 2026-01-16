@@ -731,16 +731,23 @@ export function checkConnection(input: ConnectionDesignInput): ConnectionDesignR
 export function createConnectionDesignResult(
   connectionId: string,
   analysisRunId: string,
-  checkResult: ConnectionDesignResult
+  checkResult: ConnectionDesignResult,
+  projectId: string = 'project_id_placeholder', // TODO: Pass from caller
+  combinationId: string = 'combo_id_placeholder' // TODO: Pass from caller
 ): DesignResult {
   return {
     id: generateDesignResultId(),
+    project_id: projectId,
     run_id: analysisRunId,
+    combination_id: combinationId,
     member_id: connectionId,
     member_type: 'beam', // Connections are typically associated with beams
     design_code: 'AISC 360-22',
     demand_capacity_ratio: checkResult.dcRatio,
+    governing_check: checkResult.governingCheck,
     controlling_check: checkResult.governingCheck,
+    capacity: 0, // TODO: Extract from checkResult
+    demand: 0, // TODO: Extract from checkResult
     status: checkResult.status,
     checks: checkResult.checks,
     messages: checkResult.messages,
