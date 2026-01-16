@@ -22,6 +22,9 @@ import {
   DollarSign,
   Rocket,
   GraduationCap,
+  Database,
+  GitBranch,
+  Code2,
 } from 'lucide-react';
 
 export default function HomePage() {
@@ -284,6 +287,9 @@ export default function HomePage() {
               <Link href="/early-access" className="text-green-400 hover:text-green-300 transition-colors text-sm lg:text-base font-semibold">
                 🚀 Early Access
               </Link>
+              <Link href="/integrations" className="text-slate-300 hover:text-white transition-colors text-sm lg:text-base">
+                Integraciones
+              </Link>
               <Link href="#features" className="text-slate-300 hover:text-white transition-colors text-sm lg:text-base">
                 Características
               </Link>
@@ -473,6 +479,149 @@ export default function HomePage() {
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Core Value Proposition - Integrations */}
+      <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-b from-slate-900/50 to-transparent">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-10 sm:mb-12">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 text-white px-4">
+                El Verdadero Valor:{' '}
+                <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+                  Todo en Un Solo Lugar
+                </span>
+              </h2>
+              <p className="text-base sm:text-lg md:text-xl text-slate-300 max-w-3xl mx-auto px-4">
+                No más visitar 10 sitios diferentes. No más copiar datos manualmente.
+                No más escribir memorias de cálculo por 8 horas.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-6 sm:gap-8 mb-12">
+              {/* Data Integrations */}
+              <div className="glass-card rounded-2xl p-6 sm:p-8 border-2 border-blue-500/30 hover:scale-105 transition-transform">
+                <div className="icon-wrapper w-14 h-14 rounded-lg bg-blue-500/10 text-blue-400 mb-4">
+                  <Database size={28} />
+                </div>
+                <h3 className="text-xl sm:text-2xl font-bold text-white mb-3">
+                  30+ Integraciones de Datos
+                </h3>
+                <p className="text-sm sm:text-base text-slate-300 mb-4">
+                  Conexión directa con IDE Chile, DGA, MINVU, datos meteorológicos y más.
+                  Carga automática de layers, caudales, suelos, todo en un click.
+                </p>
+                <ul className="space-y-2 text-xs sm:text-sm text-slate-400 mb-6">
+                  <li className="flex items-center gap-2">
+                    <Check size={16} className="text-blue-400" />
+                    <span>IDE Chile: Red vial, sumideros, puentes</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check size={16} className="text-blue-400" />
+                    <span>DGA: 300+ estaciones fluviométricas real-time</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check size={16} className="text-blue-400" />
+                    <span>Clima: Históricos 70 años + pronóstico</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check size={16} className="text-blue-400" />
+                    <span>Suelos: CONAF/CIREN clasificación completa</span>
+                  </li>
+                </ul>
+                <Link
+                  href="/integrations"
+                  className="inline-flex items-center gap-2 text-sm font-semibold text-blue-400 hover:text-blue-300 transition-colors"
+                >
+                  Ver todas las integraciones
+                  <ArrowRight size={16} />
+                </Link>
+              </div>
+
+              {/* Automated Documentation */}
+              <div className="glass-card rounded-2xl p-6 sm:p-8 border-2 border-green-500/30 hover:scale-105 transition-transform">
+                <div className="icon-wrapper w-14 h-14 rounded-lg bg-green-500/10 text-green-400 mb-4">
+                  <FileCheck size={28} />
+                </div>
+                <h3 className="text-xl sm:text-2xl font-bold text-white mb-3">
+                  Documentación Automática
+                </h3>
+                <p className="text-sm sm:text-base text-slate-300 mb-4">
+                  Genera memorias de cálculo y EETTs completas en minutos.
+                  De 40+ horas de trabajo manual a 2 minutos.
+                </p>
+                <ul className="space-y-2 text-xs sm:text-sm text-slate-400 mb-6">
+                  <li className="flex items-center gap-2">
+                    <Zap size={16} className="text-green-400" />
+                    <span>Memoria estructural NCh433: 30 seg</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Zap size={16} className="text-green-400" />
+                    <span>EETT completas SERVIU/MOP: 2 min</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Zap size={16} className="text-green-400" />
+                    <span>Cubicación movimiento tierra: 2 min</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Zap size={16} className="text-green-400" />
+                    <span>Planos DWG organizados: 5 min</span>
+                  </li>
+                </ul>
+                <div className="p-3 bg-green-950/30 rounded-lg border border-green-500/20 text-center">
+                  <div className="text-2xl font-bold text-green-400">95%</div>
+                  <div className="text-xs text-slate-400">Tiempo ahorrado</div>
+                </div>
+              </div>
+
+              {/* Programmatic Workflow */}
+              <div className="glass-card rounded-2xl p-6 sm:p-8 border-2 border-purple-500/30 hover:scale-105 transition-transform">
+                <div className="icon-wrapper w-14 h-14 rounded-lg bg-purple-500/10 text-purple-400 mb-4">
+                  <GitBranch size={28} />
+                </div>
+                <h3 className="text-xl sm:text-2xl font-bold text-white mb-3">
+                  100% Programático
+                </h3>
+                <p className="text-sm sm:text-base text-slate-300 mb-4">
+                  Todo se diseña de forma reproducible. Cambias un parámetro y
+                  todo se recalcula. Versionado automático como Git.
+                </p>
+                <ul className="space-y-2 text-xs sm:text-sm text-slate-400 mb-6">
+                  <li className="flex items-center gap-2">
+                    <Code2 size={16} className="text-purple-400" />
+                    <span>Cada diseño es un script reproducible</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Code2 size={16} className="text-purple-400" />
+                    <span>Control de versiones automático</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Code2 size={16} className="text-purple-400" />
+                    <span>API completa + Python SDK</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Code2 size={16} className="text-purple-400" />
+                    <span>Colaboración en tiempo real</span>
+                  </li>
+                </ul>
+                <div className="p-3 bg-purple-950/30 rounded-lg border border-purple-500/20 text-center">
+                  <div className="text-2xl font-bold text-purple-400">1</div>
+                  <div className="text-xs text-slate-400">Plataforma unificada</div>
+                </div>
+              </div>
+            </div>
+
+            <div className="text-center">
+              <Link
+                href="/integrations"
+                className="inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold text-base sm:text-lg bg-gradient-to-r from-blue-600 to-cyan-600 text-white hover:from-blue-500 hover:to-cyan-500 transition-all"
+              >
+                Ver Todas las Integraciones y Documentación
+                <ArrowRight size={18} className="sm:w-5 sm:h-5" />
+              </Link>
             </div>
           </div>
         </div>
