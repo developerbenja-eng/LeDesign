@@ -2,14 +2,8 @@
  * Configuration module for LeDesign Terrain package
  *
  * Loads environment variables for Google Gemini API and other services.
+ * Note: In Next.js, environment variables are automatically loaded from .env files.
  */
-
-import { config } from 'dotenv';
-import { resolve } from 'path';
-
-// Load environment variables from .env file
-// This will look for .env in the project root
-config({ path: resolve(process.cwd(), '.env') });
 
 /**
  * Configuration object with typed environment variables
