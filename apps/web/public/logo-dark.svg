@@ -1,17 +1,21 @@
 <svg width="300" height="80" viewBox="0 0 300 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- Dark background (optional, remove for transparency) -->
-  <rect width="300" height="80" fill="#0A0A0A"/>
+  <!-- Icon: Geometric terrain layers with gradient theme -->
+  <defs>
+    <linearGradient id="iconGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4ade80;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#22d3ee;stop-opacity:1" />
+    </linearGradient>
+  </defs>
 
-  <!-- Icon: Geometric terrain layers -->
   <g id="icon">
-    <!-- Base layer - darkest -->
-    <path d="M20 60 L35 45 L50 52 L65 38 L65 70 L20 70 Z" fill="#4C9AFF"/>
+    <!-- Base layer - with gradient -->
+    <path d="M20 60 L35 45 L50 52 L65 38 L65 70 L20 70 Z" fill="url(#iconGradient)"/>
 
     <!-- Middle layer -->
-    <path d="M20 50 L35 35 L50 42 L65 28 L65 38 L50 52 L35 45 L20 60 Z" fill="#0066FF" opacity="0.8"/>
+    <path d="M20 50 L35 35 L50 42 L65 28 L65 38 L50 52 L35 45 L20 60 Z" fill="#22d3ee" opacity="0.6"/>
 
     <!-- Top layer - lightest -->
-    <path d="M20 40 L35 25 L50 32 L65 18 L65 28 L50 42 L35 35 L20 50 Z" fill="#0052CC" opacity="0.6"/>
+    <path d="M20 40 L35 25 L50 32 L65 18 L65 28 L50 42 L35 35 L20 50 Z" fill="#4ade80" opacity="0.4"/>
 
     <!-- Grid lines (subtle engineering reference) -->
     <line x1="20" y1="70" x2="65" y2="70" stroke="#ffffff" stroke-width="0.5" opacity="0.2"/>
@@ -22,12 +26,12 @@
   <!-- Wordmark -->
   <g id="wordmark">
     <!-- "Le" in lighter weight -->
-    <text x="85" y="52" font-family="Inter, -apple-system, system-ui, sans-serif" font-size="36" font-weight="300" fill="#E5E5E5">Le</text>
+    <text x="85" y="52" font-family="Inter, -apple-system, system-ui, sans-serif" font-size="36" font-weight="300" fill="#E5E7EB">Le</text>
 
-    <!-- "Design" in bold -->
-    <text x="125" y="52" font-family="Inter, -apple-system, system-ui, sans-serif" font-size="36" font-weight="700" fill="#4C9AFF">Design</text>
+    <!-- "Design" in bold with gradient -->
+    <text x="125" y="52" font-family="Inter, -apple-system, system-ui, sans-serif" font-size="36" font-weight="700" fill="#22d3ee">Design</text>
 
     <!-- Tagline -->
-    <text x="85" y="68" font-family="Inter, -apple-system, system-ui, sans-serif" font-size="11" font-weight="400" fill="#999999" letter-spacing="1.5">INGENIERÍA CHILENA</text>
+    <text x="85" y="68" font-family="Inter, -apple-system, system-ui, sans-serif" font-size="11" font-weight="400" fill="#94a3b8" letter-spacing="1.5">INGENIERÍA CHILENA</text>
   </g>
 </svg>
