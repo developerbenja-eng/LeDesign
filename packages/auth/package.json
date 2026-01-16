@@ -1,0 +1,44 @@
+{
+  "name": "@ledesign/auth",
+  "version": "1.0.0",
+  "description": "Authentication utilities for LeDesign platform",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./jwt": {
+      "types": "./dist/jwt.d.ts",
+      "import": "./dist/jwt.mjs",
+      "require": "./dist/jwt.js"
+    },
+    "./password": {
+      "types": "./dist/password.d.ts",
+      "import": "./dist/password.mjs",
+      "require": "./dist/password.js"
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "lint": "eslint src/",
+    "test": "vitest",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.2"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/jsonwebtoken": "^9.0.7",
+    "@types/node": "^22.10.5",
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.3",
+    "vitest": "^2.1.8"
+  }
+}

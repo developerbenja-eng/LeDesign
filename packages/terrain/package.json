@@ -1,0 +1,51 @@
+{
+  "name": "@ledesign/terrain",
+  "version": "1.0.0",
+  "description": "Terrain analysis and surveying module for LeDesign platform",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./geotiff": {
+      "types": "./dist/geotiff-terrain.d.ts",
+      "import": "./dist/geotiff-terrain.mjs",
+      "require": "./dist/geotiff-terrain.js"
+    },
+    "./dwg": {
+      "types": "./dist/dwg/index.d.ts",
+      "import": "./dist/dwg/index.mjs",
+      "require": "./dist/dwg/index.js"
+    },
+    "./surface-ai": {
+      "types": "./dist/surface-ai/index.d.ts",
+      "import": "./dist/surface-ai/index.mjs",
+      "require": "./dist/surface-ai/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "lint": "eslint src/",
+    "test": "vitest",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.24.1",
+    "@mlightcad/libredwg-web": "^0.6.3",
+    "geotiff": "^2.1.4-beta.1",
+    "three": "^0.182.0"
+  },
+  "devDependencies": {
+    "@types/geojson": "^7946.0.16",
+    "@types/node": "^22.10.5",
+    "@types/three": "^0.182.0",
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.3",
+    "vitest": "^2.1.8"
+  }
+}

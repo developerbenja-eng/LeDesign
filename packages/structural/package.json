@@ -1,0 +1,61 @@
+{
+  "name": "@ledesign/structural",
+  "version": "1.0.0",
+  "description": "Structural engineering module for LeDesign platform",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./analysis": {
+      "types": "./dist/analysis/index.d.ts",
+      "import": "./dist/analysis/index.mjs",
+      "require": "./dist/analysis/index.js"
+    },
+    "./design": {
+      "types": "./dist/design/index.d.ts",
+      "import": "./dist/design/index.mjs",
+      "require": "./dist/design/index.js"
+    },
+    "./factories": {
+      "types": "./dist/factories.d.ts",
+      "import": "./dist/factories.mjs",
+      "require": "./dist/factories.js"
+    },
+    "./loads": {
+      "types": "./dist/loads/index.d.ts",
+      "import": "./dist/loads/index.mjs",
+      "require": "./dist/loads/index.js"
+    },
+    "./geolocation": {
+      "types": "./dist/geolocation/index.d.ts",
+      "import": "./dist/geolocation/index.mjs",
+      "require": "./dist/geolocation/index.js"
+    },
+    "./geotechnical": {
+      "types": "./dist/geotechnical/index.d.ts",
+      "import": "./dist/geotechnical/index.mjs",
+      "require": "./dist/geotechnical/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "lint": "eslint src/",
+    "test": "vitest",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@ledesign/chilean-codes": "*"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.5",
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.3",
+    "vitest": "^2.1.8"
+  }
+}

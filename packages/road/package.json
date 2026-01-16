@@ -1,0 +1,49 @@
+{
+  "name": "@ledesign/road",
+  "version": "1.0.0",
+  "description": "Road geometry design module for LeDesign platform",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./horizontal": {
+      "types": "./dist/horizontal/index.d.ts",
+      "import": "./dist/horizontal/index.mjs",
+      "require": "./dist/horizontal/index.js"
+    },
+    "./vertical": {
+      "types": "./dist/vertical/index.d.ts",
+      "import": "./dist/vertical/index.mjs",
+      "require": "./dist/vertical/index.js"
+    },
+    "./cross-section": {
+      "types": "./dist/cross-section/index.d.ts",
+      "import": "./dist/cross-section/index.mjs",
+      "require": "./dist/cross-section/index.js"
+    },
+    "./sight-distance": {
+      "types": "./dist/sight-distance/index.d.ts",
+      "import": "./dist/sight-distance/index.mjs",
+      "require": "./dist/sight-distance/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "lint": "eslint src/",
+    "test": "vitest",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^22.10.5",
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.3",
+    "vitest": "^2.1.8"
+  }
+}

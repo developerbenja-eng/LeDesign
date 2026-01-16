@@ -1,0 +1,44 @@
+{
+  "name": "@ledesign/pavement",
+  "version": "1.0.0",
+  "description": "Pavement design module for LeDesign platform",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./aashto": {
+      "types": "./dist/aashto/index.d.ts",
+      "import": "./dist/aashto/index.mjs",
+      "require": "./dist/aashto/index.js"
+    },
+    "./cbr": {
+      "types": "./dist/cbr/index.d.ts",
+      "import": "./dist/cbr/index.mjs",
+      "require": "./dist/cbr/index.js"
+    },
+    "./traffic": {
+      "types": "./dist/traffic/index.d.ts",
+      "import": "./dist/traffic/index.mjs",
+      "require": "./dist/traffic/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "lint": "eslint src/",
+    "test": "vitest",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^22.10.5",
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.3",
+    "vitest": "^2.1.8"
+  }
+}

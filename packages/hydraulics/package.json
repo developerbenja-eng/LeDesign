@@ -1,0 +1,56 @@
+{
+  "name": "@ledesign/hydraulics",
+  "version": "1.0.0",
+  "description": "Hydraulic engineering module for LeDesign platform",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./water-network": {
+      "types": "./dist/water-network/index.d.ts",
+      "import": "./dist/water-network/index.mjs",
+      "require": "./dist/water-network/index.js"
+    },
+    "./sewer": {
+      "types": "./dist/sewer/index.d.ts",
+      "import": "./dist/sewer/index.mjs",
+      "require": "./dist/sewer/index.js"
+    },
+    "./stormwater": {
+      "types": "./dist/stormwater/index.d.ts",
+      "import": "./dist/stormwater/index.mjs",
+      "require": "./dist/stormwater/index.js"
+    },
+    "./open-channel": {
+      "types": "./dist/open-channel/index.d.ts",
+      "import": "./dist/open-channel/index.mjs",
+      "require": "./dist/open-channel/index.js"
+    },
+    "./hydrology": {
+      "types": "./dist/hydrology/index.d.ts",
+      "import": "./dist/hydrology/index.mjs",
+      "require": "./dist/hydrology/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "lint": "eslint src/",
+    "test": "vitest",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@ledesign/chilean-codes": "*"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.5",
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.3",
+    "vitest": "^2.1.8"
+  }
+}

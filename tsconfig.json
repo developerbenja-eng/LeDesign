@@ -1,0 +1,40 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "lib": ["ES2020", "DOM"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "esModuleInterop": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "composite": false,
+    "incremental": false,
+    "isolatedModules": true,
+    "allowSyntheticDefaultImports": true,
+    "paths": {
+      "@ledesign/auth": ["./packages/auth/src"],
+      "@ledesign/auth/*": ["./packages/auth/src/*"],
+      "@ledesign/chilean-codes": ["./packages/chilean-codes/src"],
+      "@ledesign/chilean-codes/*": ["./packages/chilean-codes/src/*"],
+      "@ledesign/db": ["./packages/db/src"],
+      "@ledesign/db/*": ["./packages/db/src/*"],
+      "@ledesign/structural": ["./packages/structural/src"],
+      "@ledesign/structural/*": ["./packages/structural/src/*"],
+      "@ledesign/hydraulics": ["./packages/hydraulics/src"],
+      "@ledesign/hydraulics/*": ["./packages/hydraulics/src/*"],
+      "@ledesign/pavement": ["./packages/pavement/src"],
+      "@ledesign/pavement/*": ["./packages/pavement/src/*"],
+      "@ledesign/road": ["./packages/road/src"],
+      "@ledesign/road/*": ["./packages/road/src/*"],
+      "@ledesign/terrain": ["./packages/terrain/src"],
+      "@ledesign/terrain/*": ["./packages/terrain/src/*"]
+    }
+  },
+  "exclude": ["node_modules", "dist", ".turbo"]
+}
