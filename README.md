@@ -11,15 +11,20 @@ Plataforma unificada de diseño ingenieril para profesionales de la ingeniería 
 git clone https://github.com/developerbenja-eng/LeDesign.git
 cd LeDesign
 
+# Install dependencies
+npm install
+
 # Set up environment (retrieves API keys from Google Cloud)
 npm run setup
 
-# Install dependencies
-npm install
+# Download reference materials from GCS (no auth needed)
+npm run download:refs
 
 # Start development
 npm run dev
 ```
+
+**Note**: Reference materials (PDFs, manuals) are stored in Google Cloud Storage, not in git. The `download:refs` command downloads them automatically with no authentication required.
 
 ## 📚 Documentation
 
