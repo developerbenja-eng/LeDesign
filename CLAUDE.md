@@ -47,15 +47,24 @@ This document contains:
 
 When working with this project for the first time or after cloning:
 
+**Automated (Recommended)**:
 ```bash
-# 1. Setup environment variables (API keys)
+npm run onboard  # Runs all setup steps: install, setup env, download refs
+```
+
+**Manual (Step-by-Step)**:
+```bash
+# 1. Install dependencies
+npm install
+
+# 2. Setup environment variables (API keys)
 npm run setup
 
-# 2. Download reference materials from GCS
+# 3. Download reference materials from GCS
 npm run download:refs
 ```
 
-**Step 1** retrieves API keys from Google Cloud CLI and creates the `.env` file automatically. The `.env` file is gitignored and contains:
+The `onboard` script automates all steps and provides verification. It retrieves API keys from Google Cloud CLI and creates the `.env` file automatically. The `.env` file is gitignored and contains:
 - `GOOGLE_GEMINI_API_KEY` - For AI-powered terrain analysis
 - `GCP_PROJECT_ID` - Google Cloud project (ledesign)
 - `VERCEL_TOKEN` - For deployment to Vercel

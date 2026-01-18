@@ -4,6 +4,7 @@
   "private": true,
   "description": "LeDesign - Plataforma de Ingeniería Chilena para diseño estructural, hidráulico, pavimentos y vial",
   "scripts": {
+    "onboard": "node scripts/onboard.js",
     "setup": "node scripts/setup-env.js",
     "download:refs": "node scripts/download-reference-files.js",
     "build": "turbo build",

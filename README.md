@@ -6,6 +6,22 @@ Plataforma unificada de diseño ingenieril para profesionales de la ingeniería 
 
 ## 🚀 Quick Start
 
+### One-Command Setup (Recommended)
+
+```bash
+# Clone the repository
+git clone https://github.com/developerbenja-eng/LeDesign.git
+cd LeDesign
+
+# Run automated onboarding (installs deps, sets up env, downloads refs)
+npm run onboard
+
+# Start development
+npm run dev
+```
+
+### Manual Setup (Step-by-Step)
+
 ```bash
 # Clone the repository
 git clone https://github.com/developerbenja-eng/LeDesign.git
@@ -24,7 +40,7 @@ npm run download:refs
 npm run dev
 ```
 
-**Note**: Reference materials (PDFs, manuals) are stored in Google Cloud Storage, not in git. The `download:refs` command downloads them automatically with no authentication required.
+**Note**: Reference materials (PDFs, manuals) are stored in Google Cloud Storage, not in git. The `onboard` script downloads them automatically with no authentication required.
 
 ## 📚 Documentation
 
