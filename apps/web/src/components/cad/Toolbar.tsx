@@ -14,6 +14,16 @@ const tools: { id: DrawingTool; icon: string; label: string; shortcut: string }[
   { id: 'arc', icon: '⌒', label: 'Arc', shortcut: 'A' },
   { id: 'text', icon: 'T', label: 'Text', shortcut: 'T' },
   { id: 'measure', icon: '📏', label: 'Measure', shortcut: 'M' },
+  { id: 'offset', icon: '⫴', label: 'Offset', shortcut: 'O' },
+  { id: 'trim', icon: '✂', label: 'Trim', shortcut: 'TR' },
+  { id: 'extend', icon: '↔', label: 'Extend', shortcut: 'EX' },
+  { id: 'fillet', icon: '⌝', label: 'Fillet', shortcut: 'F' },
+  { id: 'copy', icon: '⎘', label: 'Copy', shortcut: 'CO' },
+  { id: 'move', icon: '⤳', label: 'Move', shortcut: 'MV' },
+  { id: 'rotate', icon: '⟲', label: 'Rotate', shortcut: 'RO' },
+  { id: 'array', icon: '⊞', label: 'Array', shortcut: 'AR' },
+  { id: 'dimension', icon: '📐', label: 'Dimension', shortcut: 'DI' },
+  { id: 'hatch', icon: '▨', label: 'Hatch', shortcut: 'H' },
 ];
 
 interface ToolbarProps {

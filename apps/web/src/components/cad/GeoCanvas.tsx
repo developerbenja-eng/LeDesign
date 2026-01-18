@@ -587,6 +587,7 @@ export default function GeoCanvas({ bounds }: GeoCanvasProps) {
   const entities = useCADStore((state) => state.entities);
   const layers = useCADStore((state) => state.layers);
   const mapStyle = useCADStore((state) => state.mapStyle);
+  const mapOpacity = useCADStore((state) => state.mapOpacity);
   const geoTransform = useCADStore((state) => state.geoTransform);
 
   const tileConfig = TILE_LAYERS[mapStyle];
@@ -624,7 +625,11 @@ export default function GeoCanvas({ bounds }: GeoCanvasProps) {
         preferCanvas={true}
       >
         {tileConfig && (
-          <TileLayer url={tileConfig.url} attribution={tileConfig.attribution} />
+          <TileLayer
+            url={tileConfig.url}
+            attribution={tileConfig.attribution}
+            opacity={mapOpacity}
+          />
         )}
 
         {geoTransform?.isValid && (

@@ -62,3 +62,217 @@ body {
 .spinner {
   animation: spin 1s linear infinite;
 }
+
+/* ============================================
+   GLASSMORPHISM DESIGN SYSTEM
+   ============================================ */
+
+/* CSS Variables for Glassmorphism */
+:root {
+  --glass-bg: rgba(30, 41, 59, 0.7);
+  --glass-bg-hover: rgba(30, 41, 59, 0.85);
+  --glass-border: rgba(148, 163, 184, 0.1);
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+
+  /* Depth shadows */
+  --depth-1: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  --depth-2: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  --depth-3: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  --depth-4: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  --depth-5: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+}
+
+/* Glass Card - Primary card component */
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--depth-2);
+  transition: all 0.3s ease;
+}
+
+.glass-card:hover {
+  background: var(--glass-bg-hover);
+  box-shadow: var(--depth-3);
+}
+
+/* Glass Panel - Lighter variation */
+.glass-panel {
+  background: rgba(30, 41, 59, 0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid var(--glass-border);
+}
+
+/* Glass Header - Sticky header with glassmorphism */
+.glass-header {
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--glass-border);
+  box-shadow: var(--depth-2);
+}
+
+/* Interactive Card - Cards with micro-interactions */
+.interactive-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.interactive-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--depth-4);
+}
+
+.interactive-card:active {
+  transform: translateY(-2px);
+}
+
+/* Glass Button */
+.btn-glass {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.8), rgba(147, 51, 234, 0.8));
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: var(--depth-2);
+  transition: all 0.3s ease;
+}
+
+.btn-glass:hover {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.95), rgba(147, 51, 234, 0.95));
+  box-shadow: var(--depth-3);
+  transform: translateY(-1px);
+}
+
+/* Icon Wrapper - Centered icon container with hover effects */
+.icon-wrapper {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: all 0.3s ease;
+}
+
+/* Ensure SVG icons inside wrappers are centered */
+.icon-wrapper > svg {
+  flex-shrink: 0;
+  margin: auto;
+}
+
+.icon-wrapper:hover {
+  transform: scale(1.05);
+}
+
+/* Icon wrapper for interactive elements */
+.interactive-card .icon-wrapper {
+  transition: transform 0.3s ease;
+}
+
+.interactive-card:hover .icon-wrapper {
+  transform: scale(1.1);
+}
+
+/* Depth Classes */
+.depth-1 { box-shadow: var(--depth-1); }
+.depth-2 { box-shadow: var(--depth-2); }
+.depth-3 { box-shadow: var(--depth-3); }
+.depth-4 { box-shadow: var(--depth-4); }
+.depth-5 { box-shadow: var(--depth-5); }
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.6s ease-out forwards;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.4s ease-out forwards;
+}
+
+/* ============================================
+   LEDESIGN BRAND COLORS
+   ============================================ */
+
+.text-ledesign-blue-light {
+  color: #60a5fa;
+}
+
+.bg-ledesign-blue {
+  background-color: #3b82f6;
+}
+
+/* ============================================
+   LAYOUT UTILITIES
+   ============================================ */
+
+/* Consistent section spacing */
+.section-spacing {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+@media (min-width: 640px) {
+  .section-spacing {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .section-spacing {
+    padding-top: 8rem;
+    padding-bottom: 8rem;
+  }
+}
+
+/* Content container with max-width */
+.content-container {
+  max-width: 80rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .content-container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}

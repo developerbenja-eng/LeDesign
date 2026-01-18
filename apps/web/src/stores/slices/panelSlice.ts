@@ -10,7 +10,7 @@ const DEFAULT_PANEL_STATE: PanelState = {
   width: 300,
 };
 
-type PanelKey = 'propertiesPanel' | 'treePanel' | 'aiChatPanel' | 'libraryPanel' | 'resultsPanel' | 'analysisPanel';
+type PanelKey = 'propertiesPanel' | 'treePanel' | 'aiChatPanel' | 'libraryPanel' | 'resultsPanel' | 'analysisPanel' | 'normativaPanel';
 
 export const createPanelSlice: SliceCreator<PanelSlice> = (set) => ({
   // Initial state
@@ -20,6 +20,7 @@ export const createPanelSlice: SliceCreator<PanelSlice> = (set) => ({
   libraryPanel: { isOpen: false, width: 300 },
   resultsPanel: { isOpen: false, width: 400 },
   analysisPanel: { isOpen: false, width: 360 },
+  normativaPanel: { isOpen: false, width: 350 },
 
   // Actions
   togglePanel: (panel: PanelKey) =>

@@ -1,0 +1,23 @@
+# Large data files - exclude from deployment
+public/data/
+public/test-files/
+public/presentation-audio-video2/
+public/presentation-audio/
+public/wasm/
+
+# Development files
+*.test.ts
+*.test.tsx
+__tests__/
+
+# Database
+*.db
+*.db-shm
+*.db-wal
+local.db
+
+# Logs
+*.log
+
+# Temporary files
+.DS_Store

@@ -14,6 +14,33 @@ LeDesign is a unified engineering design platform for Chilean engineering profes
 - **Road Design** (alignment, superelevation, sight distance)
 - **Terrain Analysis** (DEM processing, AI-powered satellite feature detection)
 
+## The Narrative: Understanding LeDesign's Vision
+
+**IMPORTANT**: Before working on marketing, pitch materials, or strategic features, read the complete narrative:
+
+📖 **[docs/LEDESIGN_NARRATIVE.md](docs/LEDESIGN_NARRATIVE.md)** - The definitive story of LeDesign
+
+This document contains:
+
+- The founder's journey (UdeC → LEICO → PhD → Research → LeDesign)
+- The problem statement (static content + isolated data)
+- The fundamental insight (schema ownership revolution)
+- The "Why Now" moment (AI + free infrastructure enables domain experts)
+- The three foundations (Contenido Dinámico, Acceso Expedito, DB Centralizada)
+- Business opportunity, market analysis, and financial projections
+- Team structure, equity model, and go-to-market strategy
+- The vision (2026-2030)
+
+**When to reference the narrative**:
+
+- Creating or updating pitch decks
+- Writing marketing copy
+- Developing investor materials
+- Adding strategic features
+- Making product decisions
+
+**Quick reference**: See [docs/README.md](docs/README.md) for a complete documentation index.
+
 ## Environment Setup
 
 ### CRITICAL: Always Run Setup First
@@ -26,7 +53,7 @@ npm run setup
 
 This retrieves API keys from Google Cloud CLI and creates the `.env` file automatically. The `.env` file is gitignored and contains:
 - `GOOGLE_GEMINI_API_KEY` - For AI-powered terrain analysis
-- `GCP_PROJECT_ID` - Google Cloud project (echo-home-system)
+- `GCP_PROJECT_ID` - Google Cloud project (ledesign)
 - `VERCEL_TOKEN` - For deployment to Vercel
 - `VERCEL_ORG_ID` - Vercel organization (benjas-projects-3ad07b52)
 - `VERCEL_PROJECT_ID` - Project identifier (ledesign)
@@ -268,6 +295,113 @@ npm run dev    # Visual inspection at http://localhost:4000
 Visit all module pages to verify design consistency.
 
 ## Marketing & Messaging
+
+### Launch Timeline & Business Strategy
+
+**CRITICAL**: LeDesign launches in two distinct phases. All marketing, pricing, and messaging must align with the current phase.
+
+#### Phase 1: Fundraising (January 19 - May 4, 2026)
+
+**Timeline**:
+
+- **Start**: January 19, 2026
+- **Fundraising Goal**: $5,000 by end of February 2026
+- **Launch Day**: May 4, 2026
+
+**Target**: 1-2 early adopter companies (small engineering firms/consultoras)
+
+**Early Adopter Tier**:
+
+- **Investment**: $5,000 per company (one-time payment)
+- **Limited Availability**: Only 2 spots available
+- **Benefits**:
+  - Founding Member status
+  - Custom system improvements tailored to their workflows (Year 1 priority)
+  - Early access to all modules before public launch
+  - Lifetime benefits/extended access (define specifics)
+  - Direct influence on roadmap and feature prioritization
+  - Recognition as platform sponsors
+
+**Messaging for Phase 1**:
+
+- "Conviértete en Miembro Fundador" (Become a Founding Member)
+- "Solo 2 Cupos Disponibles" (Only 2 spots available)
+- Emphasis on exclusivity and influence
+- Highlight that this is pre-launch investment, not subscription
+- Position as partnership, not just customer relationship
+
+**What to EXCLUDE in Phase 1**:
+
+- Government partnerships (comes later)
+- Large-scale enterprise solutions (not ready yet)
+- Integration with existing government systems
+
+**CTA for Phase 1**:
+
+- Primary: "Solicitar Membresía Fundadora" (Apply for Founding Membership)
+- Secondary: "Conocer el Programa" (Learn about the program)
+- Form: Collect company info, engineering needs, contact details
+
+**Landing Page Adjustments for Phase 1**:
+
+1. Hero section: Add "Programa de Miembros Fundadores - Solo 2 Cupos"
+2. Replace pricing section with Early Adopter tier explanation
+3. Add "Por qué ser miembro fundador" (Why become a founding member) section
+4. Include timeline showing May 4 launch
+5. Add FAQ specific to fundraising
+
+#### Phase 2: Public Launch (May 4, 2026 onwards)
+
+**Launch Date**: May 4, 2026
+
+**Public Pricing Tiers** (activated at launch):
+
+```
+Gratis         → $0/mes   → 7-day trial, then limited features
+Profesional    → $49/mes  → Full access, primary revenue driver
+Empresarial    → Custom   → Team features + custom integrations
+```
+
+**Launch Promotions**:
+
+- **7-day free trial** for all new signups (May 4-11, 2026)
+- All early adopter/donors get immediate online access
+- Consider: First 100 signups get extended trial (14 days)
+
+**Messaging for Phase 2**:
+
+- Standard value proposition (Speed, Compliance, Integration)
+- Focus on proven platform (tested by founding members)
+- Highlight Chilean standards compliance
+- Emphasize cloud-based, no installation
+
+**What to ADD in Phase 2**:
+
+- Normal subscription model
+- Free trial emphasis
+- Case studies from founding members (with permission)
+- Social proof from early users
+- Government partnerships (post-launch expansion)
+
+**CTA for Phase 2**:
+
+- Primary: "Comenzar Prueba Gratuita" (Start Free Trial)
+- Secondary: "Ver Demo"
+- Emphasis: "Sin tarjeta de crédito para la prueba"
+
+**Transition Strategy (May 1-4)**:
+
+1. Email all Phase 1 donors/interested parties
+2. Give founding members access 3 days early (May 1)
+3. Update website from fundraising to public launch
+4. Announce launch via social media, email, engineering communities
+
+#### Current Phase Detection
+
+When creating marketing materials, always check the current date:
+
+- **Before May 4, 2026**: Use Phase 1 messaging
+- **After May 4, 2026**: Use Phase 2 messaging
 
 ### Value Proposition
 
@@ -813,6 +947,6 @@ npm run deploy:prod    # Deploy to production
 
 **Repository**: https://github.com/developerbenja-eng/LeDesign
 **Account**: developer.benja@gmail.com (developerbenja-eng)
-**GCP Project**: echo-home-system
+**GCP Project**: ledesign
 **Vercel Org**: benjas-projects-3ad07b52 (Benja's projects)
 **Vercel Project**: ledesign

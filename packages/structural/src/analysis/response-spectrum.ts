@@ -3,7 +3,7 @@
 // Implements CQC and SRSS modal combination methods
 // ============================================================
 
-import { getDb } from '@ledesign/db';
+import { getClient } from '@ledesign/db';
 import {
   ModalResult,
   ModeShape,
@@ -249,7 +249,7 @@ export async function runResponseSpectrumAnalysis(
     combinationId,
   } = input;
 
-  const db = getDb();
+  const db = getClient();
 
   // 1. Load modal results from previous modal analysis
   const modalResultsQuery = await db.execute({

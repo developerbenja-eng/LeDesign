@@ -18,7 +18,7 @@ import type {
   TBeamConcreteDimensions,
   RectTimberDimensions,
   SectionDimensions,
-} from '@ledesign/structural';
+} from '@/types/structural';
 
 // ============================================================
 // GEOMETRY CACHE (Performance optimization)

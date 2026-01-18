@@ -22,6 +22,7 @@ import {
   MessageSquare,
   List,
   Sliders,
+  FileBox,
 } from 'lucide-react';
 
 interface ToolButtonProps {
@@ -62,6 +63,7 @@ export function Toolbar() {
   const treePanel = useEditorStore((state) => state.treePanel);
   const propertiesPanel = useEditorStore((state) => state.propertiesPanel);
   const aiChatPanel = useEditorStore((state) => state.aiChatPanel);
+  const normativaPanel = useEditorStore((state) => state.normativaPanel);
   const togglePanel = useEditorStore((state) => state.togglePanel);
 
   const handleToolClick = (tool: DrawingTool) => {
@@ -177,6 +179,12 @@ export function Toolbar() {
         label="AI Assistant"
         isActive={aiChatPanel.isOpen}
         onClick={() => togglePanel('aiChatPanel')}
+      />
+      <ToolButton
+        icon={<FileBox className="w-5 h-5" />}
+        label="Detalles MINVU"
+        isActive={normativaPanel.isOpen}
+        onClick={() => togglePanel('normativaPanel')}
       />
     </div>
   );

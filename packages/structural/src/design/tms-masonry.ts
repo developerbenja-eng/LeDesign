@@ -714,7 +714,7 @@ export function createMasonryDesignResult(
 // TMS MASONRY WALL DESIGN INTEGRATION
 // ============================================================
 
-import { getDb } from '@ledesign/db';
+import { getClient } from '@ledesign/db';
 import { wallRowToWall, WallRow } from '../types';
 
 interface WallForces {
@@ -755,7 +755,7 @@ export async function runTMSWallDesignChecks(
   projectId: string,
   analysisRunId: string
 ): Promise<DesignResult[]> {
-  const db = getDb();
+  const db = getClient();
   const results: DesignResult[] = [];
 
   // 1. Get all masonry walls for this project

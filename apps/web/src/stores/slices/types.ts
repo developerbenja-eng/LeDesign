@@ -281,6 +281,7 @@ export interface PanelSlice {
   libraryPanel: PanelState;
   resultsPanel: PanelState;
   analysisPanel: PanelState;
+  normativaPanel: PanelState;
 
   // Actions
   togglePanel: (panel: keyof Omit<PanelSlice, 'togglePanel' | 'setPanel' | 'setPanelWidth'>) => void;

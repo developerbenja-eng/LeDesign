@@ -13,8 +13,18 @@ import { sqliteTable, text, integer, real } from 'drizzle-orm/sqlite-core';
 export const users = sqliteTable('users', {
   id: text('id').primaryKey(),
   email: text('email').notNull().unique(),
-  name: text('name').notNull(),
+  name: text('name'),
   password_hash: text('password_hash').notNull(),
+  avatar_url: text('avatar_url'),
+  role: text('role', { enum: ['user', 'admin', 'owner'] })
+    .notNull()
+    .default('user'),
+  email_verified: integer('email_verified', { mode: 'boolean' })
+    .notNull()
+    .default(false),
+  google_id: text('google_id'),
+  company: text('company'),
+  last_login: text('last_login'),
   created_at: text('created_at')
     .notNull()
     .default(sql`CURRENT_TIMESTAMP`),
@@ -30,9 +40,19 @@ export const projects = sqliteTable('projects', {
     .references(() => users.id, { onDelete: 'cascade' }),
   name: text('name').notNull(),
   description: text('description'),
-  location_lat: real('location_lat'),
-  location_lng: real('location_lng'),
-  location_address: text('location_address'),
+  // Geographic bounds (from migrate.ts - actual database schema)
+  bounds_south: real('bounds_south'),
+  bounds_north: real('bounds_north'),
+  bounds_west: real('bounds_west'),
+  bounds_east: real('bounds_east'),
+  center_lat: real('center_lat'),
+  center_lon: real('center_lon'),
+  region: text('region'),
+  comuna: text('comuna'),
+  project_type: text('project_type'),
+  status: text('status', { enum: ['draft', 'active', 'completed', 'archived'] })
+    .notNull()
+    .default('draft'),
   // Module access flags
   module_structural: integer('module_structural', { mode: 'boolean' })
     .notNull()
@@ -49,6 +69,12 @@ export const projects = sqliteTable('projects', {
   module_terrain: integer('module_terrain', { mode: 'boolean' })
     .notNull()
     .default(false),
+  // Module usage tracking - last used timestamps
+  module_structural_last_used: text('module_structural_last_used'),
+  module_hydraulic_last_used: text('module_hydraulic_last_used'),
+  module_pavement_last_used: text('module_pavement_last_used'),
+  module_road_last_used: text('module_road_last_used'),
+  module_terrain_last_used: text('module_terrain_last_used'),
   created_at: text('created_at')
     .notNull()
     .default(sql`CURRENT_TIMESTAMP`),

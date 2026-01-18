@@ -42,7 +42,7 @@ gcloud services api-keys get-key-string \
 # Copy the output and create .env file
 cat > .env << 'EOF'
 GOOGLE_GEMINI_API_KEY=<paste-your-key-here>
-GCP_PROJECT_ID=echo-home-system
+GCP_PROJECT_ID=ledesign
 NODE_ENV=development
 EOF
 ```
@@ -54,7 +54,7 @@ If you want to use this in automated workflows:
 1. Go to: https://github.com/developerbenja-eng/LeDesign/settings/secrets/actions
 2. Add repository secrets:
    - `GOOGLE_GEMINI_API_KEY`: Your Gemini API key
-   - `GCP_PROJECT_ID`: echo-home-system
+   - `GCP_PROJECT_ID`: ledesign
 
 Then in your workflow, these will be available as environment variables.
 
@@ -89,7 +89,7 @@ if (!terrainConfig.googleGeminiApiKey) {
 2. **Authenticate with Google Cloud** (if not already done)
    ```bash
    gcloud auth login
-   gcloud config set project echo-home-system
+   gcloud config set project ledesign
    ```
 
 3. **Set up environment automatically**
@@ -183,5 +183,5 @@ node -e "const { terrainConfig } = require('./packages/terrain/dist/index.js'); 
 ## 📚 Additional Resources
 
 - [Google AI Studio](https://aistudio.google.com/app/apikey) - Manage API keys
-- [Google Cloud Console](https://console.cloud.google.com/apis/credentials?project=echo-home-system) - View project credentials
+- [Google Cloud Console](https://console.cloud.google.com/apis/credentials?project=ledesign) - View project credentials
 - [Setup Guide](./README_SETUP.md) - Complete setup documentation

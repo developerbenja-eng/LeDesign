@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getDb, queryOne, execute } from '@ledesign/db';
+import { getClient, queryOne, execute } from '@ledesign/db';
 import { generateToken } from '@/lib/auth-helpers';
 import { User } from '@/types/user';
 import { generateId } from '@/lib/utils';
+import { getUserDb } from '@/lib/db/database-manager';
 
 export const dynamic = 'force-dynamic';
 
@@ -43,11 +44,11 @@ export async function GET(request: NextRequest) {
     // Handle errors from Google
     if (error) {
       console.error('Google OAuth error:', error);
-      return NextResponse.redirect(`${APP_URL}/login?error=google_auth_failed`);
+      return NextResponse.redirect(`${APP_URL}/auth/signin?error=google_auth_failed`);
     }
 
     if (!code) {
-      return NextResponse.redirect(`${APP_URL}/login?error=no_code`);
+      return NextResponse.redirect(`${APP_URL}/auth/signin?error=no_code`);
     }
 
     // Parse return URL from state
@@ -76,7 +77,7 @@ export async function GET(request: NextRequest) {
 
     if (!tokenResponse.ok) {
       console.error('Failed to exchange code for tokens:', await tokenResponse.text());
-      return NextResponse.redirect(`${APP_URL}/login?error=token_exchange_failed`);
+      return NextResponse.redirect(`${APP_URL}/auth/signin?error=token_exchange_failed`);
     }
 
     const tokens: GoogleTokenResponse = await tokenResponse.json();
@@ -88,14 +89,14 @@ export async function GET(request: NextRequest) {
 
     if (!userInfoResponse.ok) {
       console.error('Failed to get user info:', await userInfoResponse.text());
-      return NextResponse.redirect(`${APP_URL}/login?error=user_info_failed`);
+      return NextResponse.redirect(`${APP_URL}/auth/signin?error=user_info_failed`);
     }
 
     const googleUser: GoogleUserInfo = await userInfoResponse.json();
 
     // Check if user exists
     let user = await queryOne<User>(
-      getDb(),
+      getClient(),
       'SELECT * FROM users WHERE email = ? OR google_id = ?',
       [googleUser.email.toLowerCase(), googleUser.id]
     );
@@ -109,7 +110,7 @@ export async function GET(request: NextRequest) {
       const oauthPasswordPlaceholder = `oauth_${generateId()}_${Date.now()}`;
 
       await execute(
-        getDb(),
+        getClient(),
         `INSERT INTO users (
           id, email, name, avatar_url, role,
           email_verified, google_id, created_at, updated_at, password_hash
@@ -130,14 +131,14 @@ export async function GET(request: NextRequest) {
 
       // Fetch created user
       user = await queryOne<User>(
-        getDb(),
+        getClient(),
         'SELECT * FROM users WHERE id = ?',
         [userId]
       );
     } else {
       // Update existing user with Google info
       await execute(
-        getDb(),
+        getClient(),
         `UPDATE users SET
           google_id = COALESCE(google_id, ?),
           avatar_url = COALESCE(avatar_url, ?),
@@ -150,14 +151,24 @@ export async function GET(request: NextRequest) {
 
       // Refetch user with updates
       user = await queryOne<User>(
-        getDb(),
+        getClient(),
         'SELECT * FROM users WHERE id = ?',
         [user.id]
       );
     }
 
     if (!user) {
-      return NextResponse.redirect(`${APP_URL}/login?error=user_creation_failed`);
+      return NextResponse.redirect(`${APP_URL}/auth/signin?error=user_creation_failed`);
+    }
+
+    // Create user database immediately (includes migrations)
+    console.log(`Creating database for user ${user.id}...`);
+    try {
+      await getUserDb(user.id);
+      console.log(`✓ User database created for ${user.id}`);
+    } catch (error) {
+      console.error(`Failed to create user database for ${user.id}:`, error);
+      // Continue anyway - database will be created on first use
     }
 
     // Generate JWT
@@ -177,6 +188,6 @@ export async function GET(request: NextRequest) {
     return response;
   } catch (error) {
     console.error('Google OAuth callback error:', error);
-    return NextResponse.redirect(`${APP_URL}/login?error=oauth_failed`);
+    return NextResponse.redirect(`${APP_URL}/auth/signin?error=oauth_failed`);
   }
 }

@@ -3,13 +3,17 @@
 // ============================================================
 // Initialize and manage database schema for LeDesign platform
 
-import { getDb } from './client';
+import { getClient } from './client';
+import { addSurfaceTables } from './migrations/add-surface-tables';
+import { addModuleUsageTracking } from './migrations/add-module-usage-tracking';
+import { addGcsStorage } from './migrations/add-gcs-storage';
+import { addTieredStorage } from './migrations/add-tiered-storage';
 
 /**
  * Run all migrations to set up the database schema
  */
 export async function runMigrations() {
-  const db = getDb();
+  const db = getClient();
 
   console.log('Running database migrations...');
 
@@ -18,8 +22,14 @@ export async function runMigrations() {
     CREATE TABLE IF NOT EXISTS users (
       id TEXT PRIMARY KEY,
       email TEXT UNIQUE NOT NULL,
-      name TEXT NOT NULL,
+      name TEXT,
       password_hash TEXT NOT NULL,
+      avatar_url TEXT,
+      role TEXT NOT NULL DEFAULT 'user',
+      email_verified INTEGER NOT NULL DEFAULT 0,
+      google_id TEXT,
+      company TEXT,
+      last_login TEXT,
       created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
       updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
     )
@@ -31,14 +41,26 @@ export async function runMigrations() {
       user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
       name TEXT NOT NULL,
       description TEXT,
-      location_lat REAL,
-      location_lng REAL,
-      location_address TEXT,
+      bounds_south REAL,
+      bounds_north REAL,
+      bounds_west REAL,
+      bounds_east REAL,
+      center_lat REAL,
+      center_lon REAL,
+      region TEXT,
+      comuna TEXT,
+      project_type TEXT,
+      status TEXT NOT NULL DEFAULT 'draft',
       module_structural INTEGER NOT NULL DEFAULT 0,
       module_hydraulic INTEGER NOT NULL DEFAULT 0,
       module_pavement INTEGER NOT NULL DEFAULT 0,
       module_road INTEGER NOT NULL DEFAULT 0,
       module_terrain INTEGER NOT NULL DEFAULT 0,
+      module_structural_last_used TEXT,
+      module_hydraulic_last_used TEXT,
+      module_pavement_last_used TEXT,
+      module_road_last_used TEXT,
+      module_terrain_last_used TEXT,
       created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
       updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
     )
@@ -179,6 +201,28 @@ export async function runMigrations() {
     )
   `);
 
+  // Create structural projects table
+  await db.execute(`
+    CREATE TABLE IF NOT EXISTS structural_projects (
+      id TEXT PRIMARY KEY,
+      name TEXT NOT NULL,
+      description TEXT,
+      created_by TEXT NOT NULL,
+      created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      updated_at TEXT,
+      design_code TEXT DEFAULT 'AISC 360-22',
+      seismic_code TEXT DEFAULT 'ASCE 7-22',
+      wind_code TEXT DEFAULT 'ASCE 7-22',
+      concrete_code TEXT DEFAULT 'ACI 318-19',
+      length_unit TEXT DEFAULT 'ft',
+      force_unit TEXT DEFAULT 'kip',
+      moment_unit TEXT DEFAULT 'kip-ft',
+      stress_unit TEXT DEFAULT 'ksi',
+      temperature_unit TEXT DEFAULT 'F',
+      settings TEXT DEFAULT '{}'
+    )
+  `);
+
   // Create discipline design tables
   await db.execute(`
     CREATE TABLE IF NOT EXISTS water_network_designs (
@@ -287,6 +331,12 @@ export async function runMigrations() {
     )
   `);
 
+  // Run additional migrations for existing databases
+  await addSurfaceTables(db);
+  await addModuleUsageTracking(db);
+  await addGcsStorage(db);
+  await addTieredStorage(db);
+
   console.log('✅ Database migrations completed successfully');
 }
 
@@ -295,7 +345,7 @@ export async function runMigrations() {
  * ⚠️ WARNING: This will delete all data!
  */
 export async function resetDatabase() {
-  const db = getDb();
+  const db = getClient();
 
   console.warn('⚠️  Resetting database - all data will be lost!');
 
@@ -313,6 +363,7 @@ export async function resetDatabase() {
     'hydraulic_pipes',
     'structural_materials',
     'structural_nodes',
+    'structural_projects',
     'projects',
     'users',
   ];
@@ -328,7 +379,7 @@ export async function resetDatabase() {
  * Check if database is initialized
  */
 export async function isDatabaseInitialized(): Promise<boolean> {
-  const db = getDb();
+  const db = getClient();
 
   try {
     const result = await db.execute(`

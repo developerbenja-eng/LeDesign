@@ -71,6 +71,8 @@ const commandIcons: Record<string, React.ReactNode> = {
 export function CommandPalette() {
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState('');
+  const [commandHistory, setCommandHistory] = useState<string[]>([]);
+  const [historyIndex, setHistoryIndex] = useState(-1);
 
   // Get store actions
   const setActiveTool = useEditorStore((state) => state.setActiveTool);
@@ -115,6 +117,31 @@ export function CommandPalette() {
 
   const commandGroups = useMemo(() => groupCommands(commands), [commands]);
 
+  // Load command history from localStorage on mount
+  useEffect(() => {
+    const savedHistory = localStorage.getItem('cad-command-history');
+    if (savedHistory) {
+      try {
+        setCommandHistory(JSON.parse(savedHistory));
+      } catch (e) {
+        console.error('Failed to parse command history:', e);
+      }
+    }
+  }, []);
+
+  // Save command to history
+  const saveToHistory = useCallback((commandLabel: string) => {
+    setCommandHistory((prev) => {
+      // Remove duplicate if it exists
+      const filtered = prev.filter((cmd) => cmd !== commandLabel);
+      // Add to front, keep only last 50
+      const newHistory = [commandLabel, ...filtered].slice(0, 50);
+      // Save to localStorage
+      localStorage.setItem('cad-command-history', JSON.stringify(newHistory));
+      return newHistory;
+    });
+  }, []);
+
   // Keyboard shortcut to open palette
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -135,9 +162,53 @@ export function CommandPalette() {
   // Execute command and close palette
   const executeCommand = useCallback((command: Command) => {
     command.action();
+    saveToHistory(command.label);
     setOpen(false);
     setSearch('');
-  }, []);
+    setHistoryIndex(-1);
+  }, [saveToHistory]);
+
+  // Handle history navigation with arrow keys
+  const handleInputKeyDown = useCallback(
+    (e: React.KeyboardEvent<HTMLInputElement>) => {
+      // Only handle arrow keys when there's no active command selection
+      if (e.key === 'ArrowUp' && commandHistory.length > 0) {
+        e.preventDefault();
+        const newIndex = Math.min(historyIndex + 1, commandHistory.length - 1);
+        setHistoryIndex(newIndex);
+        setSearch(commandHistory[newIndex]);
+      } else if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        if (historyIndex > 0) {
+          const newIndex = historyIndex - 1;
+          setHistoryIndex(newIndex);
+          setSearch(commandHistory[newIndex]);
+        } else if (historyIndex === 0) {
+          setHistoryIndex(-1);
+          setSearch('');
+        }
+      }
+    },
+    [commandHistory, historyIndex]
+  );
+
+  // Reset history index when search changes (user typing)
+  useEffect(() => {
+    if (open && historyIndex >= 0) {
+      const currentHistoryValue = commandHistory[historyIndex];
+      if (search !== currentHistoryValue) {
+        setHistoryIndex(-1);
+      }
+    }
+  }, [search, open, historyIndex, commandHistory]);
+
+  // Reset history index when palette closes
+  useEffect(() => {
+    if (!open) {
+      setHistoryIndex(-1);
+      setSearch('');
+    }
+  }, [open]);
 
   return (
     <AnimatePresence>
@@ -183,6 +254,7 @@ export function CommandPalette() {
                 <Cmdk.Input
                   value={search}
                   onValueChange={setSearch}
+                  onKeyDown={handleInputKeyDown}
                   placeholder="Type a command or search..."
                   className="flex-1 py-4 bg-transparent text-slate-200 placeholder-slate-500 outline-none text-sm"
                   autoFocus
@@ -197,6 +269,51 @@ export function CommandPalette() {
                 <Cmdk.Empty className="py-6 text-center text-slate-500 text-sm">
                   No commands found.
                 </Cmdk.Empty>
+
+                {/* Recent Commands (show when search is empty) */}
+                {!search && commandHistory.length > 0 && (
+                  <Cmdk.Group
+                    heading={
+                      <div className="flex items-center gap-2 px-2 py-2 text-xs font-medium text-slate-500 uppercase tracking-wider">
+                        <Redo2 size={14} />
+                        Recent Commands
+                      </div>
+                    }
+                  >
+                    {commandHistory.slice(0, 5).map((historyLabel, idx) => {
+                      const historicCommand = commands.find((cmd) => cmd.label === historyLabel);
+                      if (!historicCommand) return null;
+
+                      return (
+                        <Cmdk.Item
+                          key={`history-${idx}`}
+                          value={`${historicCommand.label} ${historicCommand.description || ''}`}
+                          onSelect={() => executeCommand(historicCommand)}
+                          className="flex items-center gap-3 px-3 py-2 rounded-lg cursor-pointer text-slate-300
+                                     data-[selected=true]:bg-lele-accent/20 data-[selected=true]:text-white
+                                     transition-colors duration-75"
+                        >
+                          <span className="flex-shrink-0 text-slate-400">
+                            {commandIcons[historicCommand.id] || categoryIcons[historicCommand.category]}
+                          </span>
+                          <div className="flex-1 min-w-0">
+                            <div className="text-sm font-medium truncate">{historicCommand.label}</div>
+                            {historicCommand.description && (
+                              <div className="text-xs text-slate-500 truncate">
+                                {historicCommand.description}
+                              </div>
+                            )}
+                          </div>
+                          {historicCommand.shortcut && (
+                            <kbd className="flex-shrink-0 px-2 py-0.5 bg-lele-bg rounded text-xs text-slate-500 font-mono">
+                              {historicCommand.shortcut}
+                            </kbd>
+                          )}
+                        </Cmdk.Item>
+                      );
+                    })}
+                  </Cmdk.Group>
+                )}
 
                 {commandGroups.map((group) => (
                   <Cmdk.Group
@@ -244,7 +361,7 @@ export function CommandPalette() {
                 <div className="flex items-center gap-4">
                   <span className="flex items-center gap-1">
                     <kbd className="px-1.5 py-0.5 bg-lele-bg rounded">↑↓</kbd>
-                    navigate
+                    {commandHistory.length > 0 ? 'navigate / history' : 'navigate'}
                   </span>
                   <span className="flex items-center gap-1">
                     <kbd className="px-1.5 py-0.5 bg-lele-bg rounded">↵</kbd>

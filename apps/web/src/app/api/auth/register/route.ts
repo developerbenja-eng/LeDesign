@@ -4,6 +4,7 @@ import { generateToken } from '@/lib/auth-helpers';
 import { hashPassword, validatePasswordStrength } from '@ledesign/auth';
 import { User, PublicUser } from '@/types/user';
 import { generateId, isValidEmail } from '@/lib/utils';
+import { getUserDb } from '@/lib/db/database-manager';
 
 export const dynamic = 'force-dynamic';
 
@@ -89,6 +90,16 @@ export async function POST(request: NextRequest) {
         { error: 'Failed to create user' },
         { status: 500 }
       );
+    }
+
+    // Create user database immediately (includes migrations)
+    console.log(`Creating database for new user ${userId}...`);
+    try {
+      await getUserDb(userId);
+      console.log(`✓ User database created for ${userId}`);
+    } catch (error) {
+      console.error(`Failed to create user database for ${userId}:`, error);
+      // Continue anyway - database will be created on first use
     }
 
     // Generate JWT

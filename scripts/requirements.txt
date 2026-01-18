@@ -1,0 +1,2 @@
+# Python dependencies for TTS generation
+google-genai>=0.2.0

@@ -1,0 +1,6 @@
+file '01_hook.wav'
+file '02_problem.wav'
+file '03_solution.wav'
+file '04_features.wav'
+file '05_value.wav'
+file '06_cta.wav'

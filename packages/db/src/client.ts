@@ -1,4 +1,6 @@
 import { createClient, Client } from '@libsql/client';
+import { drizzle } from 'drizzle-orm/libsql';
+import * as schema from './schema';
 
 // ============================================================
 // DATABASE CLIENT - TURSO/LIBSQL
@@ -7,21 +9,22 @@ import { createClient, Client } from '@libsql/client';
 // Supports both local SQLite (development) and remote Turso (production)
 
 // Lazy initialization - clients are created on first access
-let _db: Client | null = null;
+let _client: Client | null = null;
+let _drizzleDb: ReturnType<typeof drizzle> | null = null;
 
 /**
- * Get the main database client
+ * Get the raw libsql client
  * Auto-detects environment and uses appropriate connection
  */
-export function getDb(): Client {
-  if (!_db) {
+export function getClient(): Client {
+  if (!_client) {
     const url = process.env.TURSO_DB_URL;
     const authToken = process.env.TURSO_DB_TOKEN;
 
     // For local development, use file-based SQLite
     if (!url || url === 'file:local.db') {
       console.log('Using local SQLite database: ./local.db');
-      _db = createClient({
+      _client = createClient({
         url: 'file:local.db',
       });
     } else {
@@ -29,11 +32,29 @@ export function getDb(): Client {
       if (!authToken) {
         throw new Error('Missing TURSO_DB_TOKEN for remote database');
       }
-      _db = createClient({ url, authToken });
+      _client = createClient({ url, authToken });
     }
   }
-  return _db;
+  return _client;
 }
+
+/**
+ * Get the Drizzle ORM database instance
+ * This is the main export for use with Drizzle's query builder
+ */
+export function getDb() {
+  if (!_drizzleDb) {
+    const client = getClient();
+    _drizzleDb = drizzle(client, { schema });
+  }
+  return _drizzleDb;
+}
+
+/**
+ * Drizzle database instance (lazy-initialized)
+ * Use this for Drizzle query builder API
+ */
+export const db = getDb();
 
 /**
  * Type-safe query helper
@@ -88,8 +109,9 @@ export async function batch(db: Client, statements: { sql: string; args?: any[] 
  * Should be called on application shutdown
  */
 export function closeDb() {
-  if (_db) {
-    _db.close();
-    _db = null;
+  if (_client) {
+    _client.close();
+    _client = null;
   }
+  _drizzleDb = null;
 }

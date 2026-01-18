@@ -43,3 +43,7 @@ yarn-error.log*
 
 # Large data files
 apps/web/public/data/
+
+# Service account credentials
+earthengine-sa-key.json
+*-sa-key.json

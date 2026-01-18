@@ -87,7 +87,7 @@ When you run `npm run setup`:
 The `.env` file contains:
 ```bash
 GOOGLE_GEMINI_API_KEY=AIzaSy...     # For AI features
-GCP_PROJECT_ID=echo-home-system      # Google Cloud project
+GCP_PROJECT_ID=ledesign      # Google Cloud project
 VERCEL_TOKEN=us3Zi...                # For deployment
 VERCEL_ORG_ID=benjas-projects-...    # Vercel organization
 VERCEL_PROJECT_ID=ledesign           # Project name
@@ -162,7 +162,7 @@ LeDesign/
 ```bash
 # Re-authenticate with Google Cloud
 gcloud auth login
-gcloud config set project echo-home-system
+gcloud config set project ledesign
 
 # Re-run setup
 npm run setup
@@ -200,7 +200,7 @@ npm run setup
 ## 🔗 Links
 
 - **GitHub**: https://github.com/developerbenja-eng/LeDesign
-- **Google Cloud**: echo-home-system project
+- **Google Cloud**: ledesign project
 - **Vercel**: benjas-projects-3ad07b52 organization
 
 ---

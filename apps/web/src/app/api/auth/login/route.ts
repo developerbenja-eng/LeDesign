@@ -3,6 +3,7 @@ import { getDb, queryOne, execute } from '@ledesign/db';
 import { generateToken } from '@/lib/auth-helpers';
 import { comparePassword } from '@ledesign/auth';
 import { User, PublicUser } from '@/types/user';
+import { getAuthDb, getUserDb } from '@/lib/db/database-manager';
 
 export const dynamic = 'force-dynamic';
 
@@ -52,6 +53,25 @@ export async function POST(request: NextRequest) {
       'UPDATE users SET last_login = ?, updated_at = ? WHERE id = ?',
       [now, now, user.id]
     );
+
+    // Ensure user database exists (creates if first login)
+    const authDb = getAuthDb();
+    const dbExists = await queryOne<{ user_id: string }>(
+      authDb,
+      'SELECT user_id FROM user_databases WHERE user_id = ?',
+      [user.id]
+    );
+
+    if (!dbExists) {
+      console.log(`Creating database for user ${user.id} on first login...`);
+      try {
+        await getUserDb(user.id);
+        console.log(`✓ User database created for ${user.id}`);
+      } catch (error) {
+        console.error(`Failed to create user database for ${user.id}:`, error);
+        // Continue anyway - database will be created on first use
+      }
+    }
 
     // Generate JWT
     const token = generateToken(user);

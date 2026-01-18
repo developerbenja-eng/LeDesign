@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { verifyToken, extractTokenFromHeader } from './auth-helpers';
 import { AuthTokenPayload, User } from '@/types/user';
-import { getDb, queryOne } from '@ledesign/db';
+import { getClient, queryOne } from '@ledesign/db';
 
 const COOKIE_NAME = 'auth_token';
 
@@ -37,7 +37,7 @@ export async function withAuth(
 
   // Fetch fresh user data from database (for role verification)
   const dbUser = await queryOne<User>(
-    getDb(),
+    getClient(),
     'SELECT * FROM users WHERE id = ?',
     [payload.userId]
   );
@@ -127,7 +127,7 @@ export async function getAuthenticatedUser(
 
 export async function getFullUser(userId: string): Promise<User | null> {
   return queryOne<User>(
-    getDb(),
+    getClient(),
     'SELECT * FROM users WHERE id = ?',
     [userId]
   );

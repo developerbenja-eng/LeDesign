@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { withAuth, AuthenticatedRequest } from '@/lib/auth-middleware';
-import { getDb, queryOne, execute } from '@ledesign/db';
+import { getClient, queryOne, execute } from '@ledesign/db';
 import { Project } from '@/types/user';
 
 export const dynamic = 'force-dynamic';
@@ -15,7 +15,7 @@ export async function GET(
       const { id } = await params;
 
       const project = await queryOne<Project>(
-        getDb(),
+        getClient(),
         `SELECT * FROM projects WHERE id = ? AND user_id = ?`,
         [id, req.user.userId]
       );
@@ -53,7 +53,7 @@ export async function PUT(
 
       // Verify ownership
       const existing = await queryOne<Project>(
-        getDb(),
+        getClient(),
         `SELECT id FROM projects WHERE id = ? AND user_id = ?`,
         [id, req.user.userId]
       );
@@ -83,7 +83,7 @@ export async function PUT(
       const now = new Date().toISOString();
 
       await execute(
-        getDb(),
+        getClient(),
         `UPDATE projects SET
           name = COALESCE(?, name),
           description = COALESCE(?, description),
@@ -119,7 +119,7 @@ export async function PUT(
 
       // Fetch updated project
       const project = await queryOne<Project>(
-        getDb(),
+        getClient(),
         `SELECT * FROM projects WHERE id = ?`,
         [id]
       );
@@ -138,6 +138,14 @@ export async function PUT(
   });
 }
 
+// PATCH /api/projects/[id] - Partially update a project (alias for PUT)
+export async function PATCH(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  return PUT(request, { params });
+}
+
 // DELETE /api/projects/[id] - Delete a project
 export async function DELETE(
   request: NextRequest,
@@ -149,7 +157,7 @@ export async function DELETE(
 
       // Verify ownership
       const existing = await queryOne<Project>(
-        getDb(),
+        getClient(),
         `SELECT id FROM projects WHERE id = ? AND user_id = ?`,
         [id, req.user.userId]
       );
@@ -163,7 +171,7 @@ export async function DELETE(
 
       // Delete project (cascade will delete elements and topography)
       await execute(
-        getDb(),
+        getClient(),
         `DELETE FROM projects WHERE id = ?`,
         [id]
       );

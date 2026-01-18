@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useDisciplineStore } from '@/stores/discipline-store';
+import { useModuleTracking } from '@/hooks/useModuleTracking';
 import {
   // Pipe hydraulics
   HAZEN_WILLIAMS_C,
@@ -61,6 +62,9 @@ type TabType = 'network' | 'hydraulics' | 'demand' | 'pump' | 'quality' | 'refer
 export function WaterNetworkPanel({ projectId, projectName, onClose }: WaterNetworkPanelProps) {
   const [activeTab, setActiveTab] = useState<TabType>('network');
 
+  // Track module usage for reporting
+  useModuleTracking(projectId || '', 'hydraulic');
+
   // Discipline store
   const {
     waterNetworkDesigns,
@@ -96,6 +100,24 @@ export function WaterNetworkPanel({ projectId, projectName, onClose }: WaterNetw
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
+      </div>
+
+      {/* Network Studio Button */}
+      <div className="p-3 border-b border-gray-700">
+        <a
+          href={projectId ? `/water-network?projectId=${projectId}` : '/water-network'}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded transition-colors text-sm font-medium"
+        >
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+          </svg>
+          Open Network Studio
+        </a>
+        <p className="text-center text-gray-500 text-xs mt-2">
+          Full EPANET-style network designer with map view
+        </p>
       </div>
 
       {/* Tabs */}

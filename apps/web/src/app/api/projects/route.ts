@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { withAuth, AuthenticatedRequest } from '@/lib/auth-middleware';
-import { getDb, query, execute } from '@ledesign/db';
+import { getClient, query, execute } from '@ledesign/db';
 import { Project } from '@/types/user';
 import { generateId } from '@/lib/utils';
 
@@ -11,7 +11,7 @@ export async function GET(request: NextRequest) {
   return withAuth(request, async (req: AuthenticatedRequest) => {
     try {
       const projects = await query<Project>(
-        getDb(),
+        getClient(),
         `SELECT * FROM projects
          WHERE user_id = ?
          ORDER BY updated_at DESC`,
@@ -62,7 +62,7 @@ export async function POST(request: NextRequest) {
       const now = new Date().toISOString();
 
       await execute(
-        getDb(),
+        getClient(),
         `INSERT INTO projects (
           id, user_id, name, description,
           bounds_south, bounds_north, bounds_west, bounds_east,

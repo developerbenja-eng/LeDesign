@@ -28,6 +28,18 @@ const nextConfig = {
       '../../packages/chilean-codes/dist/**/*',
     ],
   },
+  // Enable WebAssembly support for DWG parsing (libredwg-web)
+  webpack: (config) => {
+    config.experiments = {
+      ...config.experiments,
+      asyncWebAssembly: true,
+    };
+    return config;
+  },
+  // Configure turbopack for monorepo
+  turbopack: {
+    root: '../..',
+  },
 };
 
 module.exports = nextConfig;

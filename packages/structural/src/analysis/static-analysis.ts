@@ -5,7 +5,7 @@
  * Uses the direct stiffness method with 6 DOF per node (3 translations, 3 rotations).
  */
 
-import { getDb } from '@ledesign/db';
+import { getClient } from '@ledesign/db';
 import {
   StructuralNode,
   Beam,
@@ -396,7 +396,7 @@ function solveSystem(K: Matrix, F: Vector): Vector {
  * Build the analysis model from database
  */
 async function buildModel(projectId: string): Promise<AnalysisModel> {
-  const db = getDb();
+  const db = getClient();
 
   // Fetch nodes
   const nodesResult = await db.execute({
@@ -845,7 +845,7 @@ export async function runStaticAnalysis(
   analysisRunId: string,
   combinationIds: string[]
 ): Promise<void> {
-  const db = getDb();
+  const db = getClient();
 
   try {
     // Update status to running

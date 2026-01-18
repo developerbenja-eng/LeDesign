@@ -10,7 +10,7 @@
  * - Chapter 25: Development and splices
  */
 
-import { getDb } from '@ledesign/db';
+import { getClient } from '@ledesign/db';
 import {
   Beam,
   Column,
@@ -678,7 +678,7 @@ export async function runACIDesignChecks(
   projectId: string,
   analysisRunId: string
 ): Promise<DesignResult[]> {
-  const db = getDb();
+  const db = getClient();
   const results: DesignResult[] = [];
 
   // Get beams with concrete material
@@ -1078,7 +1078,7 @@ export async function runACIWallDesignChecks(
   projectId: string,
   analysisRunId: string
 ): Promise<DesignResult[]> {
-  const db = getDb();
+  const db = getClient();
   const results: DesignResult[] = [];
 
   // Get walls with concrete material
@@ -1401,7 +1401,7 @@ export async function runACISlabDesignChecks(
   projectId: string,
   analysisRunId: string
 ): Promise<DesignResult[]> {
-  const db = getDb();
+  const db = getClient();
   const results: DesignResult[] = [];
 
   const slabRows = await db.execute({

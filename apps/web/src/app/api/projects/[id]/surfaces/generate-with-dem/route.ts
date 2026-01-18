@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { withAuth, AuthenticatedRequest } from '@/lib/auth-middleware';
-import { getDb, queryOne, execute } from '@ledesign/db';
+import { getClient, queryOne, execute } from '@ledesign/db';
 import { generateId } from '@/lib/utils';
 
 // Triangulation
@@ -71,7 +71,7 @@ export async function POST(
 
       // Verify project ownership
       const project = await queryOne<Project>(
-        getDb(),
+        getClient(),
         `SELECT id, bounds_south, bounds_north, bounds_west, bounds_east, center_lat, center_lon
          FROM projects WHERE id = ? AND user_id = ?`,
         [projectId, req.user.userId]
@@ -277,7 +277,7 @@ export async function POST(
 
       // Save dataset
       await execute(
-        getDb(),
+        getClient(),
         `INSERT INTO survey_datasets (
           id, project_id, name, source_format, point_count,
           bounds_json, statistics_json, crs, points_json,
@@ -301,7 +301,7 @@ export async function POST(
 
       // Save generated surface
       await execute(
-        getDb(),
+        getClient(),
         `INSERT INTO generated_surfaces (
           id, project_id, dataset_id, name, method,
           config_json, surface_json, metrics_json,
@@ -329,7 +329,7 @@ export async function POST(
       );
 
       // Update project timestamp
-      await execute(getDb(), `UPDATE projects SET updated_at = ? WHERE id = ?`, [now, projectId]);
+      await execute(getClient(), `UPDATE projects SET updated_at = ? WHERE id = ?`, [now, projectId]);
 
       return NextResponse.json({
         success: true,

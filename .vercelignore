@@ -1,12 +1,68 @@
-# Exclude large data files from Vercel deployment
-apps/web/public/data/
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
 
-# Development files
+# Build artifacts (Vercel builds these)
+.next/
+.turbo/
+dist/
+out/
+
+# Package build outputs
+packages/*/dist/
+packages/*/.turbo/
+
+# Test files
 *.test.ts
 *.test.tsx
 __tests__/
 coverage/
 
+# Local env files
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Database
+*.db
+*.db-shm
+*.db-wal
+local.db
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Large data files
+apps/web/public/data/
+apps/web/public/test-files/
+apps/web/public/presentation-audio-video2/
+apps/web/public/presentation-audio/
+apps/web/public/wasm/
+
+# Scripts and tooling
+scripts/
+earthengine-sa-key.json
+*.sh
+
 # Documentation
 *.md
 !README.md
+docs/
+
+# Temporary files
+.DS_Store
+*.swp
+*.swo
+*~
+
+# Screenshots and media
+screenshots/
+presentation-audio-video2/
+
+# Git
+.git/

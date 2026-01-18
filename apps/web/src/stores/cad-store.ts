@@ -12,8 +12,22 @@ import type {
   StandardDetailPlacement,
   Point3D,
 } from '@/types/cad';
+import { getSyncManager, type SyncManager } from '@/lib/sync/sync-manager';
+import { saveEntity, deleteEntity as deleteEntityFromDB, saveLayer } from '@/lib/storage/indexeddb';
 
 interface CADState {
+  // Project info
+  projectId: string | null;
+  userId: string | null;
+  setProjectInfo: (projectId: string, userId: string) => void;
+
+  // Sync manager
+  syncManager: SyncManager | null;
+  syncStatus: 'idle' | 'syncing' | 'error';
+  lastSyncTime: number | null;
+  pendingChanges: number;
+  initializeSync: (projectId: string, userId: string) => void;
+  stopSync: () => void;
   // Entities
   entities: Map<string, AnyCADEntity>;
   addEntity: (entity: AnyCADEntity) => void;
@@ -41,6 +55,16 @@ interface CADState {
   setPan: (x: number, y: number) => void;
   toggle3D: () => void;
   resetView: () => void;
+
+  // Drawing aids
+  snapEnabled: boolean;
+  toggleSnap: () => void;
+  orthoEnabled: boolean;
+  toggleOrtho: () => void;
+  gridEnabled: boolean;
+  toggleGrid: () => void;
+  gridSpacing: number;
+  setGridSpacing: (spacing: number) => void;
 
   // Tool
   activeTool: DrawingTool;
@@ -72,6 +96,8 @@ interface CADState {
   // Background map
   mapStyle: MapStyle;
   setMapStyle: (style: MapStyle) => void;
+  mapOpacity: number;
+  setMapOpacity: (opacity: number) => void;
 
   // Standard detail placement
   placementDetail: StandardDetailPlacement | null;
@@ -96,20 +122,84 @@ const defaultViewState: ViewState = {
 };
 
 export const useCADStore = create<CADState>((set, get) => ({
+  // Project info
+  projectId: null,
+  userId: null,
+  setProjectInfo: (projectId, userId) => set({ projectId, userId }),
+
+  // Sync manager
+  syncManager: null,
+  syncStatus: 'idle',
+  lastSyncTime: null,
+  pendingChanges: 0,
+
+  initializeSync: (projectId: string, userId: string) => {
+    const manager = getSyncManager({
+      projectId,
+      userId,
+      autoSyncInterval: 30000, // 30 seconds
+
+      onSyncStart: () => {
+        set({ syncStatus: 'syncing' });
+      },
+
+      onSyncComplete: (result) => {
+        set({
+          syncStatus: 'idle',
+          lastSyncTime: result.timestamp,
+          pendingChanges: 0,
+        });
+        console.log('Sync completed:', result);
+      },
+
+      onSyncError: (error) => {
+        set({ syncStatus: 'error' });
+        console.error('Sync error:', error);
+      },
+    });
+
+    manager.start();
+    set({ syncManager: manager, projectId, userId });
+  },
+
+  stopSync: () => {
+    const { syncManager } = get();
+    if (syncManager) {
+      syncManager.stop();
+      set({ syncManager: null, syncStatus: 'idle' });
+    }
+  },
+
   // Entities
   entities: new Map(),
-  addEntity: (entity) =>
+  addEntity: (entity) => {
+    const { projectId } = get();
     set((state) => {
       const newEntities = new Map(state.entities);
       newEntities.set(entity.id, entity);
+
+      // Save to IndexedDB (async, doesn't block UI)
+      if (projectId) {
+        saveEntity(projectId, entity as any).catch(console.error);
+      }
+
       return { entities: newEntities };
-    }),
-  removeEntity: (id) =>
+    });
+  },
+  removeEntity: (id) => {
+    const { projectId } = get();
     set((state) => {
       const newEntities = new Map(state.entities);
       newEntities.delete(id);
+
+      // Mark as deleted in IndexedDB
+      if (projectId) {
+        deleteEntityFromDB(projectId, id).catch(console.error);
+      }
+
       return { entities: newEntities };
-    }),
+    });
+  },
   updateEntity: (id, updates) =>
     set((state) => {
       const newEntities = new Map(state.entities);
@@ -124,12 +214,27 @@ export const useCADStore = create<CADState>((set, get) => ({
   // Layers
   layers: new Map([['0', defaultLayer]]),
   activeLayer: '0',
-  addLayer: (layer) =>
+  addLayer: (layer) => {
+    const { projectId } = get();
     set((state) => {
       const newLayers = new Map(state.layers);
       newLayers.set(layer.name, layer);
+
+      // Save to IndexedDB
+      if (projectId) {
+        saveLayer(projectId, {
+          id: layer.name,
+          name: layer.name,
+          color: layer.color,
+          visible: layer.visible,
+          locked: layer.locked,
+          orderIndex: newLayers.size,
+        }).catch(console.error);
+      }
+
       return { layers: newLayers };
-    }),
+    });
+  },
   setActiveLayer: (name) => set({ activeLayer: name }),
   toggleLayerVisibility: (name) =>
     set((state) => {
@@ -176,6 +281,16 @@ export const useCADStore = create<CADState>((set, get) => ({
       viewState: { ...state.viewState, is3D: !state.viewState.is3D },
     })),
   resetView: () => set({ viewState: defaultViewState }),
+
+  // Drawing aids
+  snapEnabled: true,
+  toggleSnap: () => set((state) => ({ snapEnabled: !state.snapEnabled })),
+  orthoEnabled: false,
+  toggleOrtho: () => set((state) => ({ orthoEnabled: !state.orthoEnabled })),
+  gridEnabled: false,
+  toggleGrid: () => set((state) => ({ gridEnabled: !state.gridEnabled })),
+  gridSpacing: 10,
+  setGridSpacing: (spacing: number) => set({ gridSpacing: spacing }),
 
   // Tool
   activeTool: 'select',
@@ -271,6 +386,8 @@ export const useCADStore = create<CADState>((set, get) => ({
   // Background map
   mapStyle: 'satellite',
   setMapStyle: (style) => set({ mapStyle: style }),
+  mapOpacity: 0.5,
+  setMapOpacity: (opacity) => set({ mapOpacity: Math.max(0, Math.min(1, opacity)) }),
 
   // Standard detail placement
   placementDetail: null,

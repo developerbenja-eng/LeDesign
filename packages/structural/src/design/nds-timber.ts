@@ -7,7 +7,7 @@
  * - Chapter 5: Structural Glued Laminated Timber
  */
 
-import { getDb } from '@ledesign/db';
+import { getClient } from '@ledesign/db';
 import {
   Beam,
   Column,
@@ -591,7 +591,7 @@ export async function runNDSDesignChecks(
   projectId: string,
   analysisRunId: string
 ): Promise<DesignResult[]> {
-  const db = getDb();
+  const db = getClient();
   const results: DesignResult[] = [];
 
   // Get beams with timber material

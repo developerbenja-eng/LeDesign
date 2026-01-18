@@ -5,7 +5,7 @@
  * Uses the inverse iteration method (power method) for eigenvalue extraction.
  */
 
-import { getDb } from '@ledesign/db';
+import { getClient } from '@ledesign/db';
 import {
   StructuralNode,
   Material,
@@ -325,7 +325,7 @@ function buildLocalMassMatrix(
  * Build the analysis model from database
  */
 async function buildModel(projectId: string): Promise<AnalysisModel> {
-  const db = getDb();
+  const db = getClient();
 
   // Fetch nodes
   const nodesResult = await db.execute({
@@ -764,7 +764,7 @@ export async function runModalAnalysis(
   analysisRunId: string,
   settings: { numModes?: number; tolerance?: number } = {}
 ): Promise<void> {
-  const db = getDb();
+  const db = getClient();
   const numModes = settings.numModes || 12;
   const tolerance = settings.tolerance || 1e-8;
 

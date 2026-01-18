@@ -44,7 +44,7 @@ export default function EarlyAccessPage() {
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-green-500/10 to-cyan-500/10 border border-green-500/20 mb-6">
               <Rocket size={16} className="text-green-400" />
               <span className="text-sm font-medium bg-gradient-to-r from-green-400 to-cyan-400 bg-clip-text text-transparent">
-                Programa Founder's Edition
+                Programa Early Access
               </span>
             </div>
 
@@ -65,7 +65,7 @@ export default function EarlyAccessPage() {
                 href="#pricing"
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-semibold text-lg bg-gradient-to-r from-green-600 to-cyan-600 text-white hover:from-green-500 hover:to-cyan-500 transition-all shadow-lg shadow-green-500/20"
               >
-                Ver Planes Founder
+                Ver Planes Pioneros
                 <ArrowRight size={20} />
               </Link>
               <Link
@@ -85,7 +85,7 @@ export default function EarlyAccessPage() {
               </div>
               <div className="flex items-center gap-2">
                 <Star size={16} className="text-yellow-400" />
-                <span><strong className="text-white">15</strong> founders confirmados</span>
+                <span><strong className="text-white">15</strong> pioneros confirmados</span>
               </div>
               <div className="flex items-center gap-2">
                 <Clock size={16} className="text-cyan-400" />
@@ -171,13 +171,129 @@ export default function EarlyAccessPage() {
         </div>
       </section>
 
-      {/* Founder Benefits */}
+      {/* Expansion Modules - Co-Founder Opportunities */}
       <section className="py-12 sm:py-16">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-amber-500/10 to-orange-500/10 border border-amber-500/20 mb-6">
+                <Sparkles size={16} className="text-amber-400" />
+                <span className="text-sm font-medium bg-gradient-to-r from-amber-400 to-orange-400 bg-clip-text text-transparent">
+                  Oportunidades Co-Founder
+                </span>
+              </div>
               <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-white">
-                ¿Por Qué Ser Founder?
+                Módulos de Expansión (2027+)
+              </h2>
+              <p className="text-lg text-slate-300 max-w-3xl mx-auto">
+                Módulos futuros que pueden ser desarrollados por co-fundadores.
+                <strong className="text-amber-400"> Quien lo construye, posee el 70% de los ingresos de ese módulo.</strong>
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[
+                {
+                  name: 'Seguimiento de Obras',
+                  description: 'Control de avance, hitos, costos y reportes de construcción en tiempo real.',
+                  potentialOwner: 'Disponible',
+                  icon: '🏗️',
+                  features: ['Avance físico y financiero', 'Reportes automáticos', 'Fotos georeferenciadas'],
+                },
+                {
+                  name: 'Topografía Avanzada',
+                  description: 'Procesamiento de datos topográficos, RTK, drones y fotogrametría.',
+                  potentialOwner: 'Disponible',
+                  icon: '📍',
+                  features: ['Importación RTK/GNSS', 'Procesamiento drone', 'Modelos 3D terreno'],
+                },
+                {
+                  name: 'Inspección Técnica (ITO)',
+                  description: 'Gestión de inspección técnica de obras según normativa chilena.',
+                  potentialOwner: 'Disponible',
+                  icon: '🔍',
+                  features: ['Libro de obras digital', 'Checklist NCh', 'Firmas digitales'],
+                },
+                {
+                  name: 'Presupuestos y Cubicación',
+                  description: 'Generación automática de presupuestos desde diseños con precios unitarios.',
+                  potentialOwner: 'Disponible',
+                  icon: '📊',
+                  features: ['Itemizado SERVIU', 'Base de precios', 'Exportación Excel'],
+                },
+                {
+                  name: 'Gestión Documental',
+                  description: 'Control de versiones, aprobaciones y flujos de documentos técnicos.',
+                  potentialOwner: 'Disponible',
+                  icon: '📁',
+                  features: ['Versionado automático', 'Flujos de aprobación', 'Firmas electrónicas'],
+                },
+                {
+                  name: 'Geotecnia',
+                  description: 'Análisis geotécnico, capacidad de carga, asentamientos y muros.',
+                  potentialOwner: 'Disponible',
+                  icon: '⛏️',
+                  features: ['Capacidad portante', 'Muros de contención', 'Estabilidad taludes'],
+                },
+              ].map((module) => (
+                <div
+                  key={module.name}
+                  className="glass-card rounded-xl p-6 border border-amber-500/20 hover:border-amber-500/40 transition-colors group"
+                >
+                  <div className="flex items-start justify-between mb-4">
+                    <span className="text-3xl">{module.icon}</span>
+                    <span className="px-2 py-1 rounded-full bg-amber-500/10 text-amber-400 text-xs font-semibold">
+                      70% tuyo
+                    </span>
+                  </div>
+                  <h3 className="text-lg font-bold text-white mb-2 group-hover:text-amber-400 transition-colors">
+                    {module.name}
+                  </h3>
+                  <p className="text-sm text-slate-400 mb-4">{module.description}</p>
+                  <ul className="space-y-1">
+                    {module.features.map((feature) => (
+                      <li key={feature} className="text-xs text-slate-500 flex items-center gap-2">
+                        <Check size={12} className="text-amber-400" />
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-8 glass-card rounded-xl p-6 border border-amber-500/30">
+              <div className="flex flex-col md:flex-row items-center gap-6">
+                <div className="flex-1">
+                  <h3 className="text-xl font-bold text-white mb-2">
+                    ¿Quieres construir un módulo?
+                  </h3>
+                  <p className="text-slate-400 text-sm">
+                    Si tienes experiencia en alguna de estas áreas y quieres desarrollar un módulo,
+                    puedes unirte como co-fundador y obtener el <strong className="text-amber-400">70% de los ingresos</strong> de
+                    ese módulo. Los otros co-fundadores reciben 10% cada uno.
+                  </p>
+                </div>
+                <Link
+                  href="mailto:founders@ledesign.cl?subject=Interés%20en%20Desarrollar%20Módulo"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold bg-gradient-to-r from-amber-600 to-orange-600 text-white hover:from-amber-500 hover:to-orange-500 transition-all whitespace-nowrap"
+                >
+                  Contactar Founders
+                  <ArrowRight size={18} />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Founder Benefits */}
+      <section className="py-12 sm:py-16 bg-gradient-to-b from-slate-900/50 to-transparent">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-white">
+                ¿Por Qué Ser Usuario Pionero?
               </h2>
               <p className="text-lg text-slate-300">
                 Tu inversión temprana acelera el desarrollo y validación
@@ -248,7 +364,7 @@ export default function EarlyAccessPage() {
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
               <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-white">
-                Planes Founder's Edition
+                Planes Pioneros
               </h2>
               <p className="text-lg text-slate-300">
                 Pago único, acceso de por vida, sin costos recurrentes
@@ -256,22 +372,22 @@ export default function EarlyAccessPage() {
             </div>
 
             <div className="grid md:grid-cols-3 gap-8">
-              {/* Pioneer */}
+              {/* Usuario Pionero */}
               <div className="glass-card rounded-2xl p-8">
                 <div className="mb-6">
-                  <h3 className="text-2xl font-bold text-white mb-2">Pioneer</h3>
+                  <h3 className="text-2xl font-bold text-white mb-2">Usuario Pionero</h3>
                   <p className="text-slate-400">Acceso completo individual</p>
                 </div>
                 <div className="mb-6">
                   <div className="flex items-baseline gap-2">
-                    <span className="text-5xl font-bold text-white">$299</span>
+                    <span className="text-5xl font-bold text-white">$250</span>
                     <span className="text-slate-400">USD</span>
                   </div>
                   <div className="text-sm text-slate-500 line-through mt-1">
-                    Precio normal: $1,500/año = $15,000 en 10 años
+                    Precio normal: $588/año = $5,880 en 10 años
                   </div>
                   <div className="text-green-400 font-semibold mt-2">
-                    Ahorras $14,701 (98%)
+                    Ahorras $5,630 (96%)
                   </div>
                 </div>
                 <ul className="space-y-3 mb-8">
@@ -291,38 +407,38 @@ export default function EarlyAccessPage() {
                   ))}
                 </ul>
                 <Link
-                  href="/signup?plan=founder-pioneer"
+                  href="/signup?plan=pioneer-individual"
                   className="block w-full text-center px-6 py-3 rounded-xl font-semibold bg-gradient-to-r from-green-600 to-cyan-600 text-white hover:from-green-500 hover:to-cyan-500 transition-all"
                 >
-                  Reservar Cupo Pioneer
+                  Reservar Cupo Usuario Pionero
                 </Link>
               </div>
 
-              {/* Founder - Highlighted */}
+              {/* Equipo Pionero - Highlighted */}
               <div className="glass-card rounded-2xl p-8 border-2 border-green-500/50 shadow-2xl shadow-green-500/20 scale-105">
                 <div className="mb-6">
                   <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gradient-to-r from-green-500/20 to-cyan-500/20 border border-green-500/30 mb-3">
                     <Star size={14} className="text-yellow-400" />
                     <span className="text-xs font-semibold text-green-400">MÁS POPULAR</span>
                   </div>
-                  <h3 className="text-2xl font-bold text-white mb-2">Founder</h3>
+                  <h3 className="text-2xl font-bold text-white mb-2">Equipo Pionero</h3>
                   <p className="text-slate-400">Para equipos pequeños</p>
                 </div>
                 <div className="mb-6">
                   <div className="flex items-baseline gap-2">
-                    <span className="text-5xl font-bold text-white">$799</span>
+                    <span className="text-5xl font-bold text-white">$1,000</span>
                     <span className="text-slate-400">USD</span>
                   </div>
                   <div className="text-sm text-slate-500 line-through mt-1">
-                    Precio normal: $4,500/año = $45,000 en 10 años
+                    Precio normal: $1,764/año = $17,640 en 10 años
                   </div>
                   <div className="text-green-400 font-semibold mt-2">
-                    Ahorras $44,201 (98%)
+                    Ahorras $16,640 (94%)
                   </div>
                 </div>
                 <ul className="space-y-3 mb-8">
                   {[
-                    '5 usuarios incluidos',
+                    '3 usuarios incluidos',
                     'Todos los módulos de por vida',
                     'Actualizaciones gratis para siempre',
                     '500 GB almacenamiento',
@@ -330,7 +446,7 @@ export default function EarlyAccessPage() {
                     'Acceso beta exclusivo',
                     'Canal Slack privado',
                     'Sesión mensual con founders',
-                    'Tu nombre en página de founders',
+                    'Tu nombre en página de pioneros',
                   ].map((feature) => (
                     <li key={feature} className="flex items-center gap-3">
                       <Check size={20} className="text-green-400" />
@@ -339,34 +455,34 @@ export default function EarlyAccessPage() {
                   ))}
                 </ul>
                 <Link
-                  href="/signup?plan=founder-team"
+                  href="/signup?plan=pioneer-team"
                   className="block w-full text-center px-6 py-3 rounded-xl font-semibold bg-gradient-to-r from-green-600 to-cyan-600 text-white hover:from-green-500 hover:to-cyan-500 transition-all"
                 >
-                  Reservar Cupo Founder
+                  Reservar Cupo Equipo Pionero
                 </Link>
               </div>
 
-              {/* Enterprise Founder */}
+              {/* Patrocinador Premium */}
               <div className="glass-card rounded-2xl p-8">
                 <div className="mb-6">
-                  <h3 className="text-2xl font-bold text-white mb-2">Enterprise</h3>
+                  <h3 className="text-2xl font-bold text-white mb-2">Patrocinador Premium</h3>
                   <p className="text-slate-400">Para organizaciones</p>
                 </div>
                 <div className="mb-6">
                   <div className="flex items-baseline gap-2">
-                    <span className="text-5xl font-bold text-white">$2,499</span>
+                    <span className="text-5xl font-bold text-white">$5,000</span>
                     <span className="text-slate-400">USD</span>
                   </div>
                   <div className="text-sm text-slate-500 line-through mt-1">
-                    Precio normal: $15,000/año = $150,000 en 10 años
+                    Precio normal: $2,940/año = $29,400 en 10 años
                   </div>
                   <div className="text-green-400 font-semibold mt-2">
-                    Ahorras $147,501 (98%)
+                    Ahorras $24,400 (83%)
                   </div>
                 </div>
                 <ul className="space-y-3 mb-8">
                   {[
-                    '20 usuarios incluidos',
+                    '5 usuarios incluidos',
                     'Todos los módulos de por vida',
                     'Actualizaciones gratis para siempre',
                     '2 TB almacenamiento',
@@ -374,7 +490,7 @@ export default function EarlyAccessPage() {
                     'Acceso beta exclusivo',
                     'Canal Slack privado',
                     'Sesión quincenal con founders',
-                    'Logo en página de founders',
+                    'Logo en página de patrocinadores',
                     'Custom branding (opcional)',
                     'Onboarding personalizado',
                   ].map((feature) => (
@@ -385,10 +501,10 @@ export default function EarlyAccessPage() {
                   ))}
                 </ul>
                 <Link
-                  href="/signup?plan=founder-enterprise"
+                  href="/signup?plan=sponsor-premium"
                   className="block w-full text-center px-6 py-3 rounded-xl font-semibold bg-gradient-to-r from-green-600 to-cyan-600 text-white hover:from-green-500 hover:to-cyan-500 transition-all"
                 >
-                  Reservar Cupo Enterprise
+                  Reservar Cupo Patrocinador Premium
                 </Link>
               </div>
             </div>
@@ -398,7 +514,7 @@ export default function EarlyAccessPage() {
                 💳 Pago seguro con Stripe • 🔒 Garantía 60 días • 🚀 Acceso inmediato a la plataforma
               </p>
               <p className="text-slate-500 text-xs">
-                Los cupos Founder se cierran el 28 de Febrero 2026 o al alcanzar 50 miembros
+                Los cupos Pionero se cierran el 4 de Mayo 2026 o al alcanzar el objetivo de recaudación
               </p>
             </div>
           </div>
@@ -492,20 +608,20 @@ export default function EarlyAccessPage() {
                 <FileCheck size={32} className="text-green-400 flex-shrink-0" />
                 <div>
                   <h3 className="text-lg font-bold text-white mb-2">
-                    Meta Total de Validación: $45,000 USD
+                    Meta Total de Recaudación: $32,500 USD
                   </h3>
                   <p className="text-slate-400 mb-4">
-                    Con {' '}
-                    <strong className="text-green-400">50 founders</strong> a precio promedio de{' '}
-                    <strong className="text-green-400">$800</strong>, recaudamos{' '}
-                    <strong className="text-green-400">$40,000</strong> - suficiente para completar
-                    todas las validaciones en 2026.
+                    Con donaciones de {' '}
+                    <strong className="text-green-400">Usuarios Pioneros</strong>, {' '}
+                    <strong className="text-green-400">Equipos Pioneros</strong>, y {' '}
+                    <strong className="text-green-400">Patrocinadores Premium</strong>, alcanzamos
+                    el objetivo para financiar el desarrollo hasta el lanzamiento oficial.
                   </p>
                   <div className="flex items-center gap-3">
                     <div className="flex-1 h-3 bg-slate-800 rounded-full overflow-hidden">
-                      <div className="h-full bg-gradient-to-r from-green-500 to-cyan-500" style={{ width: '33%' }} />
+                      <div className="h-full bg-gradient-to-r from-green-500 to-cyan-500" style={{ width: '40%' }} />
                     </div>
-                    <span className="text-sm font-semibold text-white">$15,000 / $45,000</span>
+                    <span className="text-sm font-semibold text-white">$13,000 / $32,500</span>
                   </div>
                 </div>
               </div>
@@ -514,8 +630,171 @@ export default function EarlyAccessPage() {
         </div>
       </section>
 
-      {/* FAQ */}
+      {/* Future Investments Section */}
       <section className="py-12 sm:py-16 bg-gradient-to-b from-slate-900/50 to-transparent">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-12">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/20 mb-6">
+                <TrendingUp size={16} className="text-purple-400" />
+                <span className="text-sm font-medium bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                  Oportunidades de Inversión
+                </span>
+              </div>
+              <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-white">
+                Inversiones Futuras
+              </h2>
+              <p className="text-lg text-slate-300 max-w-3xl mx-auto">
+                LeDesign es una empresa bootstrapped-first, pero nuestra trayectoria abre puertas
+                para inversión estratégica en hitos clave. Los pioneros actuales tendrán prioridad.
+              </p>
+            </div>
+
+            {/* Investment Timeline */}
+            <div className="grid md:grid-cols-3 gap-6 mb-12">
+              {[
+                {
+                  stage: 'Ronda Ángel',
+                  timeline: 'Q4 2026 - Q1 2027',
+                  trigger: '$10K MRR alcanzado',
+                  amount: '$50K - $150K',
+                  valuation: '$500K - $1M',
+                  color: 'from-green-500/20 to-cyan-500/20',
+                  borderColor: 'border-green-500/30',
+                  textColor: 'text-green-400',
+                },
+                {
+                  stage: 'Ronda Seed',
+                  timeline: 'Q3 2027 - Q1 2028',
+                  trigger: '$25K MRR + presencia nacional',
+                  amount: '$300K - $500K',
+                  valuation: '$2M - $4M',
+                  color: 'from-cyan-500/20 to-blue-500/20',
+                  borderColor: 'border-cyan-500/30',
+                  textColor: 'text-cyan-400',
+                },
+                {
+                  stage: 'Serie A',
+                  timeline: '2028 - 2029',
+                  trigger: '$100K MRR + tracción LATAM',
+                  amount: '$2M - $5M',
+                  valuation: '$15M - $30M',
+                  color: 'from-purple-500/20 to-pink-500/20',
+                  borderColor: 'border-purple-500/30',
+                  textColor: 'text-purple-400',
+                },
+              ].map((round) => (
+                <div
+                  key={round.stage}
+                  className={`glass-card rounded-xl p-6 border ${round.borderColor} bg-gradient-to-br ${round.color}`}
+                >
+                  <h3 className={`text-xl font-bold ${round.textColor} mb-2`}>{round.stage}</h3>
+                  <p className="text-xs text-slate-500 mb-4">{round.timeline}</p>
+
+                  <div className="space-y-3">
+                    <div>
+                      <p className="text-xs text-slate-500">Trigger</p>
+                      <p className="text-sm text-slate-300">{round.trigger}</p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-slate-500">Monto</p>
+                      <p className="text-lg font-bold text-white">{round.amount}</p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-slate-500">Valorización</p>
+                      <p className="text-sm text-slate-300">{round.valuation}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Pioneer Advantages */}
+            <div className="glass-card rounded-2xl p-8 border border-purple-500/30 mb-8">
+              <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                <Star size={24} className="text-yellow-400" />
+                Ventajas para Pioneros en Rondas Futuras
+              </h3>
+              <div className="grid md:grid-cols-2 gap-6">
+                {[
+                  {
+                    title: 'Derecho de Primera Opción',
+                    description: 'Todos los pioneros actuales tienen derecho preferente para participar en rondas futuras antes que inversores externos.',
+                  },
+                  {
+                    title: 'Descuento en Valorización',
+                    description: 'Patrocinadores Premium reciben 15% de descuento en ronda ángel. Todos los pioneros reciben 10% en rondas siguientes.',
+                  },
+                  {
+                    title: 'Pro-Rata Rights',
+                    description: 'Derecho a mantener tu porcentaje de participación en rondas subsiguientes.',
+                  },
+                  {
+                    title: 'Información Privilegiada',
+                    description: 'Acceso a reportes mensuales de métricas, updates de inversores, y comunicación directa con founders.',
+                  },
+                ].map((advantage) => (
+                  <div key={advantage.title} className="flex items-start gap-3">
+                    <Check size={20} className="text-purple-400 flex-shrink-0 mt-1" />
+                    <div>
+                      <h4 className="font-semibold text-white">{advantage.title}</h4>
+                      <p className="text-sm text-slate-400">{advantage.description}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Exit Scenarios */}
+            <div className="glass-card rounded-xl p-6">
+              <h3 className="text-xl font-bold text-white mb-4">Escenarios de Exit</h3>
+              <div className="grid md:grid-cols-3 gap-4">
+                <div className="p-4 rounded-lg bg-slate-800/50">
+                  <p className="text-sm text-slate-500 mb-1">Adquisición Estratégica</p>
+                  <p className="text-lg font-bold text-white">$50M - $100M</p>
+                  <p className="text-xs text-slate-400 mt-1">Autodesk, Bentley, Trimble</p>
+                  <p className="text-xs text-green-400 mt-2">20-40x retorno (inversión temprana)</p>
+                </div>
+                <div className="p-4 rounded-lg bg-slate-800/50">
+                  <p className="text-sm text-slate-500 mb-1">IPO Path</p>
+                  <p className="text-lg font-bold text-white">$300M - $500M</p>
+                  <p className="text-xs text-slate-400 mt-1">Si dominamos LATAM (2030-2032)</p>
+                  <p className="text-xs text-green-400 mt-2">100x+ retorno potencial</p>
+                </div>
+                <div className="p-4 rounded-lg bg-slate-800/50">
+                  <p className="text-sm text-slate-500 mb-1">Bootstrap Rentable</p>
+                  <p className="text-lg font-bold text-white">$1M+ ARR</p>
+                  <p className="text-xs text-slate-400 mt-1">Dividendos anuales a accionistas</p>
+                  <p className="text-xs text-green-400 mt-2">20-30% crecimiento sostenido</p>
+                </div>
+              </div>
+              <p className="text-xs text-slate-500 mt-4 text-center">
+                * Proyecciones basadas en múltiplos de la industria SaaS. No constituyen garantía de retornos.
+              </p>
+            </div>
+
+            {/* CTA for Investment Interest */}
+            <div className="mt-8 text-center">
+              <p className="text-slate-400 mb-4">
+                ¿Interesado en participar como inversor en rondas futuras?
+              </p>
+              <Link
+                href="mailto:investors@ledesign.cl?subject=Investment%20Interest"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-500 hover:to-pink-500 transition-all"
+              >
+                Expresar Interés de Inversión
+                <ArrowRight size={18} />
+              </Link>
+              <p className="text-xs text-slate-500 mt-3">
+                Nota: Actualmente NO estamos levantando capital. El programa Early Access ofrece acceso al producto, no equity.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="py-12 sm:py-16">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
@@ -550,6 +829,18 @@ export default function EarlyAccessPage() {
                   q: '¿Qué métodos de pago aceptan?',
                   a: 'Stripe (tarjeta), transferencia bancaria, y para empresas grandes, podemos facturar con términos de pago de 30 días.',
                 },
+                {
+                  q: '¿Puedo invertir en LeDesign como accionista?',
+                  a: 'Actualmente NO estamos levantando capital externo. El programa Early Access ofrece acceso al producto, no equity. Sin embargo, los Pioneros tendrán derecho preferente y descuentos cuando abramos rondas de inversión futuras (Ángel Q4 2026, Seed 2027, Serie A 2028-2029).',
+                },
+                {
+                  q: '¿Qué beneficios tengo como Pionero para futuras inversiones?',
+                  a: 'Derecho de primera opción en todas las rondas, 10-15% de descuento en valorización, pro-rata rights para mantener tu porcentaje, y acceso a reportes de métricas e información de inversores.',
+                },
+                {
+                  q: '¿Cuál es el escenario de exit esperado?',
+                  a: 'Tres posibles paths: (1) Adquisición estratégica por Autodesk/Bentley/Trimble ($50-100M), (2) IPO si dominamos LATAM ($300-500M para 2030-2032), o (3) Empresa rentable con dividendos anuales. Los inversores tempranos pueden ver retornos de 20-100x dependiendo del escenario.',
+                },
               ].map((faq) => (
                 <details key={faq.q} className="glass-card rounded-xl p-6 group">
                   <summary className="text-lg font-semibold text-white cursor-pointer list-none flex items-center justify-between">
@@ -572,8 +863,8 @@ export default function EarlyAccessPage() {
               ¿Listo para Revolucionar tu Flujo de Ingeniería?
             </h2>
             <p className="text-lg text-slate-300 mb-8 max-w-2xl mx-auto">
-              Únete a los primeros 50 founders que están construyendo el futuro de la
-              ingeniería chilena. Quedan solo 35 cupos.
+              Únete a los pioneros que están construyendo el futuro de la
+              ingeniería chilena. Ayuda a financiar el desarrollo hasta el lanzamiento oficial.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link

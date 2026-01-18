@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { withAuth, AuthenticatedRequest } from '@/lib/auth-middleware';
-import { getDb, query, queryOne, execute } from '@ledesign/db';
+import { getClient, query, queryOne, execute } from '@ledesign/db';
 import { Project } from '@/types/user';
 import { ChannelDesign } from '@/types/disciplines';
 import { generateId } from '@/lib/utils';
@@ -52,7 +52,7 @@ export async function GET(
       const { id } = await params;
 
       const project = await queryOne<Project>(
-        getDb(),
+        getClient(),
         `SELECT id FROM projects WHERE id = ? AND user_id = ?`,
         [id, req.user.userId]
       );
@@ -62,7 +62,7 @@ export async function GET(
       }
 
       const designs = await query<DbChannelDesign>(
-        getDb(),
+        getClient(),
         `SELECT * FROM channel_designs WHERE project_id = ? AND is_active = 1 ORDER BY created_at DESC`,
         [id]
       );
@@ -89,7 +89,7 @@ export async function POST(
       const body = await request.json();
 
       const project = await queryOne<Project>(
-        getDb(),
+        getClient(),
         `SELECT id FROM projects WHERE id = ? AND user_id = ?`,
         [id, req.user.userId]
       );
@@ -116,7 +116,7 @@ export async function POST(
       }
 
       await execute(
-        getDb(),
+        getClient(),
         `INSERT INTO channel_designs (
           id, project_id, name, description,
           sections_json, reaches_json, structures_json,
@@ -131,7 +131,7 @@ export async function POST(
         ]
       );
 
-      await execute(getDb(), `UPDATE projects SET updated_at = ? WHERE id = ?`, [now, id]);
+      await execute(getClient(), `UPDATE projects SET updated_at = ? WHERE id = ?`, [now, id]);
 
       const design: ChannelDesign = {
         id: designId,
@@ -171,7 +171,7 @@ export async function PUT(
       }
 
       const project = await queryOne<Project>(
-        getDb(),
+        getClient(),
         `SELECT id FROM projects WHERE id = ? AND user_id = ?`,
         [projectId, req.user.userId]
       );
@@ -181,7 +181,7 @@ export async function PUT(
       }
 
       const existing = await queryOne<DbChannelDesign>(
-        getDb(),
+        getClient(),
         `SELECT id FROM channel_designs WHERE id = ? AND project_id = ?`,
         [designId, projectId]
       );
@@ -211,15 +211,15 @@ export async function PUT(
       updateValues.push(designId);
 
       await execute(
-        getDb(),
+        getClient(),
         `UPDATE channel_designs SET ${updateFields.join(', ')} WHERE id = ?`,
         updateValues
       );
 
-      await execute(getDb(), `UPDATE projects SET updated_at = ? WHERE id = ?`, [now, projectId]);
+      await execute(getClient(), `UPDATE projects SET updated_at = ? WHERE id = ?`, [now, projectId]);
 
       const updated = await queryOne<DbChannelDesign>(
-        getDb(),
+        getClient(),
         `SELECT * FROM channel_designs WHERE id = ?`,
         [designId]
       );
@@ -251,7 +251,7 @@ export async function DELETE(
       }
 
       const project = await queryOne<Project>(
-        getDb(),
+        getClient(),
         `SELECT id FROM projects WHERE id = ? AND user_id = ?`,
         [projectId, req.user.userId]
       );
@@ -261,7 +261,7 @@ export async function DELETE(
       }
 
       await execute(
-        getDb(),
+        getClient(),
         `UPDATE channel_designs SET is_active = 0, updated_at = ? WHERE id = ? AND project_id = ?`,
         [new Date().toISOString(), designId, projectId]
       );

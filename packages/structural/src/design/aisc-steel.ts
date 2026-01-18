@@ -9,7 +9,7 @@
  * - Chapter H: Design of Members for Combined Forces
  */
 
-import { getDb } from '@ledesign/db';
+import { getClient } from '@ledesign/db';
 import {
   Beam,
   Column,
@@ -277,7 +277,7 @@ async function getElementInfo(
   elementId: string,
   elementType: 'beam' | 'column' | 'brace'
 ): Promise<ElementInfo | null> {
-  const db = getDb();
+  const db = getClient();
 
   let element: Beam | Column | Brace | null = null;
 
@@ -391,7 +391,7 @@ async function getMaxForces(
   analysisRunId: string,
   elementId: string
 ): Promise<DesignForces | null> {
-  const db = getDb();
+  const db = getClient();
 
   const result = await db.execute({
     sql: `SELECT * FROM member_results WHERE run_id = ? AND member_id = ?`,
@@ -598,7 +598,7 @@ export async function runAISCDesignChecks(
   projectId: string,
   analysisRunId: string
 ): Promise<DesignResult[]> {
-  const db = getDb();
+  const db = getClient();
   const results: DesignResult[] = [];
 
   // Get all member results for this analysis run

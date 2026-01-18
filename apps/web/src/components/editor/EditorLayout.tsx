@@ -21,6 +21,7 @@ import { PropertiesPanel } from '../panels/PropertiesPanel/PropertiesPanel';
 import { TreePanel } from '../panels/TreePanel/TreePanel';
 import { AIChatPanel } from '../panels/AIChat/AIChatPanel';
 import { ResultsPanel } from '../panels/ResultsPanel/ResultsPanel';
+import StandardDetailsPanel from '../cad/StandardDetailsPanel';
 
 interface EditorLayoutProps {
   projectId: string;
@@ -32,6 +33,8 @@ export function EditorLayout({ projectId, projectName }: EditorLayoutProps) {
   const propertiesPanel = useEditorStore((state) => state.propertiesPanel);
   const aiChatPanel = useEditorStore((state) => state.aiChatPanel);
   const resultsPanel = useEditorStore((state) => state.resultsPanel);
+  const normativaPanel = useEditorStore((state) => state.normativaPanel);
+  const togglePanel = useEditorStore((state) => state.togglePanel);
   const setProjectId = useEditorStore((state) => state.setProjectId);
 
   // Set project context on mount
@@ -64,6 +67,21 @@ export function EditorLayout({ projectId, projectName }: EditorLayoutProps) {
                 maxSize={25}
               >
                 <TreePanel />
+              </Panel>
+              <ResizeHandle />
+            </>
+          )}
+
+          {/* Left Panel - Normativa / Standard Details */}
+          {normativaPanel.isOpen && (
+            <>
+              <Panel
+                id="normativa-panel"
+                defaultSize={18}
+                minSize={12}
+                maxSize={30}
+              >
+                <StandardDetailsPanel onClose={() => togglePanel('normativaPanel')} />
               </Panel>
               <ResizeHandle />
             </>

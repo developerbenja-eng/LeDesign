@@ -6,7 +6,7 @@
 // ============================================================
 
 import * as THREE from 'three';
-import type { MaterialType, Material } from '@ledesign/structural';
+import type { MaterialType, Material } from '@/types/structural';
 
 // ============================================================
 // COLOR SCHEMES

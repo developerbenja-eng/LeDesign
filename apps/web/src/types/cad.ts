@@ -61,7 +61,8 @@ export type CADEntityType =
   | 'arc'
   | 'text'
   | 'surface'
-  | 'dimension';
+  | 'dimension'
+  | 'hatch';
 
 export interface CADEntity {
   id: string;
@@ -135,6 +136,27 @@ export interface DimensionEntity extends CADEntity {
   extensionLineOffset?: number;
 }
 
+// Hatch patterns (matching AutoCAD patterns)
+export type HatchPattern =
+  | 'solid'          // Solid fill
+  | 'ansi31'         // 45° lines (common)
+  | 'ansi32'         // Brick pattern
+  | 'ansi33'         // Square pattern
+  | 'ansi37'         // Concrete
+  | 'grass'          // Grass/landscaping
+  | 'earth'          // Cut/fill
+  | 'gravel'         // Gravel
+  | 'water';         // Water bodies
+
+export interface HatchEntity extends CADEntity {
+  type: 'hatch';
+  boundaryIds: string[];     // References to boundary entities
+  pattern: HatchPattern;
+  angle: number;             // Pattern rotation in radians
+  scale: number;             // Pattern scale factor
+  color?: string;            // Override color
+}
+
 // Basic CAD entity union (geometric primitives)
 export type BasicCADEntity =
   | PointEntity
@@ -144,7 +166,8 @@ export type BasicCADEntity =
   | ArcEntity
   | TextEntity
   | SurfaceEntity
-  | DimensionEntity;
+  | DimensionEntity
+  | HatchEntity;
 
 // AnyCADEntity now includes both basic and infrastructure entities
 // Infrastructure entities are typed in infrastructure-entities.ts but share
@@ -157,7 +180,8 @@ export type AnyCADEntity =
   | ArcEntity
   | TextEntity
   | SurfaceEntity
-  | DimensionEntity;
+  | DimensionEntity
+  | HatchEntity;
 
 // Layer management
 export interface CADLayer {
@@ -196,6 +220,18 @@ export type DrawingTool =
   | 'arc'
   | 'text'
   | 'measure'
+  // Editing tools
+  | 'offset'
+  | 'trim'
+  | 'extend'
+  | 'fillet'
+  | 'copy'
+  | 'move'
+  | 'rotate'
+  | 'array'
+  // Annotation tools
+  | 'dimension'
+  | 'hatch'
   // Infrastructure tools
   | 'water_pipe'
   | 'water_junction'
