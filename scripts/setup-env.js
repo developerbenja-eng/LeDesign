@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
- * Setup environment variables from Google Cloud
- * Run this script when you clone the repo in Claude Code web
+ * Setup environment variables from Google Cloud Storage
+ * Fetches complete .env file and service account keys from gs://ledesign-config/
  *
  * Usage: node scripts/setup-env.js
  */
@@ -10,74 +10,79 @@ const { execSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 
+const CONFIG_BUCKET = 'gs://ledesign-config';
+const ENVIRONMENT = process.env.LEDESIGN_ENV || 'development';
+
 console.log('🔧 Setting up LeDesign environment...\n');
 
 const envPath = path.join(__dirname, '..', '.env');
+const serviceAccountPath = path.join(__dirname, '..', 'earthengine-sa-key.json');
 
 // Check if .env already exists
 if (fs.existsSync(envPath)) {
-    console.log('⚠️  .env file already exists. Skipping...');
-    console.log('   Delete .env if you want to regenerate it.\n');
+    console.log('⚠️  .env file already exists.');
+    console.log('   Delete .env if you want to fetch latest from GCS.\n');
     process.exit(0);
 }
 
-console.log('📝 Creating .env file...');
+console.log(`📦 Fetching configuration from Google Cloud Storage...`);
+console.log(`   Bucket: ${CONFIG_BUCKET}`);
+console.log(`   Environment: ${ENVIRONMENT}\n`);
 
 try {
-    // Retrieve API key from Google Cloud
-    console.log('🔑 Retrieving Google Gemini API key from Google Cloud...');
+    // Check if gcloud is installed and authenticated
+    console.log('🔐 Checking Google Cloud authentication...');
+    const account = execSync('gcloud auth list --filter=status:ACTIVE --format="value(account)"', { encoding: 'utf-8' }).trim();
 
-    const apiKey = execSync(
-        'gcloud services api-keys get-key-string projects/949566702282/locations/global/keys/2721dcc2-f040-4c07-ac19-4212ed055854 --format="value(keyString)"',
-        { encoding: 'utf-8' }
-    ).trim();
-
-    if (!apiKey) {
-        throw new Error('Failed to retrieve API key');
+    if (!account) {
+        throw new Error('No active Google Cloud account found');
     }
 
-    // Get project ID
-    const projectId = execSync(
-        'gcloud config get-value project',
-        { encoding: 'utf-8' }
-    ).trim();
+    console.log(`   ✓ Authenticated as: ${account}`);
 
-    // Vercel configuration (from global CLAUDE.md)
-    const vercelToken = 'us3ZiYkDz6R3T5vHRBt52jSz';
-    const vercelOrgId = 'benjas-projects-3ad07b52';
+    // Fetch .env file from GCS
+    console.log(`\n📥 Downloading environment variables...`);
+    const envSource = `${CONFIG_BUCKET}/environments/${ENVIRONMENT}.env`;
 
-    // Create .env file
-    const envContent = `# Google Gemini API Configuration
-GOOGLE_GEMINI_API_KEY=${apiKey}
+    try {
+        execSync(`gsutil cp ${envSource} ${envPath}`, { stdio: 'pipe' });
+        console.log(`   ✓ Downloaded: ${ENVIRONMENT}.env`);
+    } catch (error) {
+        throw new Error(`Failed to download .env from ${envSource}\n   Make sure the file exists and you have access`);
+    }
 
-# Google Cloud Project
-GCP_PROJECT_ID=${projectId}
+    // Fetch service account key from GCS
+    console.log(`\n🔑 Downloading service account credentials...`);
+    const serviceAccountSource = `${CONFIG_BUCKET}/service-accounts/earthengine-sa-key.json`;
 
-# Vercel Deployment
-VERCEL_TOKEN=${vercelToken}
-VERCEL_ORG_ID=${vercelOrgId}
-VERCEL_PROJECT_ID=ledesign
+    try {
+        execSync(`gsutil cp ${serviceAccountSource} ${serviceAccountPath}`, { stdio: 'pipe' });
+        console.log(`   ✓ Downloaded: earthengine-sa-key.json`);
+    } catch (error) {
+        console.log(`   ⚠️  Service account key not found (optional)`);
+    }
 
-# Development
-NODE_ENV=development
-`;
+    // Verify .env file
+    const envContent = fs.readFileSync(envPath, 'utf-8');
+    const lines = envContent.split('\n').filter(line => line && !line.startsWith('#'));
+    const varCount = lines.length;
 
-    fs.writeFileSync(envPath, envContent);
+    console.log('\n✅ Environment setup complete!');
+    console.log(`   - Configuration: ${ENVIRONMENT}`);
+    console.log(`   - Variables loaded: ${varCount}`);
+    console.log(`   - Location: .env\n`);
 
-    console.log('✅ .env file created successfully!');
-    console.log(`   - Google Gemini API Key: ${apiKey.substring(0, 10)}...${apiKey.slice(-4)}`);
-    console.log(`   - GCP Project: ${projectId}`);
-    console.log(`   - Vercel Token: ${vercelToken.substring(0, 10)}...${vercelToken.slice(-4)}`);
-    console.log(`   - Vercel Org: ${vercelOrgId}\n`);
-    console.log('🚀 Environment setup complete!');
-    console.log('   Development: npm install && npm run dev');
-    console.log('   Vercel link: npm run vercel:setup');
-    console.log('   Deploy: npm run deploy:preview\n');
+    console.log('🚀 Next steps:');
+    console.log('   npm run download:refs  # Download reference materials');
+    console.log('   npm run dev            # Start development server\n');
 
 } catch (error) {
-    console.error('❌ Error setting up environment:');
+    console.error('\n❌ Error setting up environment:');
     console.error(`   ${error.message}\n`);
-    console.error('Make sure you\'re authenticated with Google Cloud:');
-    console.error('   gcloud auth login\n');
+    console.error('Troubleshooting:');
+    console.error('   1. Authenticate: gcloud auth login');
+    console.error('   2. Set project: gcloud config set project ledesign');
+    console.error('   3. Request access: Ask project owner for Storage Object Viewer role');
+    console.error(`   4. Verify access: gsutil ls ${CONFIG_BUCKET}\n`);
     process.exit(1);
 }

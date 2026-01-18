@@ -91,6 +91,36 @@ docs/reference-software/**/*.pdf
 
 See [docs/reference-software/README.md](docs/reference-software/README.md) for details.
 
+### Configuration Storage (Environment Variables)
+
+**All environment variables and secrets are stored in a private GCS bucket**, not in git.
+
+**GCS Bucket**: `gs://ledesign-config` (private, requires GCP authentication)
+
+**Structure**:
+```
+gs://ledesign-config/
+  ├── environments/
+  │   └── development.env       # All env vars (API keys, secrets, etc.)
+  ├── service-accounts/
+  │   └── earthengine-sa-key.json
+  └── README.md
+```
+
+**How it works**:
+- `npm run setup` automatically downloads `.env` from GCS
+- Team members with GCP project access get everything automatically
+- No secrets ever committed to git
+- Easy to update: `gsutil cp .env gs://ledesign-config/environments/development.env`
+
+**Granting access to new team members**:
+```bash
+# Give read access to config bucket
+gsutil iam ch user:teammate@example.com:objectViewer gs://ledesign-config
+```
+
+See [scripts/CONFIG_BUCKET_README.md](scripts/CONFIG_BUCKET_README.md) for complete documentation.
+
 ### Verification
 
 After setup, verify configuration:
