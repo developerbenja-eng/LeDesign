@@ -47,3 +47,6 @@ apps/web/public/data/
 # Service account credentials
 earthengine-sa-key.json
 *-sa-key.json
+
+# Reference materials (downloaded from GCS)
+docs/reference-software/**/*.pdf

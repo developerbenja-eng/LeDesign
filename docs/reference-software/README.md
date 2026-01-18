@@ -4,6 +4,49 @@
 
 ---
 
+## 📦 Storage Architecture
+
+**Large reference files are stored in Google Cloud Storage**, not in git, to keep the repository lightweight.
+
+### Quick Start for Team Members
+
+When setting up your development environment:
+
+```bash
+# 1. Clone repository
+git clone https://github.com/developerbenja-eng/LeDesign.git
+
+# 2. Install dependencies
+npm install
+
+# 3. Setup environment (API keys)
+npm run setup
+
+# 4. Download reference materials (PDFs, manuals)
+npm run download:refs
+```
+
+### Why GCS Instead of Git/Git LFS?
+
+- ✅ **Cost-effective**: ~$0.02/month for 200MB vs $5/month for Git LFS
+- ✅ **No bandwidth charges**: Download once, not on every clone/pull
+- ✅ **Lightweight repo**: Git stays fast, doesn't track 200MB of PDFs
+- ✅ **Public access**: No authentication needed to download
+
+### GCS Bucket Details
+
+- **Bucket**: `ledesign-reference-materials`
+- **Region**: `us-central1`
+- **Access**: Public read (https://storage.googleapis.com/ledesign-reference-materials/)
+- **Total Size**: ~166 MB currently (HEC-RAS manuals)
+
+Files are automatically excluded from git via `.gitignore`:
+```gitignore
+docs/reference-software/**/*.pdf
+```
+
+---
+
 ## Purpose
 
 This directory contains official documentation, user manuals, and verification examples from industry-standard engineering software. These resources are used to:

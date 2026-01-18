@@ -48,16 +48,39 @@ This document contains:
 When working with this project for the first time or after cloning:
 
 ```bash
+# 1. Setup environment variables (API keys)
 npm run setup
+
+# 2. Download reference materials from GCS
+npm run download:refs
 ```
 
-This retrieves API keys from Google Cloud CLI and creates the `.env` file automatically. The `.env` file is gitignored and contains:
+**Step 1** retrieves API keys from Google Cloud CLI and creates the `.env` file automatically. The `.env` file is gitignored and contains:
 - `GOOGLE_GEMINI_API_KEY` - For AI-powered terrain analysis
 - `GCP_PROJECT_ID` - Google Cloud project (ledesign)
 - `VERCEL_TOKEN` - For deployment to Vercel
 - `VERCEL_ORG_ID` - Vercel organization (benjas-projects-3ad07b52)
 - `VERCEL_PROJECT_ID` - Project identifier (ledesign)
 - `NODE_ENV` - Environment setting
+
+**Step 2** downloads large reference files (PDFs, manuals) from Google Cloud Storage. These files are NOT stored in git to keep the repository lightweight.
+
+### Reference Materials Storage
+
+**Why GCS instead of Git LFS?**
+- Cost-effective (~$0.02/month vs $5/month for Git LFS)
+- No bandwidth charges for team members
+- Keeps git repository fast and small
+- Public access, no authentication needed
+
+**GCS Bucket**: `ledesign-reference-materials` (us-central1)
+
+Large files are automatically excluded via `.gitignore`:
+```gitignore
+docs/reference-software/**/*.pdf
+```
+
+See [docs/reference-software/README.md](docs/reference-software/README.md) for details.
 
 ### Verification
 
