@@ -947,6 +947,22 @@ npm run deploy:prod    # Deploy to production
 
 **Repository**: https://github.com/developerbenja-eng/LeDesign
 **Account**: developer.benja@gmail.com (developerbenja-eng)
+**GitHub Token**: Stored in local git remote configuration (not committed)
 **GCP Project**: ledesign
 **Vercel Org**: benjas-projects-3ad07b52 (Benja's projects)
 **Vercel Project**: ledesign
+
+### Git Remote Configuration
+
+The git remote is configured with a GitHub Personal Access Token for authentication.
+The token is embedded in the remote URL (local git config only, never committed):
+
+```bash
+# Check current remote
+git remote -v
+
+# To reconfigure with a new token:
+git remote set-url origin https://YOUR_GITHUB_TOKEN@github.com/developerbenja-eng/LeDesign.git
+```
+
+**Note**: The GitHub token is already configured in the local repository and should not be committed to version control.
